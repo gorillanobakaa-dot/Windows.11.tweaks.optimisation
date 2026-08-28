@@ -140,159 +140,15 @@ There is nothing here that benefits from being hidden.
 
 ---
 
-## Part Seven: The Token Sieve — Why We Refuse to Send the Whole Page
-
-### The principle
-
-**An API can only bill you for what you send it.**
-
-That single sentence is the whole of this section. Everything below is its
-consequences.
-
-The modern AI ecosystem is built on an incentive that runs directly against the
-user: maximise the context window, ingest as much raw data as possible, bill per
-token. The "URL context" feature built into most LLM frameworks fetches a page
-and sends the entire blob — navigation, cookie banner, sidebar, footer, tracking
-scripts, the lot — and charges you for every word of it. Then it answers your
-question using about two percent of what you paid for.
-
-We treat that as a defect, not a feature.
-
-### Why this is a moral question and not a performance one
-
-This project is built for people who are not the intended customer of any of
-this. A household of two parents and two children living on a dollar a day
-cannot absorb two dollars a month. There is no version of "it's only a few
-cents per query" that survives contact with that arithmetic.
-
-So token waste here is not inefficiency. It is a barrier to entry, and removing
-it is the point of the work.
-
-Send few enough tokens and something changes in kind rather than degree: you
-fit inside the free tiers permanently. A provider offering a fixed number of
-free requests per day is generous if each request is small and useless if each
-request carries a web page. **Staying small is what makes the tool free
-forever**, and free forever is what makes it usable by someone who cannot enter
-a card number.
-
-### The measurement
-
-Eight real pages, measured 2026-08-07 by
-`internal/llm/tools/fetch_tokencost_test.go`, which is a permanent regression
-test rather than a one-off:
-
-| page | raw tokens | sent tokens | cut |
-|---|---|---|---|
-| GitHub blob page | 62,083 | 885 | 99% |
-| MDN documentation page | 44,219 | 1,568 | 96% |
-| Anna's Archive search | 34,759 | 3,931 | 89% |
-| Wikipedia article | 25,595 | 3,928 | 85% |
-| arXiv abstract page | 10,744 | 1,769 | 84% |
-| **TOTAL across all eight** | **179,100** | **13,781** | **92%** |
-
-**Ninety-two percent, for strictly more useful content.** The removed portion is
-navigation, cookie banners and tracking scripts — billed once, and then re-billed
-on every later turn of the conversation.
-
-The worst offender is not the heaviest-looking site. A **GitHub file page costs
-62,083 tokens** to display a README whose actual content is 363 tokens: a
-JavaScript application shell wrapped around a text file. Rewriting it to
-`raw.githubusercontent.com` is a **171x** reduction on the single most common URL
-a coding agent is handed.
-
-Note carefully *where* the saving comes from. The clean sources in that run —
-the arXiv API at 734 tokens, the Wikipedia REST summary at 600, raw
-githubusercontent at 363 — show "0% cut" because there was nothing left to
-strip. The saving had already happened when the source was chosen. **Choosing
-the right source beats cleaning the wrong one**, which is the shape of the whole
-ladder.
-
-At a nominal one-million-token daily free allowance, that is the difference
-between **16 GitHub pages a day and 2,754**.
-
-### The source ladder
-
-Every fetch walks down this ladder and stops at the first rung that answers.
-The tool reports which rung it used, every time.
-
-0. **A structured API.** arXiv export, OpenAlex, Europe PMC, Crossref,
-   Wikipedia REST. Kilobytes, no furniture, machine-readable.
-1. **The source document.** Content negotiation (`Accept: text/markdown`), a
-   `raw.githubusercontent.com` rewrite, a `.md` companion.
-2. **HTML converted locally**, with navigation and scripts stripped before
-   conversion.
-3. **Refuse, and say why.** We do not send a raw page to a paid API and call it
-   a feature.
-
-The reporting is not decoration. A model that read a reconstruction should know
-it read a reconstruction, so it can weigh its own confidence accordingly.
-
-### Where we differ from the obvious version of this idea
-
-Three refinements, each of which we got wrong first and corrected against
-measurement.
-
-**Do not summarise what is already small.** An abstract is ~330 tokens. Running
-a local extractive summariser over it saves perhaps 100 tokens and risks
-deleting the finding. Algorithmic summarisation earns its place on *full text* —
-a 10,000-word paper — and nowhere else. The ladder above already captured 97% of
-the available saving before any summariser runs.
-
-**A local summariser must declare what it dropped.** TextRank and LexRank select
-sentences by graph centrality, and centrality is not importance. A paper's
-negative result, its caveat, its limitation section — these are frequently the
-*least* central sentences in the graph and the first to be cut. Send an LLM a
-silent extract and it will reason about the fragment as though it were the
-whole, exactly as it would with a truncated file. **Any local summarisation
-states its compression ratio and that it is extractive.** This is the same rule
-as "truncation always says so", applied one layer up.
-
-**Local processing must not import a heavier dependency than the thing it
-saves.** The tempting pipeline — `xmllint`, `pup`, `html2text`, Python with
-`sumy` and its numeric stack — was checked against reality on 2026-08-07: none
-of those four were installed on the project's own development machine. On a
-2 GB laptop, a Python runtime plus numeric libraries is a larger install than
-this entire application, which ships as one static binary with no runtime at
-all. So parsing and summarising belong **in-process, in Go**. TextRank is about
-150 lines and no dependencies. A pipeline that cannot be installed on the
-hardware it was designed for is a thought experiment.
-
-**On local search:** SQLite with FTS5 and BM25 over a vector database, without
-reservation. It is a single file, a few megabytes of RAM, no floating-point
-matrix work, and it runs on hardware that predates every assumption the vector
-ecosystem makes.
-
-### The rule this gives us
-
-> **The cloud model is a reasoning engine, not a web scraper.**
->
-> It should never see a URL, never fetch a page, and never receive a byte that
-> a local process could have removed. Extraction, filtering and selection happen
-> on the user's own machine, on hardware they already own, at zero marginal
-> cost. Only the distilled question reaches the meter.
-
-Applied honestly this yields a system that delivers real research on a
-fifteen-year-old laptop with 2 GB of RAM, no AVX2, no GPU and a single-digit
-KB/s link — for nothing, permanently, inside free quotas.
-
-That is not a performance optimisation. It is the difference between a tool that
-serves the people this project was written for and one that quietly excludes
-them.
-
----
-
 ## Summary: The Core Commitments
 
 For anyone who has read this far and wants the short version:
 
 1. **Open source must mean open to everyone, not only to engineers.**
-2. **Every project produces two forms of documentation: one for humans, one for developers — both complete, both honest.**
+2. **Every project produces two forms of documentation: one for humans, one for developers � both complete, both honest.**
 3. **Explanation is not an add-on. It is the work.**
 4. **The measure of transparency is not whether the code is published. It is whether a non-technical person affected by the system can understand what it does.**
 5. **No one should have to trust a summary they cannot verify. Both tracks of documentation exist so that everyone can read what was written for them.**
-6. **An API can only bill you for what you send it. We send the least that answers the question, so the tool stays free for people who cannot pay.**
-7. **The cloud model is a reasoning engine, not a web scraper. Extraction and filtering happen locally, on hardware the user already owns.**
-8. **Anything that discards content — truncation, conversion, summarisation — says so, and says how much.**
 
 ---
 
@@ -300,10 +156,8 @@ For anyone who has read this far and wants the short version:
 
 | Version | Date | Notes |
 |---|---|---|
-| 1.0 | 2026-06 | Initial manifesto, written from accumulated context across multiple project conversations |
-| 1.1 | 2026-08-07 | Added Part Seven: The Token Sieve. Written after measuring a single arXiv page at 10,744 tokens raw versus 328 as an abstract — a 32x difference that decides whether this tool is free or not. Three commitments added. |
+| 1.0 | 2026-08-28 | Initial manifesto, adapted for the Windows 11 Optimization Framework. |
 
 ---
 
 *This document may be shared freely, referenced in project READMEs, included in AI assistant context, or cited in conversation. Its purpose is to make re-explanation unnecessary. Use it accordingly.*
-
