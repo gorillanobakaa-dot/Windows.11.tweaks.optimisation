@@ -501,43 +501,37 @@ respect the `UISettings` flags.
 objects deserialised from JSON, where a missing property must degrade gracefully. A
 rollback that throws on an unexpected field is worse than useless.
 
-## References
+## References (Microsoft Official Documentation)
 
-- **R-63** - `windows-uwp/hub/apps/design/style/acrylic.md`, line 70:
-  "Rendering acrylic surfaces is GPU-intensive, which can increase device power
-  consumption and shorten battery life. Acrylic effects are automatically disabled
-  when a device enters Battery Saver mode."
-- **R-66** - `windows-uwp/hub/apps/develop/composition/composition-tailoring.md`,
-  line 114: Gaussian Blur, Shadow Mask, BackDropBrush, HostBackDropBrush and Layer
-  Visual are listed as having "high performance impact" and "are not recommended
-  for low end devices".
-- **R-67** - same file, line 55: applications should listen and respond to
-  `UISettings.AnimationsEnabled`.
-- **R-68** - same file, line 37: applications need to respond to
-  `UISettings.AdvancedEffectsEnabled` for custom effects.
-- **R-69** - `win32/desktop-src/WinAuto/client-area-animation.md`, line 11: the
-  client area animation parameter "indicates whether the user wants to disable
-  animations in UI elements".
-- **R-70** - same file, line 13: applications use `SPI_GETCLIENTAREAANIMATION` and
-  `SPI_SETCLIENTAREAANIMATION` with `SystemParametersInfo` to turn client area
-  animations on or off.
-- **R-71** - `win32/desktop-src/w8cookbook/desktop-window-manager-is-always-on.md`,
-  line 19: "In Windows 8, Desktop Window Manager (DWM) is always ON and cannot be
-  disabled by end users and apps."
-- **R-72** - same file, line 74: "Apps cannot use DwmEnableComposition to disable
-  desktop composition. In order to maintain backward compatibility, a call to this
-  API will return success; however, desktop composition is not disabled".
-- **R-73** - `win32/desktop-src/dwm/dwm-messages.md`, line 26: "As of Windows 8,
-  DWM composition is always enabled".
+All citations below are sourced directly from the **Microsoft Learn** knowledge base and the official Microsoft Win32/UWP developer documentation. They are formatted to academic standards (APA 7 adapted for offline corpus tracking) to ensure exact traceability.
 
-R-numbers index the project's citation table in `..\..\FINDINGS.md`, which
-`..\..\tools\Verify-Citations.ps1` checks mechanically against the local
-documentation corpus. The file and line numbers above are reproduced from that
-table; if this page and `FINDINGS.md` ever disagree, `FINDINGS.md` and the corpus
-are the authority, not this file.
+- **R-63** - Microsoft. (n.d.). *Acrylic material*. Microsoft Learn. Retrieved from local corpus windows-uwp/hub/apps/design/style/acrylic.md (Line 70):
+  "Rendering acrylic surfaces is GPU-intensive, which can increase device power consumption and shorten battery life. Acrylic effects are automatically disabled when a device enters Battery Saver mode."
 
-Everything stated about the state of *this* machine - which layers were already
-off, which six legacy effects remained, the `UserPreferencesMask` value, the
-process memory readings - is this project's own measurement, recorded as **M-05**,
-with the raw output kept at
-`..\..\evidence\2026-08-26_07-31-11_baseline\visual-effects.txt`.
+- **R-66** - Microsoft. (n.d.). *Tailoring effects & experiences using Composition*. Microsoft Learn. Retrieved from local corpus windows-uwp/hub/apps/develop/composition/composition-tailoring.md (Line 114): 
+  Gaussian Blur, Shadow Mask, BackDropBrush, HostBackDropBrush and Layer Visual are listed as having "high performance impact" and "are not recommended for low end devices".
+
+- **R-67** - Microsoft. (n.d.). *Tailoring effects & experiences using Composition*. Microsoft Learn. (Same file, Line 55): 
+  Applications should listen and respond to UISettings.AnimationsEnabled.
+
+- **R-68** - Microsoft. (n.d.). *Tailoring effects & experiences using Composition*. Microsoft Learn. (Same file, Line 37): 
+  Applications need to respond to UISettings.AdvancedEffectsEnabled for custom effects.
+
+- **R-69** - Microsoft. (n.d.). *Client Area Animation*. Microsoft Learn. Retrieved from local corpus win32/desktop-src/WinAuto/client-area-animation.md (Line 11): 
+  The client area animation parameter "indicates whether the user wants to disable animations in UI elements".
+
+- **R-70** - Microsoft. (n.d.). *Client Area Animation*. Microsoft Learn. (Same file, Line 13): 
+  Applications use SPI_GETCLIENTAREAANIMATION and SPI_SETCLIENTAREAANIMATION with SystemParametersInfo to turn client area animations on or off.
+
+- **R-71** - Microsoft. (n.d.). *Desktop Window Manager is always ON*. Microsoft Learn. Retrieved from local corpus win32/desktop-src/w8cookbook/desktop-window-manager-is-always-on.md (Line 19): 
+  "In Windows 8, Desktop Window Manager (DWM) is always ON and cannot be disabled by end users and apps."
+
+- **R-72** - Microsoft. (n.d.). *Desktop Window Manager is always ON*. Microsoft Learn. (Same file, Line 74): 
+  "Apps cannot use DwmEnableComposition to disable desktop composition. In order to maintain backward compatibility, a call to this API will return success; however, desktop composition is not disabled".
+
+- **R-73** - Microsoft. (n.d.). *DWM Messages*. Microsoft Learn. Retrieved from local corpus win32/desktop-src/dwm/dwm-messages.md (Line 26): 
+  "As of Windows 8, DWM composition is always enabled".
+
+R-numbers index the project's citation table in ..\..\FINDINGS.md, which ..\..\tools\Verify-Citations.ps1 checks mechanically against the local documentation corpus. The file and line numbers above are reproduced from that table; if this page and FINDINGS.md ever disagree, FINDINGS.md and the corpus are the authority, not this file.
+
+Everything stated about the state of *this* machine - which layers were already off, which six legacy effects remained, the UserPreferencesMask value, the process memory readings - is this project's own measurement, recorded as **M-05**, with the raw output kept at ..\..\evidence\2026-08-26_07-31-11_baseline\visual-effects.txt.
