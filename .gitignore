@@ -25,3 +25,5 @@ GEMINI.md
 *.filled.json
 PAYLOAD.*
 PRECHECK.json
+
+.agents/
