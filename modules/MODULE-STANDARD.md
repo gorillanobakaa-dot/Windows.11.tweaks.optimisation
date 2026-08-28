@@ -851,10 +851,10 @@ Documentation is written by reading the code, not by reading the plan.
 
 | Tag | Source | Supports |
 |---|---|---|
-| R-63 | `windows-uwp/hub/apps/design/style/acrylic.md` line 70 | *"Rendering acrylic surfaces is GPU-intensive, which can increase device power consumption and shorten battery life. Acrylic effects are automatically disabled when a device enters Battery Saver mode."* |
-| R-66 | `windows-uwp/hub/apps/develop/composition/composition-tailoring.md` line 114 | Gaussian Blur, Shadow Mask, BackDropBrush, HostBackDropBrush and Layer Visual are of "high performance impact … not recommended for low end devices" |
+| R-63 | https://learn.microsoft.com/en-us/windows/apps/design/style/acrylic line 70 | *"Rendering acrylic surfaces is GPU-intensive, which can increase device power consumption and shorten battery life. Acrylic effects are automatically disabled when a device enters Battery Saver mode."* |
+| R-66 | https://learn.microsoft.com/en-us/windows/apps/develop/composition/composition-tailoring line 114 | Gaussian Blur, Shadow Mask, BackDropBrush, HostBackDropBrush and Layer Visual are of "high performance impact … not recommended for low end devices" |
 | R-67, R-68 | as above | applications are expected to honour `UISettings.AnimationsEnabled` and `UISettings.AdvancedEffectsEnabled` |
-| R-69, R-70 | `win32/desktop-src/WinAuto/client-area-animation.md` lines 11 and 13 | the client-area animation parameter "indicates whether the user wants to disable animations in UI elements"; applications use `SPI_GETCLIENTAREAANIMATION` / `SPI_SETCLIENTAREAANIMATION` with `SystemParametersInfo` "to turn client area animations on or off" |
+| R-69, R-70 | https://learn.microsoft.com/en-us/windows/win32/WinAuto/client-area-animation lines 11 and 13 | the client-area animation parameter "indicates whether the user wants to disable animations in UI elements"; applications use `SPI_GETCLIENTAREAANIMATION` / `SPI_SETCLIENTAREAANIMATION` with `SystemParametersInfo` "to turn client area animations on or off" |
 | R-71, R-72, R-73 | three corpus documents | DWM composition has been always-on since Windows 8 and `DwmEnableComposition` cannot disable it |
 | M-05 | `evidence/2026-08-26_07-31-11_baseline/visual-effects.txt` | the measured state below |
 | *(uncited)* | — | `SystemParametersInfo` parameter conventions — engineering observation, per R8.4 |

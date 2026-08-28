@@ -505,11 +505,9 @@ rollback that throws on an unexpected field is worse than useless.
 
 All citations below are sourced directly from the **Microsoft Learn** knowledge base and the official Microsoft Win32/UWP developer documentation. They are formatted to academic standards (APA 7 adapted for offline corpus tracking) to ensure exact traceability.
 
-- **R-63** - Microsoft. (n.d.). *Acrylic material*. Microsoft Learn. Retrieved from local corpus windows-uwp/hub/apps/design/style/acrylic.md (Line 70):
-  "Rendering acrylic surfaces is GPU-intensive, which can increase device power consumption and shorten battery life. Acrylic effects are automatically disabled when a device enters Battery Saver mode."
+- **R-63** - Microsoft. (n.d.). *Acrylic material*. Microsoft Learn. Retrieved from https://learn.microsoft.com/en-us/windows/apps/design/style/acrylic : "Rendering acrylic surfaces is GPU-intensive, which can increase device power consumption and shorten battery life. Acrylic effects are automatically disabled when a device enters Battery Saver mode."
 
-- **R-66** - Microsoft. (n.d.). *Tailoring effects & experiences using Composition*. Microsoft Learn. Retrieved from local corpus windows-uwp/hub/apps/develop/composition/composition-tailoring.md (Line 114): 
-  Gaussian Blur, Shadow Mask, BackDropBrush, HostBackDropBrush and Layer Visual are listed as having "high performance impact" and "are not recommended for low end devices".
+- **R-66** - Microsoft. (n.d.). *Tailoring effects & experiences using Composition*. Microsoft Learn. Retrieved from https://learn.microsoft.com/en-us/windows/apps/develop/composition/composition-tailoring : Gaussian Blur, Shadow Mask, BackDropBrush, HostBackDropBrush and Layer Visual are listed as having "high performance impact" and "are not recommended for low end devices".
 
 - **R-67** - Microsoft. (n.d.). *Tailoring effects & experiences using Composition*. Microsoft Learn. Retrieved from https://learn.microsoft.com/en-us/windows/apps/develop/composition/composition-tailoring: 
   Applications should listen and respond to UISettings.AnimationsEnabled.
@@ -517,20 +515,17 @@ All citations below are sourced directly from the **Microsoft Learn** knowledge 
 - **R-68** - Microsoft. (n.d.). *Tailoring effects & experiences using Composition*. Microsoft Learn. Retrieved from https://learn.microsoft.com/en-us/windows/apps/develop/composition/composition-tailoring: 
   Applications need to respond to UISettings.AdvancedEffectsEnabled for custom effects.
 
-- **R-69** - Microsoft. (n.d.). *Client Area Animation*. Microsoft Learn. Retrieved from local corpus win32/desktop-src/WinAuto/client-area-animation.md (Line 11): 
-  The client area animation parameter "indicates whether the user wants to disable animations in UI elements".
+- **R-69** - Microsoft. (n.d.). *Client Area Animation*. Microsoft Learn. Retrieved from https://learn.microsoft.com/en-us/windows/win32/WinAuto/client-area-animation : The client area animation parameter "indicates whether the user wants to disable animations in UI elements".
 
 - **R-70** - Microsoft. (n.d.). *Client Area Animation*. Microsoft Learn. Retrieved from https://learn.microsoft.com/en-us/windows/win32/winauto/client-area-animation: 
   Applications use SPI_GETCLIENTAREAANIMATION and SPI_SETCLIENTAREAANIMATION with SystemParametersInfo to turn client area animations on or off.
 
-- **R-71** - Microsoft. (n.d.). *Desktop Window Manager is always ON*. Microsoft Learn. Retrieved from local corpus win32/desktop-src/w8cookbook/desktop-window-manager-is-always-on.md (Line 19): 
-  "In Windows 8, Desktop Window Manager (DWM) is always ON and cannot be disabled by end users and apps."
+- **R-71** - Microsoft. (n.d.). *Desktop Window Manager is always ON*. Microsoft Learn. Retrieved from https://learn.microsoft.com/en-us/windows/win32/w8cookbook/desktop-window-manager-is-always-on : "In Windows 8, Desktop Window Manager (DWM) is always ON and cannot be disabled by end users and apps."
 
 - **R-72** - Microsoft. (n.d.). *Desktop Window Manager is always ON*. Microsoft Learn. Retrieved from https://learn.microsoft.com/en-us/windows/win32/w8cookbook/desktop-window-manager-is-always-on: 
   "Apps cannot use DwmEnableComposition to disable desktop composition. In order to maintain backward compatibility, a call to this API will return success; however, desktop composition is not disabled".
 
-- **R-73** - Microsoft. (n.d.). *DWM Messages*. Microsoft Learn. Retrieved from local corpus win32/desktop-src/dwm/dwm-messages.md (Line 26): 
-  "As of Windows 8, DWM composition is always enabled".
+- **R-73** - Microsoft. (n.d.). *DWM Messages*. Microsoft Learn. Retrieved from https://learn.microsoft.com/en-us/windows/win32/dwm/dwm-messages : "As of Windows 8, DWM composition is always enabled".
 
 R-numbers index the project's citation table in ..\..\FINDINGS.md, which ..\..\tools\Verify-Citations.ps1 checks mechanically against the local documentation corpus. The file and line numbers above are reproduced from that table; if this page and FINDINGS.md ever disagree, FINDINGS.md and the corpus are the authority, not this file.
 

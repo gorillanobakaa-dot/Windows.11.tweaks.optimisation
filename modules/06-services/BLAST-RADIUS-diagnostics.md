@@ -378,7 +378,7 @@ policy — was not evaluated for this machine and probably should be.
 | R-113 | With DPS disabled Windows stops logging performance data | same | 343 |
 | R-114 | Check the service is not a component of another service | same | 448 |
 | R-115 | Microsoft's manual-start framing, and the table's own exclusion rule | same | 452 |
-| R-116 | WdiServiceHost holds granted rights on Windows Filtering Platform objects | `win32/desktop-src/FWP/access-control.md` | 31 |
+| R-116 | WdiServiceHost holds granted rights on Windows Filtering Platform objects | https://learn.microsoft.com/en-us/windows/win32/FWP/access-control | 31 |
 | R-117 | MSDT, the legacy troubleshooter engine, is being retired | `windows-itpro-docs/whats-new/deprecated-features-resources.md` | 155 |
 
 Full quotations, APA 7th entries and machine-verification live in

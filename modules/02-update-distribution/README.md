@@ -71,7 +71,7 @@ Microsoft's own documentation describes the default mode this way:
 
 > "This default operating mode for Delivery Optimization enables peer sharing on
 > the same network"
-> — `win32/desktop-src/delivery_optimization/downloadmode.md`  [R-82]
+> — https://learn.microsoft.com/en-us/windows/win32/delivery_optimization/downloadmode  [R-82]
 
 and defines that network precisely:
 
@@ -248,7 +248,7 @@ exactly as before, from Microsoft's servers:
 > Optimization to download content from Microsoft servers. This mode uses
 > additional metadata provided by the Delivery Optimization cloud services for a
 > peerless reliable and efficient download experience."
-> — `win32/desktop-src/delivery_optimization/downloadmode.md`  [R-81]
+> — https://learn.microsoft.com/en-us/windows/win32/delivery_optimization/downloadmode  [R-81]
 
 **2. Disables the two inbound firewall rules** for port 7680, so other machines
 cannot open a connection to yours.
@@ -401,8 +401,8 @@ sources and exits non-zero if anything is wrong.
 
 | ID | Claim | rel_path | line | quote |
 |---|---|---|---|---|
-| R-81 | CdnOnly stops peer sharing but keeps downloading from Microsoft | win32/desktop-src/delivery_optimization/downloadmode.md | 47 | This setting disables peer-to-peer caching but still allows Delivery Optimization to download content from Microsoft servers. |
-| R-82 | LAN is the default mode and it enables peer sharing | win32/desktop-src/delivery_optimization/downloadmode.md | 54 | This default operating mode for Delivery Optimization enables peer sharing on the same network |
+| R-81 | CdnOnly stops peer sharing but keeps downloading from Microsoft | https://learn.microsoft.com/en-us/windows/win32/delivery_optimization/downloadmode | 47 | This setting disables peer-to-peer caching but still allows Delivery Optimization to download content from Microsoft servers. |
+| R-82 | LAN is the default mode and it enables peer sharing | https://learn.microsoft.com/en-us/windows/win32/delivery_optimization/downloadmode | 54 | This default operating mode for Delivery Optimization enables peer sharing on the same network |
 | R-83 | LAN mode shares only with PCs behind the same NAT, not the internet | windows-itpro-docs/privacy/manage-connections-from-windows-operating-system-components-to-microsoft-services.md | 1658 | LAN. Gets or sends updates and apps to PCs on the same NAT only. |
 | R-84 | Download mode numbering | windows-itpro-docs/privacy/required-windows-diagnostic-data-events-and-fields-2004.md | 8278 | The download mode used for this file download session (CdnOnly = 0, Lan = 1, Group = 2, Internet = 3, Simple = 99, Bypass = 100). |
 | R-85 | Port 7680 is opened automatically by the service | windows-itpro-docs/deployment/do/delivery-optimization-configure.md | 830 | Port 7680 is automatically registered and opened by the Delivery Optimization service. |
