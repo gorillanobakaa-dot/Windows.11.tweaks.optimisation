@@ -1,4 +1,4 @@
-import json
+﻿import json
 import sys
 import dual_track
 
@@ -14,6 +14,7 @@ def main():
                     "1. SEAMLESS NAVIGATION: Every README or root document MUST contain direct hyperlinks to all related modules and sub-documents. Users must be able to click through the entire architecture without manually browsing the repo.\n"
                     "2. EMBEDDED MEDIA: Screenshots must be embedded directly on the page, at maximum width, and fully clickable. Use the format: [![Alt Text](path.png)](path.png). NEVER use 'click here to see gallery' links.\n"
                     "3. DUAL-TRACK ONLY: Never upload a module without ensuring both Layman (Track 1) and Developer (Track 2) documentation exist, following IBM style."
+                    "4. CITATIONS: Never cite local offline paths (e.g., win32/desktop-src). ALL Microsoft citations must use absolute https://learn.microsoft.com URLs so the public can verify them.\n"
                 )
             }
         ]
@@ -23,3 +24,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
