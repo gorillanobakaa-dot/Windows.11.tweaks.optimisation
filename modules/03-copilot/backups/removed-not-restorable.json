@@ -1,0 +1,18 @@
+﻿[
+    {
+        "removedAt":  "2026-08-26T21:48:45.1718581+01:00",
+        "what":  "appx package",
+        "id":  "Microsoft.Copilot_152.0.4191.42_neutral__8wekyb3d8bbwe",
+        "version":  "152.0.4191.42",
+        "routeBack":  "reinstall from https://apps.microsoft.com/detail/9NHT9RB2F4HD"
+    },
+    {
+        "removedAt":  "2026-08-26T21:48:45.1879759+01:00",
+        "what":  "system-level application",
+        "id":  "C:\\Program Files (x86)\\Microsoft\\Copilot",
+        "version":  "152.0.4191.42",
+        "routeBack":  "download and install Copilot again from Microsoft",
+        "uninstallerExitCode":  19,
+        "serviceLeftBehind":  false
+    }
+]

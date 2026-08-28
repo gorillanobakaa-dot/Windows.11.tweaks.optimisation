@@ -1,0 +1,450 @@
+﻿**********************
+Windows PowerShell transcript start
+Start time: 20260827191757
+Username: FUCKOFF_YA_CUNT\Username
+RunAs User: FUCKOFF_YA_CUNT\Username
+Configuration Name: 
+Machine: FUCKOFF_YA_CUNT (Microsoft Windows NT 10.0.26200.0)
+Host Application: C:\WINDOWS\System32\WindowsPowerShell\v1.0\powershell.exe -ExecutionPolicy Bypass -NoProfile -File READ-ONLY-diagnostics\Save-StateReport.ps1
+Process ID: 6200
+PSVersion: 5.1.26100.9168
+PSEdition: Desktop
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.26100.9168
+BuildVersion: 10.0.26100.9168
+CLRVersion: 4.0.30319.42000
+WSManStackVersion: 3.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+**********************
+
+  ======================================================================
+   STATE REPORT
+   taken     : 2026-08-27 19:17:57
+   machine   : FUCKOFF_YA_CUNT
+   edition   : Microsoft Windows 11 Home
+   build     : 10.0.26200.0 (25H2)
+   elevated  : False
+  ======================================================================
+
+   Every check below is read-only. Nothing in this run changed anything.
+
+
+  ######################################################################
+  #  01 visual effects
+  ######################################################################
+
+  Visual effects - current state
+  FUCKOFF_YA_CUNT  |  Windows build 26200  |  user Username
+  ------------------------------------------------------------------------
+
+  LAYER 1+2  effects read through SystemParametersInfo
+    Menu animation               off
+    Combo box animation          off
+    List box smooth scrolling    off
+    Gradient window captions     off
+    Menu fade                    off
+    Selection fade               off
+    Tooltip animation            off
+    Tooltip fade                 off
+    Cursor shadow                off
+    Drop shadow (windows)        off
+    Client area animation        off
+    UI effects (master)          off
+    Drag full windows            off
+    Menu show delay              0 ms
+
+  LAYER 2  what modern apps actually see (WinRT UISettings - authoritative)
+    AnimationsEnabled            False  (already off)
+    AdvancedEffectsEnabled       False  (already off)
+
+  LAYER 3+4  shell and compositor settings (registry)
+    EnableTransparency           0          frosted-glass translucency (acrylic/Mica) - the most GPU-expensive item here
+    TaskbarAnimations            0          taskbar buttons animate
+    ListviewAlphaSelect          0          translucent selection rectangle in file lists
+    ListviewShadow               0          drop shadows under desktop icon labels
+    VisualFXSetting              3          makes the Performance Options dialog read "Custom" so it agrees with these settings
+    EnableAeroPeek               0          desktop preview when hovering the corner of the taskbar
+
+  ------------------------------------------------------------------------
+    effects still on   : none
+    shell/DWM to change: none
+    menu delay         : 0 ms
+    dwm.exe            : 251 MB resident
+    web-based apps     : 19 processes, 985 MB (each animates its own interface)
+
+
+  ######################################################################
+  #  02 update sharing
+  ######################################################################
+WARNING: No active Delivery Optimization download or upload jobs
+
+  Update distribution - current state
+  FUCKOFF_YA_CUNT  |  Windows build 26200  |  NOT elevated - some fields may be limited
+  --------------------------------------------------------------------------
+
+  1. WHAT IT IS SET TO  (registry policy)
+     DODownloadMode     0            CdnOnly  - Microsoft servers only, no peer sharing
+
+  2. WHAT IT IS ACTUALLY DOING  (Delivery Optimization service - authoritative)
+     download mode      CdnOnly
+     files uploaded     0
+     bytes uploaded     0.0 MB
+     peers right now    0
+     cache              0 MB held on disk
+     upload rate cap    100%  of upload bandwidth available to peers
+
+  3. IS ANYTHING LISTENING ON PORT 7680?
+     no - nothing is accepting connections on the peer port
+
+  4. IS THE FIREWALL LETTING THEM IN?
+     DeliveryOptimization-TCP-In    disabled  Allow  profile: Any
+     DeliveryOptimization-UDP-In    disabled  Allow  profile: Any
+
+  SERVICES  (this module changes none of them)
+     DoSvc        Stopped   Manual   NT Authority\NetworkService
+     BITS         Stopped   Manual   LocalSystem
+     wuauserv     Stopped   Manual   LocalSystem
+     UsoSvc       Running   Auto     LocalSystem
+
+  --------------------------------------------------------------------------
+    would change : nothing - already as this module wants it
+    note        : this machine has uploaded 0 bytes to peers so far. The
+                  exposure here is that it is reachable and permitted to,
+                  not that it has been.
+
+
+  ######################################################################
+  #  03 copilot
+  ######################################################################
+
+  Copilot - what is actually on this machine
+  Microsoft Windows 11 Home  |  build 26200
+  NOT elevated - the provisioned-package check will be skipped
+  --------------------------------------------------------------------------
+
+  1. THE APP  (removable, and reinstallable from the Store)
+     Microsoft.Copilot        not installed for this user
+
+  2. PROVISIONED  (what a NEW user account on this PC would get)
+     Microsoft.Copilot        not readable without administrator rights
+
+  3. THE SEPARATE APPLICATION IN PROGRAM FILES
+     C:\Program Files (x86)\Microsoft\Copilot not present
+
+  4. THE SERVICE
+     MicrosoftCopilotElevationService not present
+
+  5. SETTINGS  (these are the reversible ones)
+     ShowCopilotButton        0           user     the Copilot button on the taskbar
+     TurnOffWindowsCopilot    1           user     legacy policy - DEPRECATED by Microsoft, kept as a secondary measure only
+     TurnOffWindowsCopilot    1           machine  same policy, machine-wide - DEPRECATED, needs administrator
+
+  6. RELATED, AND DELIBERATELY LEFT ALONE
+     Microsoft.BingSearch                   present  v1.1.43.0
+     MicrosoftWindows.Client.AIX            not installed
+     Microsoft.Windows.Ai.Copilot.Provider  not installed
+     Microsoft.BingSearch is what the Start menu uses for web results. Removing
+     it changes how Start behaves, which is a different decision from removing
+     Copilot, so this module does not make it for you.
+
+  7. RUNNING RIGHT NOW
+     nothing - which tells you about this moment, not about what is installed
+
+  ==========================================================================
+    WHAT COULD BE UNDONE, IF YOU CHANGED YOUR MIND
+
+    Reversible by this module, from a backup file:
+      - ShowCopilotButton
+      - TurnOffWindowsCopilot
+      - TurnOffWindowsCopilot
+
+    NOT reversible by this module:
+
+    That distinction is the whole reason this module is split in two. A
+    settings change has an old value to put back. Deleted software does not.
+
+
+  ######################################################################
+  #  04 suggestions/ads
+  ######################################################################
+
+  Recommendations, suggestions and personalised content
+  account: Username   |   Windows build 26200
+  Everything here is per-account. No administrator rights needed.
+  --------------------------------------------------------------------------
+
+  DOCUMENTED  - Microsoft names these, gives the registry path, and states
+                the value. Applied by default.
+
+     HttpAcceptLanguageOptOut                       1           -> 1   as wanted
+                                                    Allow websites to access my language list
+                                                    cited as [R-92]
+
+     DisableTailoredExperiencesWithDiagnosticData   1           -> 1   as wanted
+                                                    Personalized offers (tips, ads and recommendations)
+                                                    cited as [R-93]
+
+     DisableWindowsSpotlightFeatures                1           -> 1   as wanted
+                                                    Windows Spotlight (lock screen images, tips, suggestions)
+                                                    cited as [R-94]
+
+     DisableCloudOptimizedContent                   1           -> 1   as wanted
+                                                    Cloud optimized content
+                                                    cited as [R-95]
+
+     Start_TrackDocs                                0           -> 0   as wanted
+                                                    Recommended section on the Start menu
+                                                    cited as [R-96]
+
+  OBSERVED    - real, present on this machine, and NOT in the Microsoft
+                documentation corpus. Not applied unless you ask.
+
+     SilentInstalledAppsEnabled                     0           -> 0   as wanted
+                                                    Silently install promoted apps
+                                                    no citation available
+
+     SystemPaneSuggestionsEnabled                   0           -> 0   as wanted
+                                                    Show suggestions occasionally in Start
+                                                    no citation available
+
+     SubscribedContent-338389Enabled                0           -> 0   as wanted
+                                                    Get tips and suggestions when using Windows
+                                                    no citation available
+
+     SoftLandingEnabled                             0           -> 0   as wanted
+                                                    Windows tips
+                                                    no citation available
+
+     Start_TrackProgs                               0           -> 0   as wanted
+                                                    Improve Start and search results
+                                                    no citation available
+
+  --------------------------------------------------------------------------
+    documented, would change : none - already set
+    observed,   would change : none - already set  (only with -IncludeObserved)
+
+
+  ######################################################################
+  #  05 xbox services
+  ######################################################################
+
+  Xbox on this machine - read-only
+  --------------------------------------------------------------------------
+
+  Services (Start: 2=automatic, 3=manual - wakes when asked, 4=disabled):
+    XblAuthManager               Stopped    disabled               Xbox Live auth - Microsoft: "Should be disabled" [R-99]
+    XblGameSave                  Stopped    disabled               Xbox Live game-save sync - Microsoft: "Should be disabled" [R-100]
+    XboxGipSvc                   Stopped    disabled               Xbox accessory management [R-102]
+    XboxNetApiSvc                Stopped    disabled               Xbox Live networking API [R-103]
+    BcastDVRUserService                     disabled               Game DVR / broadcast per-user TEMPLATE [R-104]
+    BcastDVRUserService_6987f    Stopped    Start=4                  per-user instance - stamped from the template at sign-in, clears at next sign-out
+
+  Scheduled tasks named by the same Microsoft guidance:
+    XblGameSaveTask              disabled
+    XblGameSaveTaskLogon         not present on this build
+
+  Xbox app packages for this account (REPORTED ONLY - a later module
+  handles apps; disabling services does not remove apps):
+    Microsoft.XboxGameOverlay
+    Microsoft.XboxIdentityProvider
+    Microsoft.XboxGameCallableUI
+    Microsoft.XboxSpeechToTextOverlay
+    Microsoft.XboxGamingOverlay
+
+  A stopped Manual service is not an absent one: it starts when something
+  asks for it. That distinction is what this module closes.
+
+
+  ######################################################################
+  #  06 services profiles
+  ######################################################################
+
+  Services on this machine - read only
+  --------------------------------------------------------------------------
+    Win32 services (drivers are out of scope)  : 284
+      automatic 68   manual 93   disabled 123
+      running right now                        : 89
+      running as LocalSystem                   : 170
+
+    "Manual" does not mean off. It means Windows starts it when
+    something asks - a device arriving, a network event, a policy
+    refresh. That is the surface these profiles close.
+
+  What each profile would do
+  --------------------------------------------------------------------------
+    LIGHT      65 listed    64 present here     1 still to disable   LIGHT - unused hardware, OEM bloat, third-party updaters, telemetry and self-repair. NOT no-cost: scanning, Mobile Hotspot, File History, Windows Backup, WebDAV and smart cards all stop
+    MODERATE  120 listed   118 present here     5 still to disable   MODERATE - light, plus remote access, cloud sync, diagnostics, discovery. Also ends Bluetooth PAIRING and the built-in troubleshooters
+    SUPER     176 listed   168 present here    54 still to disable   SUPER / ENTERPRISE SECURE - moderate, plus printing, Bluetooth, Windows Search, Store surface, legacy protocols. Audio, thermal and brightness are deliberately NOT touched
+
+    never-touch (no profile may contain these) : 94
+    lockout-risk (excluded from all profiles)  : 7
+
+    For detail:  Test-Services.ps1 -Profile moderate -Full
+
+    Nothing was changed. This script can only read.
+
+
+  ######################################################################
+  #  07 update deferral
+  ######################################################################
+
+  Feature-update hold - read only
+  --------------------------------------------------------------------------
+    edition        : Microsoft Windows 11 Home
+    build          : 10.0.26200.9168
+    release        : 25H2   <- the number a hold is supposed to freeze
+
+    ------------------------------------------------------------------
+    THIS IS WINDOWS 11 HOME.
+    Microsoft documents these policies for Pro, Education and
+    Enterprise. Home is NOT in that list - and is not listed as
+    unsupported either. Writing the values is proved by read-back;
+    whether the Home update client OBEYS them is NOT proved by
+    anything this module can do in one run.
+    The observable is your release staying put. Check 1 records it.
+    ------------------------------------------------------------------
+
+  What an administrator has asked for
+  --------------------------------------------------------------------------
+    key: HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate
+      TargetReleaseVersion             (not set)
+      TargetReleaseVersionInfo         (not set)
+      ProductVersion                   (not set)
+      DeferFeatureUpdates              (not set)
+      DeferFeatureUpdatesPeriodInDays  (not set)
+
+    Nothing is set. Feature updates are being taken as Microsoft offers them.
+
+  What the update client itself believes
+  --------------------------------------------------------------------------
+      PausedFeatureStatus            0
+      PausedQualityStatus            0
+
+    This is the client's view, not the policy. Microsoft points at these
+    values as the ground truth after a pause, because the policy editor
+    can show a pause that has already expired.
+
+  Safeguard holds - Microsoft holding this machine back
+  --------------------------------------------------------------------------
+    no safeguard hold is in effect
+
+  The ceiling on any hold
+  --------------------------------------------------------------------------
+    Home and Pro get 24 months of support per feature update. Past that,
+    Microsoft updates the machine anyway: a device is automatically
+    updated once it is 60 days past end of service for its edition.
+
+    So a hold is a delay, never a refusal. Plan to move the pin forward
+    deliberately rather than discover the ceiling by being moved off it.
+
+  Release history recorded by this module
+  --------------------------------------------------------------------------
+    No backups yet. Every apply and undo records the release it saw, so
+    once this has run a few times there is a dated history here to prove
+    the release did or did not move.
+
+    Nothing was changed. This script can only read.
+
+
+  ######################################################################
+  #  08 app de-bloat
+  ######################################################################
+
+  Installed apps - read only
+  --------------------------------------------------------------------------
+    packages for this account (non-framework) : 107
+      Windows marks NonRemovable              : 44
+      signed as Store                         : 59
+      signed as System                        : 42
+
+    Note: not running as administrator, so this is THIS ACCOUNT's view.
+    What a NEW account would receive needs elevation to read.
+
+  What each tier would remove
+  --------------------------------------------------------------------------
+    LIGHT      16 listed   16 present here
+              LIGHT - things nothing else depends on and no hardware needs
+    MODERATE   30 listed   30 present here
+              MODERATE - light, plus communication, media and sync apps
+    SUPER      37 listed   37 present here
+              SUPER - moderate, plus third-party Store apps and the remaining first-party extras
+
+    never-remove patterns (no tier may contain these) : 31
+
+  Has anything come back?
+  --------------------------------------------------------------------------
+    Nothing has been removed by this module yet, so nothing can have
+    returned. Once a removal has happened this section names anything
+    that reappeared.
+
+    ------------------------------------------------------------------
+    REMOVED APPS COME BACK ON THIS EDITION.
+    Microsoft documents one mechanism that blocks reinstallation, and
+    documents it as Enterprise and Education only. This is Home.
+    On 2026-08-27 at 16:59 this machine's own Windows Update
+    reinstalled two Xbox packages by itself.
+    Removing the PROVISIONED copy stops NEW ACCOUNTS getting the app.
+    It does not stop Windows Update putting it back for you.
+    Re-run check 1 periodically; it names anything that returned.
+    ------------------------------------------------------------------
+
+  What a NEW user account on this machine would receive
+  --------------------------------------------------------------------------
+    UNKNOWN - could not read it: needs administrator rights
+    Recorded as unknown rather than as none. This project has seen this
+    read fail with 'Access is denied' even when elevated.
+
+    For detail:  Test-Apps.ps1 -Tier moderate -Full
+
+    Nothing was changed. This script can only read.
+
+
+  ######################################################################
+  #  alt-tab (no keypress)
+  ######################################################################
+
+  Alt-Tab - does the task switcher still work?
+  --------------------------------------------------------------------------
+
+  1. The settings that actually control the switcher
+      AltTabSettings             <not set>   not ours
+        unset/0 = the modern Windows 11 switcher. 1 forces the classic one.
+      MultiTaskingAltTabFilter   <not set>   not ours
+        controls whether Edge tabs appear in the switcher. Cosmetic either way.
+      Composition                1           not ours
+        desktop composition. The switcher thumbnails are DWM thumbnails.
+      EnableAeroPeek             0           THIS PROJECT
+        SET BY THIS PROJECT to 0. Aero Peek is the taskbar "peek at desktop" preview - a DIFFERENT feature from the Alt-Tab switcher.
+      TaskbarAnimations          0           THIS PROJECT
+        SET BY THIS PROJECT to 0. Taskbar button animation only.
+      DisablePreviewDesktop      1           not ours
+        NOT set by this project - it is absent from module 01's original-state backup, so it predates us.
+
+  2. Desktop composition (draws the switcher thumbnails)
+    DwmIsCompositionEnabled : True
+    dwm.exe running         : True
+
+  3. Shell processes that host the switcher
+    explorer                   running (pid 7424)
+    ShellExperienceHost        running (pid 6048)
+    StartMenuExperienceHost    running (pid 8696)
+
+  4. Live keypress test skipped (-NoPress).
+
+  5. Do the service profiles endanger the switcher?
+      LIGHT     disables nothing the shell or the switcher needs
+      MODERATE  disables nothing the shell or the switcher needs
+      SUPER     disables nothing the shell or the switcher needs
+      16 of 16 shell-critical services are on the never-touch list
+    RESULT: no profile touches a service the task switcher depends on.
+
+  Nothing was configured. This script changed no setting.
+
+
+  ======================================================================
+   END OF REPORT - nothing above changed anything on this machine.
+  ======================================================================
+**********************
+Windows PowerShell transcript end
+End time: 20260827191840
+**********************

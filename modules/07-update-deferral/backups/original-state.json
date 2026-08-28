@@ -1,0 +1,56 @@
+﻿{
+    "schemaVersion":  1,
+    "takenAt":  "2026-08-28T10:35:49.4966075+01:00",
+    "elevated":  true,
+    "edition":  "Microsoft Windows 11 Home",
+    "build":  "10.0.26200.9168",
+    "displayVersion":  "25H2",
+    "policyKeyExists":  false,
+    "values":  {
+                   "TargetReleaseVersion":  {
+                                                "existed":  false,
+                                                "keyExisted":  false,
+                                                "name":  "TargetReleaseVersion",
+                                                "value":  null,
+                                                "kind":  null
+                                            },
+                   "TargetReleaseVersionInfo":  {
+                                                    "existed":  false,
+                                                    "keyExisted":  false,
+                                                    "name":  "TargetReleaseVersionInfo",
+                                                    "value":  null,
+                                                    "kind":  null
+                                                },
+                   "DeferFeatureUpdates":  {
+                                               "existed":  false,
+                                               "keyExisted":  false,
+                                               "name":  "DeferFeatureUpdates",
+                                               "value":  null,
+                                               "kind":  null
+                                           },
+                   "ProductVersion":  {
+                                          "existed":  false,
+                                          "keyExisted":  false,
+                                          "name":  "ProductVersion",
+                                          "value":  null,
+                                          "kind":  null
+                                      },
+                   "DeferFeatureUpdatesPeriodInDays":  {
+                                                           "existed":  false,
+                                                           "keyExisted":  false,
+                                                           "name":  "DeferFeatureUpdatesPeriodInDays",
+                                                           "value":  null,
+                                                           "kind":  null
+                                                       }
+               },
+    "clientView":  {
+                       "keyExists":  true,
+                       "PausedFeatureStatus":  0,
+                       "PausedQualityStatus":  0
+                   },
+    "safeguardHold":  {
+                          "known":  true,
+                          "status":  2,
+                          "text":  "no safeguard hold is in effect"
+                      }
+}

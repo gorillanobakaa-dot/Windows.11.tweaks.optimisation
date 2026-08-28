@@ -1,0 +1,17 @@
+.claude/
+_research/
+scratch/
+_withdrawn-pending-audit/
+READ-ONLY-diagnostics/
+READ-ONLY-verification/
+decision-records/
+evidence/
+ACTION-PLAN.md
+LESSONS-LEARNED.md
+ROADMAP.md
+SCORECARD.md
+THREAT-MODEL.md
+TOOLS-HOWTO.md
+FINDINGS.md
+*.zip
+*.log

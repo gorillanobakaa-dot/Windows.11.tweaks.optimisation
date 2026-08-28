@@ -1,0 +1,87 @@
+﻿{
+    "schemaVersion":  1,
+    "takenAt":  "2026-08-26T21:45:56.3681184+01:00",
+    "host":  "FUCKOFF_YA_CUNT",
+    "user":  "Username",
+    "osBuild":  "26200",
+    "osEdition":  "Microsoft Windows 11 Home",
+    "elevated":  false,
+    "registry":  {
+                     "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced|ShowCopilotButton":  {
+                                                                                                                       "value":  null,
+                                                                                                                       "kind":  null,
+                                                                                                                       "existed":  false,
+                                                                                                                       "keyExisted":  true
+                                                                                                                   },
+                     "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\WindowsCopilot|TurnOffWindowsCopilot":  {
+                                                                                                                 "value":  null,
+                                                                                                                 "kind":  null,
+                                                                                                                 "existed":  false,
+                                                                                                                 "keyExisted":  false,
+                                                                                                                 "existingAncestor":  "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows"
+                                                                                                             },
+                     "HKCU:\\SOFTWARE\\Policies\\Microsoft\\Windows\\WindowsCopilot|TurnOffWindowsCopilot":  {
+                                                                                                                 "value":  null,
+                                                                                                                 "kind":  null,
+                                                                                                                 "existed":  false,
+                                                                                                                 "keyExisted":  false,
+                                                                                                                 "existingAncestor":  "HKCU:\\SOFTWARE\\Policies\\Microsoft\\Windows"
+                                                                                                             }
+                 },
+    "packages":  {
+                     "Microsoft.Copilot":  {
+                                               "present":  true,
+                                               "name":  "Microsoft.Copilot",
+                                               "packageFullName":  "Microsoft.Copilot_152.0.4191.42_neutral__8wekyb3d8bbwe",
+                                               "version":  "152.0.4191.42",
+                                               "installLocation":  "C:\\Program Files\\WindowsApps\\Microsoft.Copilot_152.0.4191.42_neutral__8wekyb3d8bbwe",
+                                               "nonRemovable":  false,
+                                               "publisher":  "CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US"
+                                           }
+                 },
+    "provisioned":  {
+                        "Microsoft.Copilot":  {
+                                                  "readable":  false,
+                                                  "present":  null,
+                                                  "packageName":  null
+                                              }
+                    },
+    "related":  {
+                    "Microsoft.BingSearch":  {
+                                                 "present":  true,
+                                                 "name":  "Microsoft.BingSearch",
+                                                 "packageFullName":  "Microsoft.BingSearch_1.1.43.0_x64__8wekyb3d8bbwe",
+                                                 "version":  "1.1.43.0",
+                                                 "installLocation":  "C:\\Program Files\\WindowsApps\\Microsoft.BingSearch_1.1.43.0_x64__8wekyb3d8bbwe",
+                                                 "nonRemovable":  false,
+                                                 "publisher":  "CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US"
+                                             },
+                    "MicrosoftWindows.Client.AIX":  {
+                                                        "present":  false
+                                                    },
+                    "Microsoft.Windows.Ai.Copilot.Provider":  {
+                                                                  "present":  false
+                                                              }
+                },
+    "systemInstall":  {
+                          "present":  true,
+                          "path":  "C:\\Program Files (x86)\\Microsoft\\Copilot",
+                          "sizeMB":  1287.2,
+                          "fileCount":  1779,
+                          "displayVersion":  "152.0.4191.42",
+                          "uninstallString":  "\"C:\\Program Files (x86)\\Microsoft\\Copilot\\Application\\152.0.4191.42\\Installer\\copilot_setup.exe\" --uninstall --mscopilot --channel=stable --system-level --verbose-logging",
+                          "installLocation":  "C:\\Program Files (x86)\\Microsoft\\Copilot\\Application",
+                          "uninstallKey":  "Microsoft Copilot"
+                      },
+    "service":  {
+                    "present":  true,
+                    "state":  "Stopped",
+                    "startMode":  "Manual",
+                    "account":  "LocalSystem",
+                    "path":  "\"C:\\Program Files (x86)\\Microsoft\\Copilot\\Application\\152.0.4191.42\\elevation_service.exe\"",
+                    "displayName":  "Microsoft Copilot Elevation Service (MicrosoftCopilotElevationService)"
+                },
+    "processes":  [
+
+                  ]
+}

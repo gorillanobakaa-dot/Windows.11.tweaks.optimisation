@@ -1,0 +1,69 @@
+﻿{
+    "schemaVersion":  1,
+    "takenAt":  "2026-08-26T21:47:22.7967057+01:00",
+    "host":  "FUCKOFF_YA_CUNT",
+    "user":  "Username",
+    "osBuild":  "26200",
+    "registry":  {
+                     "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager|SoftLandingEnabled":  {
+                                                                                                                            "value":  1,
+                                                                                                                            "kind":  "DWord",
+                                                                                                                            "existed":  true,
+                                                                                                                            "keyExisted":  true
+                                                                                                                        },
+                     "HKCU:\\SOFTWARE\\Policies\\Microsoft\\Windows\\CloudContent|DisableTailoredExperiencesWithDiagnosticData":  {
+                                                                                                                                      "value":  1,
+                                                                                                                                      "kind":  "DWord",
+                                                                                                                                      "existed":  true,
+                                                                                                                                      "keyExisted":  true
+                                                                                                                                  },
+                     "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager|SystemPaneSuggestionsEnabled":  {
+                                                                                                                                      "value":  1,
+                                                                                                                                      "kind":  "DWord",
+                                                                                                                                      "existed":  true,
+                                                                                                                                      "keyExisted":  true
+                                                                                                                                  },
+                     "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced|Start_TrackDocs":  {
+                                                                                                                     "value":  0,
+                                                                                                                     "kind":  "DWord",
+                                                                                                                     "existed":  true,
+                                                                                                                     "keyExisted":  true
+                                                                                                                 },
+                     "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager|SubscribedContent-338389Enabled":  {
+                                                                                                                                         "value":  1,
+                                                                                                                                         "kind":  "DWord",
+                                                                                                                                         "existed":  true,
+                                                                                                                                         "keyExisted":  true
+                                                                                                                                     },
+                     "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager|SilentInstalledAppsEnabled":  {
+                                                                                                                                    "value":  1,
+                                                                                                                                    "kind":  "DWord",
+                                                                                                                                    "existed":  true,
+                                                                                                                                    "keyExisted":  true
+                                                                                                                                },
+                     "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced|Start_TrackProgs":  {
+                                                                                                                      "value":  null,
+                                                                                                                      "kind":  null,
+                                                                                                                      "existed":  false,
+                                                                                                                      "keyExisted":  true
+                                                                                                                  },
+                     "HKCU:\\Control Panel\\International\\User Profile|HttpAcceptLanguageOptOut":  {
+                                                                                                        "value":  1,
+                                                                                                        "kind":  "DWord",
+                                                                                                        "existed":  true,
+                                                                                                        "keyExisted":  true
+                                                                                                    },
+                     "HKCU:\\SOFTWARE\\Policies\\Microsoft\\Windows\\CloudContent|DisableCloudOptimizedContent":  {
+                                                                                                                      "value":  1,
+                                                                                                                      "kind":  "DWord",
+                                                                                                                      "existed":  true,
+                                                                                                                      "keyExisted":  true
+                                                                                                                  },
+                     "HKCU:\\SOFTWARE\\Policies\\Microsoft\\Windows\\CloudContent|DisableWindowsSpotlightFeatures":  {
+                                                                                                                         "value":  1,
+                                                                                                                         "kind":  "DWord",
+                                                                                                                         "existed":  true,
+                                                                                                                         "keyExisted":  true
+                                                                                                                     }
+                 }
+}

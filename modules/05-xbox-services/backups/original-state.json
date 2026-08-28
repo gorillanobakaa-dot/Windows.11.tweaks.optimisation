@@ -1,0 +1,56 @@
+﻿{
+    "schemaVersion":  1,
+    "takenAt":  "2026-08-26T22:09:12.9148985+01:00",
+    "elevated":  true,
+    "services":  {
+                     "XboxGipSvc":  {
+                                        "name":  "XboxGipSvc",
+                                        "existed":  true,
+                                        "start":  3,
+                                        "liveState":  "Stopped",
+                                        "liveStartMode":  "Manual"
+                                    },
+                     "BcastDVRUserService":  {
+                                                 "name":  "BcastDVRUserService",
+                                                 "existed":  true,
+                                                 "start":  3,
+                                                 "liveState":  null,
+                                                 "liveStartMode":  null
+                                             },
+                     "XblAuthManager":  {
+                                            "name":  "XblAuthManager",
+                                            "existed":  true,
+                                            "start":  3,
+                                            "liveState":  "Stopped",
+                                            "liveStartMode":  "Manual"
+                                        },
+                     "XblGameSave":  {
+                                         "name":  "XblGameSave",
+                                         "existed":  true,
+                                         "start":  3,
+                                         "liveState":  "Stopped",
+                                         "liveStartMode":  "Manual"
+                                     },
+                     "XboxNetApiSvc":  {
+                                           "name":  "XboxNetApiSvc",
+                                           "existed":  true,
+                                           "start":  3,
+                                           "liveState":  "Stopped",
+                                           "liveStartMode":  "Manual"
+                                       }
+                 },
+    "tasks":  {
+                  "\\Microsoft\\XblGameSave\\XblGameSaveTask":  {
+                                                                    "path":  "\\Microsoft\\XblGameSave\\",
+                                                                    "name":  "XblGameSaveTask",
+                                                                    "existed":  true,
+                                                                    "enabled":  true
+                                                                },
+                  "\\Microsoft\\XblGameSave\\XblGameSaveTaskLogon":  {
+                                                                         "path":  "\\Microsoft\\XblGameSave\\",
+                                                                         "name":  "XblGameSaveTaskLogon",
+                                                                         "existed":  false,
+                                                                         "enabled":  null
+                                                                     }
+              }
+}

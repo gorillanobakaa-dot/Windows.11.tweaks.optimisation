@@ -1,0 +1,79 @@
+﻿{
+    "schemaVersion":  1,
+    "takenAt":  "2026-08-26T21:43:11.0467469+01:00",
+    "host":  "FUCKOFF_YA_CUNT",
+    "user":  "Username",
+    "osBuild":  "26200",
+    "elevated":  true,
+    "registry":  {
+                     "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\DeliveryOptimization|DODownloadMode":  {
+                                                                                                                "value":  null,
+                                                                                                                "kind":  null,
+                                                                                                                "existed":  false,
+                                                                                                                "keyExisted":  false
+                                                                                                            }
+                 },
+    "firewall":  {
+                     "DeliveryOptimization-UDP-In":  {
+                                                         "present":  true,
+                                                         "enabled":  true,
+                                                         "direction":  "Inbound",
+                                                         "profile":  "Any",
+                                                         "action":  "Allow",
+                                                         "display":  "Delivery Optimization (UDP-In)"
+                                                     },
+                     "DeliveryOptimization-TCP-In":  {
+                                                         "present":  true,
+                                                         "enabled":  true,
+                                                         "direction":  "Inbound",
+                                                         "profile":  "Any",
+                                                         "action":  "Allow",
+                                                         "display":  "Delivery Optimization (TCP-In)"
+                                                     }
+                 },
+    "services":  {
+                     "DoSvc":  {
+                                   "present":  true,
+                                   "status":  "Stopped",
+                                   "startType":  "Auto",
+                                   "account":  "NT Authority\\NetworkService"
+                               },
+                     "UsoSvc":  {
+                                    "present":  true,
+                                    "status":  "Running",
+                                    "startType":  "Auto",
+                                    "account":  "LocalSystem"
+                                },
+                     "BITS":  {
+                                  "present":  true,
+                                  "status":  "Running",
+                                  "startType":  "Auto",
+                                  "account":  "LocalSystem"
+                              },
+                     "wuauserv":  {
+                                      "present":  true,
+                                      "status":  "Stopped",
+                                      "startType":  "Manual",
+                                      "account":  "LocalSystem"
+                                  }
+                 },
+    "runtime":  {
+                    "effectiveMode":  "Lan",
+                    "effectiveModeName":  "Lan",
+                    "filesUploaded":  0,
+                    "bytesUploaded":  0,
+                    "bytesFromPeers":  null,
+                    "numberOfPeers":  0,
+                    "cacheBytes":  0,
+                    "uploadRatePct":  100,
+                    "available":  true
+                },
+    "listener":  {
+                     "listening":  false,
+                     "addresses":  [
+
+                                   ],
+                     "process":  null,
+                     "checked":  true
+                 }
+}

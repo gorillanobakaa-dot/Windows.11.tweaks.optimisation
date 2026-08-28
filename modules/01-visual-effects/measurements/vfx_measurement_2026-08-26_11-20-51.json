@@ -1,0 +1,1056 @@
+﻿{
+    "schemaVersion":  1,
+    "takenAt":  "2026-08-26T11:20:51.7222181+01:00",
+    "seconds":  25,
+    "repeats":  2,
+    "noWorkload":  false,
+    "environment":  {
+                        "host":  "FUCKOFF_YA_CUNT",
+                        "user":  "Username",
+                        "osCaption":  "Microsoft Windows 11 Home",
+                        "osBuild":  "26200",
+                        "cpuName":  "12th Gen Intel(R) Core(TM) i7-1255U",
+                        "cpuCores":  10,
+                        "cpuLogical":  12,
+                        "cpuMaxMHz":  1700,
+                        "ramTotalMB":  65219,
+                        "gpus":  [
+                                     {
+                                         "name":  "Intel(R) Iris(R) Xe Graphics",
+                                         "adapterRamMB":  2048,
+                                         "driverVersion":  "32.0.101.7026"
+                                     }
+                                 ],
+                        "powerScheme":  "Balanced",
+                        "powerSchemeGuid":  "381b4222-f694-41f0-9685-ff5bb260df2e",
+                        "powerSource":  "on mains",
+                        "libVersion":  1
+                    },
+    "pairs":  [
+                  {
+                      "pair":  1,
+                      "before":  {
+                                     "condition":  "animations ON",
+                                     "idle":  {
+                                                  "label":  "animations ON / idle",
+                                                  "elapsedMs":  27863.6,
+                                                  "gpuWindowMs":  26849.3,
+                                                  "watched":  {
+                                                                  "dwm":  {
+                                                                              "name":  "dwm",
+                                                                              "instances":  1,
+                                                                              "pids":  [
+                                                                                           1948
+                                                                                       ],
+                                                                              "cpuMs":  312.5,
+                                                                              "cpuPercent":  1.12,
+                                                                              "gpuMs":  {
+                                                                                            "3d":  129.2
+                                                                                        },
+                                                                              "gpuMsTotal":  129.2,
+                                                                              "wsMB":  186.3,
+                                                                              "privMB":  160.4,
+                                                                              "gpuMemMB":  326.6,
+                                                                              "threads":  20,
+                                                                              "handles":  1931
+                                                                          },
+                                                                  "powershell":  {
+                                                                                     "name":  "powershell",
+                                                                                     "instances":  2,
+                                                                                     "pids":  [
+                                                                                                  5892,
+                                                                                                  19208
+                                                                                              ],
+                                                                                     "cpuMs":  875,
+                                                                                     "cpuPercent":  3.14,
+                                                                                     "gpuMs":  {
+
+                                                                                               },
+                                                                                     "gpuMsTotal":  0,
+                                                                                     "wsMB":  185.9,
+                                                                                     "privMB":  142,
+                                                                                     "gpuMemMB":  0,
+                                                                                     "threads":  22,
+                                                                                     "handles":  1091
+                                                                                 },
+                                                                  "explorer":  {
+                                                                                   "name":  "explorer",
+                                                                                   "instances":  1,
+                                                                                   "pids":  [
+                                                                                                9616
+                                                                                            ],
+                                                                                   "cpuMs":  125,
+                                                                                   "cpuPercent":  0.45,
+                                                                                   "gpuMs":  {
+                                                                                                 "3d":  0.5
+                                                                                             },
+                                                                                   "gpuMsTotal":  0.5,
+                                                                                   "wsMB":  244.1,
+                                                                                   "privMB":  161.1,
+                                                                                   "gpuMemMB":  43.1,
+                                                                                   "threads":  98,
+                                                                                   "handles":  3302
+                                                                               }
+                                                              },
+                                                  "otherProcCpuMs":  8187.5,
+                                                  "allProcCpuMs":  9500,
+                                                  "systemCpuBusyMs":  10684.4,
+                                                  "systemCpuPercent":  3.3,
+                                                  "coresMeasured":  12,
+                                                  "gpuByEngineMs":  {
+                                                                        "3d":  261.5
+                                                                    },
+                                                  "gpuTotalMs":  261.5,
+                                                  "gpuAvailable":  true,
+                                                  "memAvailMB":  {
+                                                                     "start":  53999,
+                                                                     "end":  54041
+                                                                 },
+                                                  "memCommitMB":  {
+                                                                      "start":  11122,
+                                                                      "end":  11068
+                                                                  },
+                                                  "workload":  null
+                                              },
+                                     "workload":  {
+                                                      "label":  "animations ON / workload",
+                                                      "elapsedMs":  27001.2,
+                                                      "gpuWindowMs":  27026.8,
+                                                      "watched":  {
+                                                                      "dwm":  {
+                                                                                  "name":  "dwm",
+                                                                                  "instances":  1,
+                                                                                  "pids":  [
+                                                                                               1948
+                                                                                           ],
+                                                                                  "cpuMs":  1953.1,
+                                                                                  "cpuPercent":  7.23,
+                                                                                  "gpuMs":  {
+                                                                                                "3d":  429.4
+                                                                                            },
+                                                                                  "gpuMsTotal":  429.4,
+                                                                                  "wsMB":  194.2,
+                                                                                  "privMB":  165.4,
+                                                                                  "gpuMemMB":  314.8,
+                                                                                  "threads":  20,
+                                                                                  "handles":  1937
+                                                                              },
+                                                                      "powershell":  {
+                                                                                         "name":  "powershell",
+                                                                                         "instances":  2,
+                                                                                         "pids":  [
+                                                                                                      5892,
+                                                                                                      19208
+                                                                                                  ],
+                                                                                         "cpuMs":  2734.4,
+                                                                                         "cpuPercent":  10.13,
+                                                                                         "gpuMs":  {
+
+                                                                                                   },
+                                                                                         "gpuMsTotal":  0,
+                                                                                         "wsMB":  196.1,
+                                                                                         "privMB":  137.9,
+                                                                                         "gpuMemMB":  0,
+                                                                                         "threads":  26,
+                                                                                         "handles":  1163
+                                                                                     },
+                                                                      "explorer":  {
+                                                                                       "name":  "explorer",
+                                                                                       "instances":  1,
+                                                                                       "pids":  [
+                                                                                                    9616
+                                                                                                ],
+                                                                                       "cpuMs":  718.8,
+                                                                                       "cpuPercent":  2.66,
+                                                                                       "gpuMs":  {
+                                                                                                     "3d":  7.3
+                                                                                                 },
+                                                                                       "gpuMsTotal":  7.3,
+                                                                                       "wsMB":  243.6,
+                                                                                       "privMB":  160.5,
+                                                                                       "gpuMemMB":  43.1,
+                                                                                       "threads":  91,
+                                                                                       "handles":  3064
+                                                                                   }
+                                                                  },
+                                                      "otherProcCpuMs":  9578.1,
+                                                      "allProcCpuMs":  14984.4,
+                                                      "systemCpuBusyMs":  16459.5,
+                                                      "systemCpuPercent":  5.08,
+                                                      "coresMeasured":  12,
+                                                      "gpuByEngineMs":  {
+                                                                            "3d":  621.7
+                                                                        },
+                                                      "gpuTotalMs":  621.7,
+                                                      "gpuAvailable":  true,
+                                                      "memAvailMB":  {
+                                                                         "start":  54009,
+                                                                         "end":  54042
+                                                                     },
+                                                      "memCommitMB":  {
+                                                                          "start":  11094,
+                                                                          "end":  11051
+                                                                      },
+                                                      "workload":  10
+                                                  },
+                                     "responsiveness":  {
+                                                            "iterations":  25,
+                                                            "menuOpenMs":  8.18,
+                                                            "menuOpenMaxMs":  11.24,
+                                                            "comboOpenMs":  7.14,
+                                                            "comboOpenMaxMs":  10.96
+                                                        },
+                                     "state":  {
+                                                   "schemaVersion":  2,
+                                                   "module":  "01-visual-effects",
+                                                   "capturedUtc":  "2026-08-26T10:15:23Z",
+                                                   "host":  "FUCKOFF_YA_CUNT",
+                                                   "user":  "Username",
+                                                   "osBuild":  "26200",
+                                                   "spi":  {
+                                                               "Menu animation":  0,
+                                                               "Combo box animation":  0,
+                                                               "List box smooth scrolling":  0,
+                                                               "Gradient window captions":  1,
+                                                               "Menu fade":  1,
+                                                               "Selection fade":  0,
+                                                               "Tooltip animation":  0,
+                                                               "Tooltip fade":  1,
+                                                               "Cursor shadow":  0,
+                                                               "Drop shadow (windows)":  1,
+                                                               "Client area animation":  0,
+                                                               "UI effects (master)":  1,
+                                                               "DragFullWindows":  1,
+                                                               "MenuShowDelay":  400
+                                                           },
+                                                   "registry":  {
+                                                                    "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize|EnableTransparency":  {
+                                                                                                                                                                        "value":  0,
+                                                                                                                                                                        "kind":  "DWord"
+                                                                                                                                                                    },
+                                                                    "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced|TaskbarAnimations":  {
+                                                                                                                                                                      "value":  1,
+                                                                                                                                                                      "kind":  "DWord"
+                                                                                                                                                                  },
+                                                                    "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced|ListviewAlphaSelect":  {
+                                                                                                                                                                        "value":  1,
+                                                                                                                                                                        "kind":  "DWord"
+                                                                                                                                                                    },
+                                                                    "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced|ListviewShadow":  {
+                                                                                                                                                                   "value":  1,
+                                                                                                                                                                   "kind":  "DWord"
+                                                                                                                                                               },
+                                                                    "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\VisualEffects|VisualFXSetting":  {
+                                                                                                                                                                         "value":  null,
+                                                                                                                                                                         "kind":  null
+                                                                                                                                                                     },
+                                                                    "HKCU:\\Software\\Microsoft\\Windows\\DWM|EnableAeroPeek":  {
+                                                                                                                                    "value":  1,
+                                                                                                                                    "kind":  "DWord"
+                                                                                                                                }
+                                                                },
+                                                   "uiSettings":  {
+                                                                      "AnimationsEnabled":  false,
+                                                                      "AdvancedEffectsEnabled":  false
+                                                                  },
+                                                   "userPreferencesMask":  "90 12 07 80 10 00 00 00"
+                                               }
+                                 },
+                      "after":  {
+                                    "condition":  "animations OFF",
+                                    "idle":  {
+                                                 "label":  "animations OFF / idle",
+                                                 "elapsedMs":  27055.8,
+                                                 "gpuWindowMs":  26975,
+                                                 "watched":  {
+                                                                 "dwm":  {
+                                                                             "name":  "dwm",
+                                                                             "instances":  1,
+                                                                             "pids":  [
+                                                                                          1948
+                                                                                      ],
+                                                                             "cpuMs":  93.8,
+                                                                             "cpuPercent":  0.35,
+                                                                             "gpuMs":  {
+                                                                                           "3d":  37.1
+                                                                                       },
+                                                                             "gpuMsTotal":  37.1,
+                                                                             "wsMB":  184.6,
+                                                                             "privMB":  157.7,
+                                                                             "gpuMemMB":  300.1,
+                                                                             "threads":  20,
+                                                                             "handles":  1917
+                                                                         },
+                                                                 "powershell":  {
+                                                                                    "name":  "powershell",
+                                                                                    "instances":  2,
+                                                                                    "pids":  [
+                                                                                                 5892,
+                                                                                                 19208
+                                                                                             ],
+                                                                                    "cpuMs":  890.6,
+                                                                                    "cpuPercent":  3.29,
+                                                                                    "gpuMs":  {
+
+                                                                                              },
+                                                                                    "gpuMsTotal":  0,
+                                                                                    "wsMB":  201.1,
+                                                                                    "privMB":  142.7,
+                                                                                    "gpuMemMB":  0,
+                                                                                    "threads":  23,
+                                                                                    "handles":  1149
+                                                                                },
+                                                                 "explorer":  {
+                                                                                  "name":  "explorer",
+                                                                                  "instances":  1,
+                                                                                  "pids":  [
+                                                                                               3596
+                                                                                           ],
+                                                                                  "cpuMs":  15.6,
+                                                                                  "cpuPercent":  0.06,
+                                                                                  "gpuMs":  {
+                                                                                                "3d":  0.5
+                                                                                            },
+                                                                                  "gpuMsTotal":  0.5,
+                                                                                  "wsMB":  234.1,
+                                                                                  "privMB":  155.9,
+                                                                                  "gpuMemMB":  43.1,
+                                                                                  "threads":  93,
+                                                                                  "handles":  3107
+                                                                              }
+                                                             },
+                                                 "otherProcCpuMs":  6984.4,
+                                                 "allProcCpuMs":  7984.4,
+                                                 "systemCpuBusyMs":  8609.1,
+                                                 "systemCpuPercent":  2.65,
+                                                 "coresMeasured":  12,
+                                                 "gpuByEngineMs":  {
+                                                                       "3d":  92.4
+                                                                   },
+                                                 "gpuTotalMs":  92.4,
+                                                 "gpuAvailable":  true,
+                                                 "memAvailMB":  {
+                                                                    "start":  54076,
+                                                                    "end":  54101
+                                                                },
+                                                 "memCommitMB":  {
+                                                                     "start":  11041,
+                                                                     "end":  11011
+                                                                 },
+                                                 "workload":  null
+                                             },
+                                    "workload":  {
+                                                     "label":  "animations OFF / workload",
+                                                     "elapsedMs":  26726.3,
+                                                     "gpuWindowMs":  26733,
+                                                     "watched":  {
+                                                                     "dwm":  {
+                                                                                 "name":  "dwm",
+                                                                                 "instances":  1,
+                                                                                 "pids":  [
+                                                                                              1948
+                                                                                          ],
+                                                                                 "cpuMs":  1468.8,
+                                                                                 "cpuPercent":  5.5,
+                                                                                 "gpuMs":  {
+                                                                                               "3d":  332.6
+                                                                                           },
+                                                                                 "gpuMsTotal":  332.6,
+                                                                                 "wsMB":  188.7,
+                                                                                 "privMB":  161.4,
+                                                                                 "gpuMemMB":  301.1,
+                                                                                 "threads":  20,
+                                                                                 "handles":  1926
+                                                                             },
+                                                                     "powershell":  {
+                                                                                        "name":  "powershell",
+                                                                                        "instances":  2,
+                                                                                        "pids":  [
+                                                                                                     5892,
+                                                                                                     19208
+                                                                                                 ],
+                                                                                        "cpuMs":  1937.5,
+                                                                                        "cpuPercent":  7.25,
+                                                                                        "gpuMs":  {
+
+                                                                                                  },
+                                                                                        "gpuMsTotal":  0,
+                                                                                        "wsMB":  204.9,
+                                                                                        "privMB":  146.3,
+                                                                                        "gpuMemMB":  0,
+                                                                                        "threads":  25,
+                                                                                        "handles":  1148
+                                                                                    },
+                                                                     "explorer":  {
+                                                                                      "name":  "explorer",
+                                                                                      "instances":  1,
+                                                                                      "pids":  [
+                                                                                                   3596
+                                                                                               ],
+                                                                                      "cpuMs":  312.5,
+                                                                                      "cpuPercent":  1.17,
+                                                                                      "gpuMs":  {
+                                                                                                    "3d":  9.3
+                                                                                                },
+                                                                                      "gpuMsTotal":  9.3,
+                                                                                      "wsMB":  233.7,
+                                                                                      "privMB":  155.5,
+                                                                                      "gpuMemMB":  43.1,
+                                                                                      "threads":  88,
+                                                                                      "handles":  2893
+                                                                                  }
+                                                                 },
+                                                     "otherProcCpuMs":  10046.9,
+                                                     "allProcCpuMs":  13765.6,
+                                                     "systemCpuBusyMs":  15595.7,
+                                                     "systemCpuPercent":  4.86,
+                                                     "coresMeasured":  12,
+                                                     "gpuByEngineMs":  {
+                                                                           "3d":  499.4
+                                                                       },
+                                                     "gpuTotalMs":  499.4,
+                                                     "gpuAvailable":  true,
+                                                     "memAvailMB":  {
+                                                                        "start":  54100,
+                                                                        "end":  54131
+                                                                    },
+                                                     "memCommitMB":  {
+                                                                         "start":  11008,
+                                                                         "end":  10971
+                                                                     },
+                                                     "workload":  10
+                                                 },
+                                    "responsiveness":  {
+                                                           "iterations":  25,
+                                                           "menuOpenMs":  5.94,
+                                                           "menuOpenMaxMs":  9.76,
+                                                           "comboOpenMs":  5.19,
+                                                           "comboOpenMaxMs":  7.23
+                                                       },
+                                    "state":  {
+                                                  "schemaVersion":  2,
+                                                  "module":  "01-visual-effects",
+                                                  "capturedUtc":  "2026-08-26T10:16:53Z",
+                                                  "host":  "FUCKOFF_YA_CUNT",
+                                                  "user":  "Username",
+                                                  "osBuild":  "26200",
+                                                  "spi":  {
+                                                              "Menu animation":  0,
+                                                              "Combo box animation":  0,
+                                                              "List box smooth scrolling":  0,
+                                                              "Gradient window captions":  0,
+                                                              "Menu fade":  0,
+                                                              "Selection fade":  0,
+                                                              "Tooltip animation":  0,
+                                                              "Tooltip fade":  0,
+                                                              "Cursor shadow":  0,
+                                                              "Drop shadow (windows)":  0,
+                                                              "Client area animation":  0,
+                                                              "UI effects (master)":  0,
+                                                              "DragFullWindows":  0,
+                                                              "MenuShowDelay":  0
+                                                          },
+                                                  "registry":  {
+                                                                   "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize|EnableTransparency":  {
+                                                                                                                                                                       "value":  0,
+                                                                                                                                                                       "kind":  "DWord"
+                                                                                                                                                                   },
+                                                                   "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced|TaskbarAnimations":  {
+                                                                                                                                                                     "value":  0,
+                                                                                                                                                                     "kind":  "DWord"
+                                                                                                                                                                 },
+                                                                   "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced|ListviewAlphaSelect":  {
+                                                                                                                                                                       "value":  0,
+                                                                                                                                                                       "kind":  "DWord"
+                                                                                                                                                                   },
+                                                                   "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced|ListviewShadow":  {
+                                                                                                                                                                  "value":  0,
+                                                                                                                                                                  "kind":  "DWord"
+                                                                                                                                                              },
+                                                                   "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\VisualEffects|VisualFXSetting":  {
+                                                                                                                                                                        "value":  3,
+                                                                                                                                                                        "kind":  "DWord"
+                                                                                                                                                                    },
+                                                                   "HKCU:\\Software\\Microsoft\\Windows\\DWM|EnableAeroPeek":  {
+                                                                                                                                   "value":  0,
+                                                                                                                                   "kind":  "DWord"
+                                                                                                                               }
+                                                               },
+                                                  "uiSettings":  {
+                                                                     "AnimationsEnabled":  false,
+                                                                     "AdvancedEffectsEnabled":  false
+                                                                 },
+                                                  "userPreferencesMask":  "80 00 03 00 10 00 00 00"
+                                              }
+                                }
+                  },
+                  {
+                      "pair":  2,
+                      "before":  {
+                                     "condition":  "animations ON",
+                                     "idle":  {
+                                                  "label":  "animations ON / idle",
+                                                  "elapsedMs":  27060.2,
+                                                  "gpuWindowMs":  26951.6,
+                                                  "watched":  {
+                                                                  "powershell":  {
+                                                                                     "name":  "powershell",
+                                                                                     "instances":  2,
+                                                                                     "pids":  [
+                                                                                                  5892,
+                                                                                                  19208
+                                                                                              ],
+                                                                                     "cpuMs":  859.4,
+                                                                                     "cpuPercent":  3.18,
+                                                                                     "gpuMs":  {
+
+                                                                                               },
+                                                                                     "gpuMsTotal":  0,
+                                                                                     "wsMB":  202.7,
+                                                                                     "privMB":  144,
+                                                                                     "gpuMemMB":  0,
+                                                                                     "threads":  23,
+                                                                                     "handles":  1138
+                                                                                 },
+                                                                  "dwm":  {
+                                                                              "name":  "dwm",
+                                                                              "instances":  1,
+                                                                              "pids":  [
+                                                                                           1948
+                                                                                       ],
+                                                                              "cpuMs":  187.5,
+                                                                              "cpuPercent":  0.69,
+                                                                              "gpuMs":  {
+                                                                                            "3d":  50.6
+                                                                                        },
+                                                                              "gpuMsTotal":  50.6,
+                                                                              "wsMB":  185.1,
+                                                                              "privMB":  158.2,
+                                                                              "gpuMemMB":  299,
+                                                                              "threads":  20,
+                                                                              "handles":  1927
+                                                                          },
+                                                                  "explorer":  {
+                                                                                   "name":  "explorer",
+                                                                                   "instances":  1,
+                                                                                   "pids":  [
+                                                                                                15292
+                                                                                            ],
+                                                                                   "cpuMs":  0,
+                                                                                   "cpuPercent":  0,
+                                                                                   "gpuMs":  {
+                                                                                                 "3d":  0.5
+                                                                                             },
+                                                                                   "gpuMsTotal":  0.5,
+                                                                                   "wsMB":  236.7,
+                                                                                   "privMB":  161,
+                                                                                   "gpuMemMB":  43.3,
+                                                                                   "threads":  93,
+                                                                                   "handles":  3118
+                                                                               }
+                                                              },
+                                                  "otherProcCpuMs":  6890.6,
+                                                  "allProcCpuMs":  7937.5,
+                                                  "systemCpuBusyMs":  9249.1,
+                                                  "systemCpuPercent":  2.85,
+                                                  "coresMeasured":  12,
+                                                  "gpuByEngineMs":  {
+                                                                        "3d":  120
+                                                                    },
+                                                  "gpuTotalMs":  120,
+                                                  "gpuAvailable":  true,
+                                                  "memAvailMB":  {
+                                                                     "start":  54118,
+                                                                     "end":  54114
+                                                                 },
+                                                  "memCommitMB":  {
+                                                                      "start":  10986,
+                                                                      "end":  10998
+                                                                  },
+                                                  "workload":  null
+                                              },
+                                     "workload":  {
+                                                      "label":  "animations ON / workload",
+                                                      "elapsedMs":  26743.2,
+                                                      "gpuWindowMs":  26781,
+                                                      "watched":  {
+                                                                      "powershell":  {
+                                                                                         "name":  "powershell",
+                                                                                         "instances":  2,
+                                                                                         "pids":  [
+                                                                                                      5892,
+                                                                                                      19208
+                                                                                                  ],
+                                                                                         "cpuMs":  1875,
+                                                                                         "cpuPercent":  7.01,
+                                                                                         "gpuMs":  {
+
+                                                                                                   },
+                                                                                         "gpuMsTotal":  0,
+                                                                                         "wsMB":  202.8,
+                                                                                         "privMB":  144.1,
+                                                                                         "gpuMemMB":  0,
+                                                                                         "threads":  22,
+                                                                                         "handles":  1155
+                                                                                     },
+                                                                      "dwm":  {
+                                                                                  "name":  "dwm",
+                                                                                  "instances":  1,
+                                                                                  "pids":  [
+                                                                                               1948
+                                                                                           ],
+                                                                                  "cpuMs":  1796.9,
+                                                                                  "cpuPercent":  6.72,
+                                                                                  "gpuMs":  {
+                                                                                                "3d":  394.8
+                                                                                            },
+                                                                                  "gpuMsTotal":  394.8,
+                                                                                  "wsMB":  192.8,
+                                                                                  "privMB":  163,
+                                                                                  "gpuMemMB":  307.8,
+                                                                                  "threads":  19,
+                                                                                  "handles":  1934
+                                                                              },
+                                                                      "explorer":  {
+                                                                                       "name":  "explorer",
+                                                                                       "instances":  1,
+                                                                                       "pids":  [
+                                                                                                    15292
+                                                                                                ],
+                                                                                       "cpuMs":  546.9,
+                                                                                       "cpuPercent":  2.04,
+                                                                                       "gpuMs":  {
+                                                                                                     "3d":  8.2
+                                                                                                 },
+                                                                                       "gpuMsTotal":  8.2,
+                                                                                       "wsMB":  236.3,
+                                                                                       "privMB":  160.6,
+                                                                                       "gpuMemMB":  43.1,
+                                                                                       "threads":  90,
+                                                                                       "handles":  2929
+                                                                                   }
+                                                                  },
+                                                      "otherProcCpuMs":  14750,
+                                                      "allProcCpuMs":  18968.8,
+                                                      "systemCpuBusyMs":  25069.6,
+                                                      "systemCpuPercent":  7.81,
+                                                      "coresMeasured":  12,
+                                                      "gpuByEngineMs":  {
+                                                                            "3d":  592.3
+                                                                        },
+                                                      "gpuTotalMs":  592.3,
+                                                      "gpuAvailable":  true,
+                                                      "memAvailMB":  {
+                                                                         "start":  54109,
+                                                                         "end":  54001
+                                                                     },
+                                                      "memCommitMB":  {
+                                                                          "start":  10992,
+                                                                          "end":  11071
+                                                                      },
+                                                      "workload":  10
+                                                  },
+                                     "responsiveness":  {
+                                                            "iterations":  25,
+                                                            "menuOpenMs":  7.69,
+                                                            "menuOpenMaxMs":  9.88,
+                                                            "comboOpenMs":  7.19,
+                                                            "comboOpenMaxMs":  11.92
+                                                        },
+                                     "state":  {
+                                                   "schemaVersion":  2,
+                                                   "module":  "01-visual-effects",
+                                                   "capturedUtc":  "2026-08-26T10:18:20Z",
+                                                   "host":  "FUCKOFF_YA_CUNT",
+                                                   "user":  "Username",
+                                                   "osBuild":  "26200",
+                                                   "spi":  {
+                                                               "Menu animation":  0,
+                                                               "Combo box animation":  0,
+                                                               "List box smooth scrolling":  0,
+                                                               "Gradient window captions":  1,
+                                                               "Menu fade":  1,
+                                                               "Selection fade":  0,
+                                                               "Tooltip animation":  0,
+                                                               "Tooltip fade":  1,
+                                                               "Cursor shadow":  0,
+                                                               "Drop shadow (windows)":  1,
+                                                               "Client area animation":  0,
+                                                               "UI effects (master)":  1,
+                                                               "DragFullWindows":  1,
+                                                               "MenuShowDelay":  400
+                                                           },
+                                                   "registry":  {
+                                                                    "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize|EnableTransparency":  {
+                                                                                                                                                                        "value":  0,
+                                                                                                                                                                        "kind":  "DWord"
+                                                                                                                                                                    },
+                                                                    "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced|TaskbarAnimations":  {
+                                                                                                                                                                      "value":  1,
+                                                                                                                                                                      "kind":  "DWord"
+                                                                                                                                                                  },
+                                                                    "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced|ListviewAlphaSelect":  {
+                                                                                                                                                                        "value":  1,
+                                                                                                                                                                        "kind":  "DWord"
+                                                                                                                                                                    },
+                                                                    "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced|ListviewShadow":  {
+                                                                                                                                                                   "value":  1,
+                                                                                                                                                                   "kind":  "DWord"
+                                                                                                                                                               },
+                                                                    "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\VisualEffects|VisualFXSetting":  {
+                                                                                                                                                                         "value":  null,
+                                                                                                                                                                         "kind":  null
+                                                                                                                                                                     },
+                                                                    "HKCU:\\Software\\Microsoft\\Windows\\DWM|EnableAeroPeek":  {
+                                                                                                                                    "value":  1,
+                                                                                                                                    "kind":  "DWord"
+                                                                                                                                }
+                                                                },
+                                                   "uiSettings":  {
+                                                                      "AnimationsEnabled":  false,
+                                                                      "AdvancedEffectsEnabled":  false
+                                                                  },
+                                                   "userPreferencesMask":  "90 12 07 80 10 00 00 00"
+                                               }
+                                 },
+                      "after":  {
+                                    "condition":  "animations OFF",
+                                    "idle":  {
+                                                 "label":  "animations OFF / idle",
+                                                 "elapsedMs":  26920.4,
+                                                 "gpuWindowMs":  26827.3,
+                                                 "watched":  {
+                                                                 "powershell":  {
+                                                                                    "name":  "powershell",
+                                                                                    "instances":  2,
+                                                                                    "pids":  [
+                                                                                                 5892,
+                                                                                                 19208
+                                                                                             ],
+                                                                                    "cpuMs":  687.5,
+                                                                                    "cpuPercent":  2.55,
+                                                                                    "gpuMs":  {
+
+                                                                                              },
+                                                                                    "gpuMsTotal":  0,
+                                                                                    "wsMB":  203.3,
+                                                                                    "privMB":  144.3,
+                                                                                    "gpuMemMB":  0,
+                                                                                    "threads":  26,
+                                                                                    "handles":  1148
+                                                                                },
+                                                                 "dwm":  {
+                                                                             "name":  "dwm",
+                                                                             "instances":  1,
+                                                                             "pids":  [
+                                                                                          1948
+                                                                                      ],
+                                                                             "cpuMs":  234.4,
+                                                                             "cpuPercent":  0.87,
+                                                                             "gpuMs":  {
+                                                                                           "3d":  57
+                                                                                       },
+                                                                             "gpuMsTotal":  57,
+                                                                             "wsMB":  185.2,
+                                                                             "privMB":  158.4,
+                                                                             "gpuMemMB":  303,
+                                                                             "threads":  20,
+                                                                             "handles":  1937
+                                                                         },
+                                                                 "explorer":  {
+                                                                                  "name":  "explorer",
+                                                                                  "instances":  1,
+                                                                                  "pids":  [
+                                                                                               3464
+                                                                                           ],
+                                                                                  "cpuMs":  78.1,
+                                                                                  "cpuPercent":  0.29,
+                                                                                  "gpuMs":  {
+                                                                                                "3d":  0.4
+                                                                                            },
+                                                                                  "gpuMsTotal":  0.4,
+                                                                                  "wsMB":  235.8,
+                                                                                  "privMB":  159.9,
+                                                                                  "gpuMemMB":  43.1,
+                                                                                  "threads":  95,
+                                                                                  "handles":  3130
+                                                                              }
+                                                             },
+                                                 "otherProcCpuMs":  9562.5,
+                                                 "allProcCpuMs":  10562.5,
+                                                 "systemCpuBusyMs":  14924.1,
+                                                 "systemCpuPercent":  4.62,
+                                                 "coresMeasured":  12,
+                                                 "gpuByEngineMs":  {
+                                                                       "3d":  128.2
+                                                                   },
+                                                 "gpuTotalMs":  128.2,
+                                                 "gpuAvailable":  true,
+                                                 "memAvailMB":  {
+                                                                    "start":  54081,
+                                                                    "end":  54071
+                                                                },
+                                                 "memCommitMB":  {
+                                                                     "start":  11023,
+                                                                     "end":  11049
+                                                                 },
+                                                 "workload":  null
+                                             },
+                                    "workload":  {
+                                                     "label":  "animations OFF / workload",
+                                                     "elapsedMs":  26788.2,
+                                                     "gpuWindowMs":  26865.6,
+                                                     "watched":  {
+                                                                     "powershell":  {
+                                                                                        "name":  "powershell",
+                                                                                        "instances":  2,
+                                                                                        "pids":  [
+                                                                                                     5892,
+                                                                                                     19208
+                                                                                                 ],
+                                                                                        "cpuMs":  2156.2,
+                                                                                        "cpuPercent":  8.05,
+                                                                                        "gpuMs":  {
+
+                                                                                                  },
+                                                                                        "gpuMsTotal":  0,
+                                                                                        "wsMB":  208.7,
+                                                                                        "privMB":  150,
+                                                                                        "gpuMemMB":  0,
+                                                                                        "threads":  26,
+                                                                                        "handles":  1154
+                                                                                    },
+                                                                     "dwm":  {
+                                                                                 "name":  "dwm",
+                                                                                 "instances":  1,
+                                                                                 "pids":  [
+                                                                                              1948
+                                                                                          ],
+                                                                                 "cpuMs":  1156.2,
+                                                                                 "cpuPercent":  4.32,
+                                                                                 "gpuMs":  {
+                                                                                               "3d":  321
+                                                                                           },
+                                                                                 "gpuMsTotal":  321,
+                                                                                 "wsMB":  189.1,
+                                                                                 "privMB":  161.8,
+                                                                                 "gpuMemMB":  305.4,
+                                                                                 "threads":  20,
+                                                                                 "handles":  1946
+                                                                             },
+                                                                     "explorer":  {
+                                                                                      "name":  "explorer",
+                                                                                      "instances":  1,
+                                                                                      "pids":  [
+                                                                                                   3464
+                                                                                               ],
+                                                                                      "cpuMs":  406.2,
+                                                                                      "cpuPercent":  1.52,
+                                                                                      "gpuMs":  {
+                                                                                                    "3d":  9.2
+                                                                                                },
+                                                                                      "gpuMsTotal":  9.2,
+                                                                                      "wsMB":  235.3,
+                                                                                      "privMB":  159.5,
+                                                                                      "gpuMemMB":  43.2,
+                                                                                      "threads":  90,
+                                                                                      "handles":  2914
+                                                                                  }
+                                                                 },
+                                                     "otherProcCpuMs":  10046.9,
+                                                     "allProcCpuMs":  13765.6,
+                                                     "systemCpuBusyMs":  18309,
+                                                     "systemCpuPercent":  5.69,
+                                                     "coresMeasured":  12,
+                                                     "gpuByEngineMs":  {
+                                                                           "3d":  494.7
+                                                                       },
+                                                     "gpuTotalMs":  494.7,
+                                                     "gpuAvailable":  true,
+                                                     "memAvailMB":  {
+                                                                        "start":  54069,
+                                                                        "end":  54051
+                                                                    },
+                                                     "memCommitMB":  {
+                                                                         "start":  11050,
+                                                                         "end":  11096
+                                                                     },
+                                                     "workload":  10
+                                                 },
+                                    "responsiveness":  {
+                                                           "iterations":  25,
+                                                           "menuOpenMs":  5.65,
+                                                           "menuOpenMaxMs":  9.54,
+                                                           "comboOpenMs":  5.08,
+                                                           "comboOpenMaxMs":  7.62
+                                                       },
+                                    "state":  {
+                                                  "schemaVersion":  2,
+                                                  "module":  "01-visual-effects",
+                                                  "capturedUtc":  "2026-08-26T10:19:48Z",
+                                                  "host":  "FUCKOFF_YA_CUNT",
+                                                  "user":  "Username",
+                                                  "osBuild":  "26200",
+                                                  "spi":  {
+                                                              "Menu animation":  0,
+                                                              "Combo box animation":  0,
+                                                              "List box smooth scrolling":  0,
+                                                              "Gradient window captions":  0,
+                                                              "Menu fade":  0,
+                                                              "Selection fade":  0,
+                                                              "Tooltip animation":  0,
+                                                              "Tooltip fade":  0,
+                                                              "Cursor shadow":  0,
+                                                              "Drop shadow (windows)":  0,
+                                                              "Client area animation":  0,
+                                                              "UI effects (master)":  0,
+                                                              "DragFullWindows":  0,
+                                                              "MenuShowDelay":  0
+                                                          },
+                                                  "registry":  {
+                                                                   "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize|EnableTransparency":  {
+                                                                                                                                                                       "value":  0,
+                                                                                                                                                                       "kind":  "DWord"
+                                                                                                                                                                   },
+                                                                   "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced|TaskbarAnimations":  {
+                                                                                                                                                                     "value":  0,
+                                                                                                                                                                     "kind":  "DWord"
+                                                                                                                                                                 },
+                                                                   "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced|ListviewAlphaSelect":  {
+                                                                                                                                                                       "value":  0,
+                                                                                                                                                                       "kind":  "DWord"
+                                                                                                                                                                   },
+                                                                   "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced|ListviewShadow":  {
+                                                                                                                                                                  "value":  0,
+                                                                                                                                                                  "kind":  "DWord"
+                                                                                                                                                              },
+                                                                   "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\VisualEffects|VisualFXSetting":  {
+                                                                                                                                                                        "value":  3,
+                                                                                                                                                                        "kind":  "DWord"
+                                                                                                                                                                    },
+                                                                   "HKCU:\\Software\\Microsoft\\Windows\\DWM|EnableAeroPeek":  {
+                                                                                                                                   "value":  0,
+                                                                                                                                   "kind":  "DWord"
+                                                                                                                               }
+                                                               },
+                                                  "uiSettings":  {
+                                                                     "AnimationsEnabled":  false,
+                                                                     "AdvancedEffectsEnabled":  false
+                                                                 },
+                                                  "userPreferencesMask":  "80 00 03 00 10 00 00 00"
+                                              }
+                                }
+                  }
+              ],
+    "finalState":  "APPLIED - animations are OFF",
+    "startState":  {
+                       "schemaVersion":  2,
+                       "module":  "01-visual-effects",
+                       "capturedUtc":  "2026-08-26T10:14:32Z",
+                       "host":  "FUCKOFF_YA_CUNT",
+                       "user":  "Username",
+                       "osBuild":  "26200",
+                       "spi":  {
+                                   "Menu animation":  0,
+                                   "Combo box animation":  0,
+                                   "List box smooth scrolling":  0,
+                                   "Gradient window captions":  0,
+                                   "Menu fade":  0,
+                                   "Selection fade":  0,
+                                   "Tooltip animation":  0,
+                                   "Tooltip fade":  0,
+                                   "Cursor shadow":  0,
+                                   "Drop shadow (windows)":  0,
+                                   "Client area animation":  0,
+                                   "UI effects (master)":  0,
+                                   "DragFullWindows":  0,
+                                   "MenuShowDelay":  0
+                               },
+                       "registry":  {
+                                        "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize|EnableTransparency":  {
+                                                                                                                                            "value":  0,
+                                                                                                                                            "kind":  "DWord"
+                                                                                                                                        },
+                                        "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced|TaskbarAnimations":  {
+                                                                                                                                          "value":  1,
+                                                                                                                                          "kind":  "DWord"
+                                                                                                                                      },
+                                        "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced|ListviewAlphaSelect":  {
+                                                                                                                                            "value":  1,
+                                                                                                                                            "kind":  "DWord"
+                                                                                                                                        },
+                                        "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced|ListviewShadow":  {
+                                                                                                                                       "value":  1,
+                                                                                                                                       "kind":  "DWord"
+                                                                                                                                   },
+                                        "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\VisualEffects|VisualFXSetting":  {
+                                                                                                                                             "value":  null,
+                                                                                                                                             "kind":  null
+                                                                                                                                         },
+                                        "HKCU:\\Software\\Microsoft\\Windows\\DWM|EnableAeroPeek":  {
+                                                                                                        "value":  1,
+                                                                                                        "kind":  "DWord"
+                                                                                                    }
+                                    },
+                       "uiSettings":  {
+                                          "AnimationsEnabled":  false,
+                                          "AdvancedEffectsEnabled":  false
+                                      },
+                       "userPreferencesMask":  "90 12 07 80 10 00 00 00"
+                   },
+    "endState":  {
+                     "schemaVersion":  2,
+                     "module":  "01-visual-effects",
+                     "capturedUtc":  "2026-08-26T10:20:51Z",
+                     "host":  "FUCKOFF_YA_CUNT",
+                     "user":  "Username",
+                     "osBuild":  "26200",
+                     "spi":  {
+                                 "Menu animation":  0,
+                                 "Combo box animation":  0,
+                                 "List box smooth scrolling":  0,
+                                 "Gradient window captions":  0,
+                                 "Menu fade":  0,
+                                 "Selection fade":  0,
+                                 "Tooltip animation":  0,
+                                 "Tooltip fade":  0,
+                                 "Cursor shadow":  0,
+                                 "Drop shadow (windows)":  0,
+                                 "Client area animation":  0,
+                                 "UI effects (master)":  0,
+                                 "DragFullWindows":  0,
+                                 "MenuShowDelay":  0
+                             },
+                     "registry":  {
+                                      "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize|EnableTransparency":  {
+                                                                                                                                          "value":  0,
+                                                                                                                                          "kind":  "DWord"
+                                                                                                                                      },
+                                      "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced|TaskbarAnimations":  {
+                                                                                                                                        "value":  0,
+                                                                                                                                        "kind":  "DWord"
+                                                                                                                                    },
+                                      "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced|ListviewAlphaSelect":  {
+                                                                                                                                          "value":  0,
+                                                                                                                                          "kind":  "DWord"
+                                                                                                                                      },
+                                      "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced|ListviewShadow":  {
+                                                                                                                                     "value":  0,
+                                                                                                                                     "kind":  "DWord"
+                                                                                                                                 },
+                                      "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\VisualEffects|VisualFXSetting":  {
+                                                                                                                                           "value":  3,
+                                                                                                                                           "kind":  "DWord"
+                                                                                                                                       },
+                                      "HKCU:\\Software\\Microsoft\\Windows\\DWM|EnableAeroPeek":  {
+                                                                                                      "value":  0,
+                                                                                                      "kind":  "DWord"
+                                                                                                  }
+                                  },
+                     "uiSettings":  {
+                                        "AnimationsEnabled":  false,
+                                        "AdvancedEffectsEnabled":  false
+                                    },
+                     "userPreferencesMask":  "80 00 03 00 10 00 00 00"
+                 }
+}

@@ -1,0 +1,1638 @@
+{
+  "schemaVersion": 1,
+  "generated": "2026-08-27",
+  "note": "Profiles are cumulative: moderate = light + its own list; super = moderate + its own list. Every entry names the reason it is there. microsoft_disposition, when present, is Microsoft's own word for that exact service name, harvested by READ-ONLY-verification/Harvest-ServiceGuidance.py.",
+  "never": [
+    {
+      "service": "AppIDSvc",
+      "reason": "Application Identity - not just AppLocker; it is the file identity service behind WDAC and Smart App Control, and a kernel driver (applockerfltr) declares a dependency on it"
+    },
+    {
+      "service": "AppReadiness",
+      "reason": "Gets apps ready at first sign-in. Disabling it is the classic route to a hung 'We're getting things ready' and a broken Start menu after a feature update (audit S9)"
+    },
+    {
+      "service": "AppXSvc",
+      "reason": "AppX deployment; disabling breaks Store apps and Explorer surfaces"
+    },
+    {
+      "service": "Appinfo",
+      "reason": "Application Information - this is UAC ELEVATION. Disabling it means nothing can ever run as administrator again, including the undo for this module"
+    },
+    {
+      "service": "ApxSvc",
+      "reason": "Windows Virtual Audio Device Proxy - part of the audio path, and 'any services that explicitly depend on it will fail to start'"
+    },
+    {
+      "service": "AudioEndpointBuilder",
+      "reason": "audio device graph; 2 dependents"
+    },
+    {
+      "service": "Audiosrv",
+      "reason": "Windows Audio; 3 dependents. Deliberately kept in EVERY profile - silence is a large cost for no security gain"
+    },
+    {
+      "service": "BDESVC",
+      "reason": "BitLocker service. On a 25H2 Home machine Device Encryption is often on by default; disabling this removes the ability to suspend protection or read the recovery key, and a later firmware change then throws an unanswerable recovery prompt at boot"
+    },
+    {
+      "service": "BFE",
+      "reason": "Base Filtering Engine; the firewall cannot filter without it, 7 dependents"
+    },
+    {
+      "service": "BITS",
+      "reason": "background transfer; Windows Update depends on it"
+    },
+    {
+      "service": "BrokerInfrastructure",
+      "reason": "background task infrastructure; 5 dependents here"
+    },
+    {
+      "service": "ClipSVC",
+      "reason": "client licensing; Store apps refuse to run without it"
+    },
+    {
+      "service": "ConsentUxUserSvc",
+      "reason": "Capability consent prompts - a hardening module that disables the consent UI is pointing the wrong way"
+    },
+    {
+      "service": "CoreMessagingRegistrar",
+      "reason": "core messaging; shell and input depend on it"
+    },
+    {
+      "service": "CredentialEnrollmentManagerUserSvc",
+      "reason": "credential enrollment; a Type-80 service the enumerator did not even cover until this audit"
+    },
+    {
+      "service": "CryptSvc",
+      "reason": "certificate and catalog services; signature validation"
+    },
+    {
+      "service": "DcomLaunch",
+      "reason": "DCOM server launcher; RpcSs itself depends on it"
+    },
+    {
+      "service": "DevQueryBroker",
+      "reason": "Device query broker - every device-enumeration path in the shell (audit S10)"
+    },
+    {
+      "service": "DeviceAssociationService",
+      "reason": "device pairing and association"
+    },
+    {
+      "service": "DeviceInstall",
+      "reason": "device install service"
+    },
+    {
+      "service": "Dhcp",
+      "reason": "DHCP client; no address, no network"
+    },
+    {
+      "service": "DispBrokerDesktopSvc",
+      "reason": "display policy; disabling risks a black screen"
+    },
+    {
+      "service": "DisplayEnhancementService",
+      "reason": "brightness control"
+    },
+    {
+      "service": "Dnscache",
+      "reason": "DNS client; 3 dependents, name resolution"
+    },
+    {
+      "service": "DoSvc",
+      "reason": "Delivery Optimization is the update DOWNLOAD engine (module 02 closed its peering by mode, deliberately not by disabling this)"
+    },
+    {
+      "service": "DsSvc",
+      "reason": "Data Sharing Service - brokers data between applications; another COM-activated service with no declared dependents (audit S7)"
+    },
+    {
+      "service": "DsmSvc",
+      "reason": "device setup manager"
+    },
+    {
+      "service": "EFS",
+      "reason": "Encrypting File System. Any file ever encrypted with 'Encrypt contents to secure data' becomes unreadable - silent data loss"
+    },
+    {
+      "service": "EapHost",
+      "reason": "Extensible Authentication Protocol - enterprise and 802.1X Wi-Fi"
+    },
+    {
+      "service": "EventLog",
+      "reason": "the event log; every diagnostic depends on it"
+    },
+    {
+      "service": "EventSystem",
+      "reason": "COM+ event system, 2 dependents"
+    },
+    {
+      "service": "FontCache",
+      "reason": "font cache; disabling degrades text rendering performance"
+    },
+    {
+      "service": "IBMPMSVC",
+      "reason": "Lenovo power management - thermal and battery behaviour"
+    },
+    {
+      "service": "InstallService",
+      "reason": "Store install service; Explorer and Settings surfaces use it"
+    },
+    {
+      "service": "IntelAudioService",
+      "reason": "Intel SST audio service - Bluetooth and USB audio path"
+    },
+    {
+      "service": "IsoEnvBroker",
+      "reason": "Isolation Environment Broker - performs privileged operations for the 25H2 Administrator-protection elevation model. Latent today (that mode is off) and on the elevation path if it is ever turned on"
+    },
+    {
+      "service": "KeyIso",
+      "reason": "CNG key isolation; protects private keys, 2 dependents"
+    },
+    {
+      "service": "LITSSVC",
+      "reason": "Lenovo Intelligent Thermal Solution - fan and thermal policy"
+    },
+    {
+      "service": "LSM",
+      "reason": "Local Session Manager; owns session creation"
+    },
+    {
+      "service": "LanmanWorkstation",
+      "reason": "SMB client; 2 dependents, breaks network drive access"
+    },
+    {
+      "service": "LicenseManager",
+      "reason": "Store licensing"
+    },
+    {
+      "service": "MDCoreSvc",
+      "reason": "Defender core service"
+    },
+    {
+      "service": "NcbService",
+      "reason": "Network Connection Broker - the one network broker the never list was missing; Store apps and background transfer need it (audit S8)"
+    },
+    {
+      "service": "NetSetupSvc",
+      "reason": "network setup"
+    },
+    {
+      "service": "Netman",
+      "reason": "network connections management"
+    },
+    {
+      "service": "NlaSvc",
+      "reason": "network location awareness; firewall profile selection depends on it"
+    },
+    {
+      "service": "PlugPlay",
+      "reason": "device enumeration"
+    },
+    {
+      "service": "Power",
+      "reason": "power policy; a laptop without it is a brick on battery"
+    },
+    {
+      "service": "ProfSvc",
+      "reason": "loads user profiles; without it you cannot sign in"
+    },
+    {
+      "service": "RpcEptMapper",
+      "reason": "RPC endpoint mapper; RPC cannot resolve without it"
+    },
+    {
+      "service": "RpcSs",
+      "reason": "152 services depend on it; nothing on Windows works without RPC"
+    },
+    {
+      "service": "RtkAudioUniversalService",
+      "reason": "Realtek audio service - this machine's speaker endpoint. Auto-start, depends on Audiosrv"
+    },
+    {
+      "service": "SENS",
+      "reason": "system event notification; logon/logoff notifications"
+    },
+    {
+      "service": "SamSs",
+      "reason": "Security Accounts Manager; local account database"
+    },
+    {
+      "service": "Schedule",
+      "reason": "Task Scheduler; servicing and maintenance run through it"
+    },
+    {
+      "service": "SecurityHealthService",
+      "reason": "Windows Security surface and health reporting"
+    },
+    {
+      "service": "StateRepository",
+      "reason": "the package/state database; 4 dependents, breaks Start and Settings"
+    },
+    {
+      "service": "StorSvc",
+      "reason": "Storage Service. Auto-start, zero declared dependents, and the servicing stack's disk-space evaluation activates it by COM - so disabling it can fail Windows Update staging (audit S4)"
+    },
+    {
+      "service": "SystemEventsBroker",
+      "reason": "brokers system events for the shell and WinRT stack"
+    },
+    {
+      "service": "TPHKLOAD",
+      "reason": "Lenovo hotkey loader - the Fn keys, including brightness"
+    },
+    {
+      "service": "TextInputManagementService",
+      "reason": "text input - typing itself"
+    },
+    {
+      "service": "Themes",
+      "reason": "the shell's visual style; Explorer depends on it"
+    },
+    {
+      "service": "TimeBrokerSvc",
+      "reason": "Time broker - background task activation for packaged apps; running right now, zero declared dependents (audit S11)"
+    },
+    {
+      "service": "TokenBroker",
+      "reason": "web account tokens; sign-in and Store authentication"
+    },
+    {
+      "service": "TrustedInstaller",
+      "reason": "servicing; Windows Update and component install"
+    },
+    {
+      "service": "UserManager",
+      "reason": "manages the interactive session; sign-in fails without it"
+    },
+    {
+      "service": "UsoSvc",
+      "reason": "Update Orchestrator; drives the update sequence"
+    },
+    {
+      "service": "VSS",
+      "reason": "Volume Shadow Copy - System Restore and every imaging tool depend on it. A project built on reversibility must not disable the operating system's own rollback"
+    },
+    {
+      "service": "W32Time",
+      "reason": "Windows Time. Clock drift breaks TLS certificate validation, and with it HTTPS, Windows Update, the Store and sign-in. Kerberos has a 5-minute skew tolerance. Costs nothing to leave alone"
+    },
+    {
+      "service": "WPDBusEnum",
+      "reason": "portable device enumeration - phones and cameras over USB"
+    },
+    {
+      "service": "Wcmsvc",
+      "reason": "Windows Connection Manager - decides which network to connect to; Wi-Fi becomes unreliable without it"
+    },
+    {
+      "service": "WdNisSvc",
+      "reason": "Defender network inspection - part of the protection stack"
+    },
+    {
+      "service": "WinDefend",
+      "reason": "Microsoft Defender antivirus engine"
+    },
+    {
+      "service": "WinHttpAutoProxySvc",
+      "reason": "WinHTTP proxy auto-discovery; Microsoft says do not disable"
+    },
+    {
+      "service": "Winmgmt",
+      "reason": "Windows Management Instrumentation. Enormous dependency surface, and the tools that inventory and verify this machine use it"
+    },
+    {
+      "service": "WlanSvc",
+      "reason": "WLAN AutoConfig - this is a laptop; disabling it removes Wi-Fi"
+    },
+    {
+      "service": "WpnService",
+      "reason": "Push notifications - this is how Windows Security delivers its own alerts. Silencing the security stack is not hardening"
+    },
+    {
+      "service": "WpnUserService",
+      "reason": "Push notifications, per-user half of WpnService"
+    },
+    {
+      "service": "camsvc",
+      "reason": "capability access manager; app permission enforcement"
+    },
+    {
+      "service": "cbdhsvc",
+      "reason": "clipboard; copy and paste"
+    },
+    {
+      "service": "embeddedmode",
+      "reason": "Background application activation - 'Disabling this service will prevent Background Applications from being activated'"
+    },
+    {
+      "service": "gpsvc",
+      "reason": "group policy; policy processing at boot and logon"
+    },
+    {
+      "service": "hidserv",
+      "reason": "Human Interface Device service - volume and special keys"
+    },
+    {
+      "service": "ipfsvc",
+      "reason": "Intel Innovation Platform Framework - power and thermal policy"
+    },
+    {
+      "service": "iphlpsvc",
+      "reason": "IP Helper, 2 dependents; IPv6 transition and VPN plumbing"
+    },
+    {
+      "service": "mpssvc",
+      "reason": "Windows Firewall itself - disabling it is the opposite of hardening"
+    },
+    {
+      "service": "msiserver",
+      "reason": "Windows Installer; software install and repair"
+    },
+    {
+      "service": "netprofm",
+      "reason": "network list service; profile classification"
+    },
+    {
+      "service": "nsi",
+      "reason": "Network Store Interface; 13 dependents, network config breaks"
+    },
+    {
+      "service": "sppsvc",
+      "reason": "Software Protection - Windows activation and licensing"
+    },
+    {
+      "service": "swprv",
+      "reason": "Software Shadow Copy Provider - same reason as VSS"
+    },
+    {
+      "service": "webthreatdefsvc",
+      "reason": "web threat defence; part of the protection stack"
+    },
+    {
+      "service": "wscsvc",
+      "reason": "Security Center; reports protection state to the OS and to you"
+    },
+    {
+      "service": "wuauserv",
+      "reason": "Windows Update - updates are the primary defence"
+    },
+    {
+      "service": "CaptureService",
+      "reason": "Screen capture for Store apps - and the Snipping Tool IS a Store app. Disabling it silently breaks Win+Shift+S, the screenshot shortcut, with no error message: the overlay simply never appears. Confirmed on this machine on 2026-08-27 after the SUPER profile was applied. Its own description ('capture service for screen capture in Store apps') is accurate and badly undersells what depends on it."
+    },
+    {
+      "service": "bthserv",
+      "reason": "Bluetooth Support Service - has an honest switch: the owner toggles Bluetooth from the quick menu day by day and Windows honors that switch. Killing the service kills the switch: the menu says On and nothing underneath can start, exactly the camera-slider failure. Radios are present on this machine (DEC-06-016)."
+    },
+    {
+      "service": "BTAGService",
+      "reason": "Bluetooth Audio Gateway - same ruling as bthserv: the quick-menu toggle is the control, the profile is not (DEC-06-016)."
+    },
+    {
+      "service": "BluetoothUserService",
+      "reason": "Bluetooth per-user service - same ruling as bthserv (DEC-06-016)."
+    },
+    {
+      "service": "icssvc",
+      "reason": "Mobile hotspot - the owner turns the hotspot on and off from the menu as the day requires; the capability must exist for that switch to mean anything. Profiles target what IGNORES the user's switch, not what honors it (DEC-06-016)."
+    },
+    {
+      "service": "SharedAccess",
+      "reason": "Internet Connection Sharing - the hotspot's plumbing; same ruling as icssvc (DEC-06-016)."
+    }
+  ],
+  "lockoutRisk": [
+    {
+      "service": "LocalKdc",
+      "reason": "Kerberos Local Key Distribution Center. Microsoft's own description: 'This service enables users to log on to the local machine using the Kerberos authentication protocol. If this service is stopped, users will be unable to log on to the local machine.' Build 26200 is the train moving local authentication off NTLM onto this. It was in the MODERATE profile."
+    },
+    {
+      "service": "NaturalAuthentication",
+      "reason": "companion-device and phone-based sign-in."
+    },
+    {
+      "service": "NgcCtnrSvc",
+      "reason": "Windows Hello container; same lockout risk as NgcSvc."
+    },
+    {
+      "service": "NgcSvc",
+      "reason": "Windows Hello / PIN. This machine has NgcSvc RUNNING - a PIN is very likely in use. Disabling it can leave you unable to sign in."
+    },
+    {
+      "service": "WbioSrvc",
+      "reason": "Windows Biometric Service - fingerprint/face sign-in."
+    },
+    {
+      "service": "vaultsvc",
+      "reason": "Credential Manager; saved credentials and some sign-in paths."
+    },
+    {
+      "service": "wlidsvc",
+      "reason": "Microsoft Account sign-in assistant. This is the RECOVERY path for a forgotten PIN at the logon screen - protecting NgcSvc and disabling this is internally inconsistent."
+    },
+    {
+      "service": "FrameServer",
+      "reason": "Windows Camera Frame Server. Disabling it ends camera access for every application - but the reason it is on THIS list rather than in a profile is sign-in: Windows Hello FACE uses the infrared camera, and that path runs through FrameServer. Confirmed on this machine 2026-08-27: with the service disabled, face sign-in did not work; with it restored, the Biometrics log records the Facial Recognition sensor creating a Biometric Unit and the Windows Biometric Service authorising the user. A machine whose owner has only face enrolled would lose their sign-in method with no error explaining why. Excluded from every profile."
+    },
+    {
+      "service": "FrameServerMonitor",
+      "reason": "Health watchdog for FrameServer. Moves with it - disabling one without the other achieves nothing, and FrameServer is a sign-in path."
+    }
+  ],
+  "profiles": {
+    "light": {
+      "label": "LIGHT - unused hardware, OEM bloat, third-party updaters, telemetry and self-repair. NOT no-cost: scanning, Mobile Hotspot, File History, Windows Backup, WebDAV and smart cards all stop",
+      "services": [
+        {
+          "service": "QServiceEM05G",
+          "category": "unused hardware",
+          "reason": "Quectel WWAN modem helper. This machine's cellular adapters all report Not Present/Disconnected - there is no SIM in use.",
+          "microsoft_disposition": null,
+          "tier": "light"
+        },
+        {
+          "service": "QUECTELDPRSVC",
+          "category": "unused hardware",
+          "reason": "Quectel WWAN diagnostic/DPR service; same unused modem.",
+          "microsoft_disposition": null,
+          "tier": "light"
+        },
+        {
+          "service": "QuectelModemAuthSVC",
+          "category": "unused hardware",
+          "reason": "Quectel modem authentication; same unused modem.",
+          "microsoft_disposition": null,
+          "tier": "light"
+        },
+        {
+          "service": "WwanSvc",
+          "category": "unused hardware",
+          "reason": "WWAN AutoConfig - manages cellular connections. No SIM in use on this machine.",
+          "microsoft_disposition": null,
+          "tier": "light"
+        },
+        {
+          "service": "wlpasvc",
+          "category": "unused hardware",
+          "reason": "Local Profile Assistant, for cellular provisioning profiles.",
+          "microsoft_disposition": null,
+          "tier": "light"
+        },
+        {
+          "service": "McmSvc",
+          "category": "unused hardware",
+          "reason": "Mobile Connectivity Management - cellular.",
+          "microsoft_disposition": null,
+          "tier": "light"
+        },
+        {
+          "service": "IpxlatCfgSvc",
+          "category": "unused hardware",
+          "reason": "IP translation for cellular NAT64 networks.",
+          "microsoft_disposition": null,
+          "tier": "light"
+        },
+        {
+          "service": "ScDeviceEnum",
+          "category": "unused hardware",
+          "reason": "Smart card device enumeration. No smart card reader in use.",
+          "microsoft_disposition": "may-disable",
+          "tier": "light"
+        },
+        {
+          "service": "SCardSvr",
+          "category": "unused hardware",
+          "reason": "Smart Card service. No smart card in use.",
+          "microsoft_disposition": null,
+          "tier": "light"
+        },
+        {
+          "service": "SCPolicySvc",
+          "category": "unused hardware",
+          "reason": "Smart card removal policy.",
+          "microsoft_disposition": null,
+          "tier": "light"
+        },
+        {
+          "service": "WiaRpc",
+          "category": "unused hardware",
+          "reason": "Still Image Acquisition events - scanners.",
+          "microsoft_disposition": "may-disable",
+          "tier": "light"
+        },
+        {
+          "service": "StiSvc",
+          "category": "unused hardware",
+          "reason": "Windows Image Acquisition - scanners and some cameras.",
+          "microsoft_disposition": "may-disable",
+          "tier": "light"
+        },
+        {
+          "service": "perceptionsimulation",
+          "category": "unused hardware",
+          "reason": "Windows Perception Simulation - mixed reality headsets.",
+          "microsoft_disposition": null,
+          "tier": "light"
+        },
+        {
+          "service": "SensorDataService",
+          "category": "unused hardware",
+          "reason": "Sensor data (accelerometer, ambient light).",
+          "microsoft_disposition": "may-disable",
+          "tier": "light"
+        },
+        {
+          "service": "SensorService",
+          "category": "unused hardware",
+          "reason": "Sensor service.",
+          "microsoft_disposition": "may-disable",
+          "tier": "light"
+        },
+        {
+          "service": "SensrSvc",
+          "category": "unused hardware",
+          "reason": "Sensor monitoring, rotation and adaptive brightness.",
+          "microsoft_disposition": "may-disable",
+          "tier": "light"
+        },
+        {
+          "service": "midisrv",
+          "category": "unused hardware",
+          "reason": "Windows MIDI - musical instrument devices.",
+          "microsoft_disposition": null,
+          "tier": "light"
+        },
+        {
+          "service": "GameInputSvc",
+          "category": "gaming",
+          "reason": "GameInput - game controller input stack. Module 05 disabled the Xbox services; this is the same family.",
+          "microsoft_disposition": null,
+          "tier": "light"
+        },
+        {
+          "service": "RetailDemo",
+          "category": "never needed",
+          "reason": "Retail Demo mode, for shop display machines. Has no purpose on an owned device.",
+          "microsoft_disposition": null,
+          "tier": "light"
+        },
+        {
+          "service": "WpcMonSvc",
+          "category": "never needed",
+          "reason": "Parental Controls monitoring. Not in use on this machine.",
+          "microsoft_disposition": null,
+          "tier": "light"
+        },
+        {
+          "service": "shpamsvc",
+          "category": "never needed",
+          "reason": "Shared PC account manager, for kiosk/shared-PC mode.",
+          "microsoft_disposition": null,
+          "tier": "light"
+        },
+        {
+          "service": "GoogleUpdaterService152.0.7933.0",
+          "category": "third-party updater",
+          "reason": "Google's updater service. Chrome updates itself when it runs; a permanently registered service is unnecessary exposure.",
+          "microsoft_disposition": null,
+          "tier": "light"
+        },
+        {
+          "service": "GoogleUpdaterInternalService152.0.7933.0",
+          "category": "third-party updater",
+          "reason": "Google updater internal service.",
+          "microsoft_disposition": null,
+          "tier": "light"
+        },
+        {
+          "service": "GoogleChromeElevationService",
+          "category": "third-party updater",
+          "reason": "Chrome elevation service - runs privileged operations on Chrome's behalf.",
+          "microsoft_disposition": null,
+          "tier": "light"
+        },
+        {
+          "service": "edgeupdate",
+          "category": "third-party updater",
+          "reason": "Edge updater service. Edge also updates through Windows Update.",
+          "microsoft_disposition": null,
+          "tier": "light"
+        },
+        {
+          "service": "edgeupdatem",
+          "category": "third-party updater",
+          "reason": "Edge updater (per-machine variant).",
+          "microsoft_disposition": null,
+          "tier": "light"
+        },
+        {
+          "service": "MicrosoftEdgeElevationService",
+          "category": "third-party updater",
+          "reason": "Edge elevation service - a privileged helper.",
+          "microsoft_disposition": null,
+          "tier": "light"
+        },
+        {
+          "service": "ONLYOFFICE Update Service",
+          "category": "third-party updater",
+          "reason": "ONLYOFFICE updater service.",
+          "microsoft_disposition": null,
+          "tier": "light"
+        },
+        {
+          "service": "dptftcs",
+          "category": "OEM telemetry",
+          "reason": "Intel Dynamic Tuning telemetry collection service.",
+          "microsoft_disposition": null,
+          "tier": "light"
+        },
+        {
+          "service": "IntelCstService",
+          "category": "OEM telemetry",
+          "reason": "Intel Context Sensing Technology - presence/context sensing.",
+          "microsoft_disposition": null,
+          "tier": "light"
+        },
+        {
+          "service": "LvfInstallService",
+          "category": "OEM bloat",
+          "reason": "Lenovo View install helper - installs Lenovo's webcam software.",
+          "microsoft_disposition": null,
+          "tier": "light"
+        },
+        {
+          "service": "UDCService",
+          "category": "OEM bloat",
+          "reason": "Lenovo Universal Device Client.",
+          "microsoft_disposition": null,
+          "tier": "light"
+        },
+        {
+          "service": "LenovoVantageService",
+          "category": "OEM bloat",
+          "reason": "Lenovo Vantage's background service. Vantage's useful settings are readable from Windows itself; the service is a persistent privileged agent.",
+          "microsoft_disposition": null,
+          "tier": "light"
+        },
+        {
+          "service": "ImControllerService",
+          "category": "OEM bloat",
+          "reason": "Lenovo System Interface Foundation - the channel Lenovo's software uses to talk to the machine.",
+          "microsoft_disposition": null,
+          "tier": "light"
+        },
+        {
+          "service": "WMIRegistrationService",
+          "category": "OEM bloat",
+          "reason": "Intel Management Engine WMI provider registration.",
+          "microsoft_disposition": null,
+          "tier": "light"
+        },
+        {
+          "service": "Intel(R) Platform License Manager Service",
+          "category": "OEM bloat",
+          "reason": "Intel platform licensing.",
+          "microsoft_disposition": null,
+          "tier": "light"
+        },
+        {
+          "service": "InventorySvc",
+          "category": "telemetry",
+          "reason": "Inventory and Compatibility Appraisal - builds the hardware/software inventory sent for upgrade eligibility.",
+          "microsoft_disposition": null,
+          "tier": "light"
+        },
+        {
+          "service": "wuqisvc",
+          "category": "telemetry",
+          "reason": "Microsoft Usage and Quality Insights.",
+          "microsoft_disposition": null,
+          "tier": "light"
+        },
+        {
+          "service": "dmwappushservice",
+          "category": "telemetry",
+          "reason": "WAP push message routing - a device-management/telemetry channel.",
+          "microsoft_disposition": "may-disable",
+          "tier": "light"
+        },
+        {
+          "service": "diagnosticshub.standardcollector.service",
+          "category": "telemetry",
+          "reason": "Diagnostics Hub standard collector - developer/ETW trace collection.",
+          "microsoft_disposition": null,
+          "tier": "light"
+        },
+        {
+          "service": "WerSvc",
+          "category": "telemetry",
+          "reason": "Windows Error Reporting - uploads crash data.",
+          "microsoft_disposition": null,
+          "tier": "light"
+        },
+        {
+          "service": "wercplsupport",
+          "category": "telemetry",
+          "reason": "Error reporting control panel support.",
+          "microsoft_disposition": null,
+          "tier": "light"
+        },
+        {
+          "service": "TroubleshootingSvc",
+          "category": "telemetry",
+          "reason": "Recommended Troubleshooting - fetches and runs troubleshooters from Microsoft.",
+          "microsoft_disposition": null,
+          "tier": "light"
+        },
+        {
+          "service": "PcaSvc",
+          "category": "telemetry",
+          "reason": "Program Compatibility Assistant - watches what you run.",
+          "microsoft_disposition": "may-disable",
+          "tier": "light"
+        },
+        {
+          "service": "WaaSMedicSvc",
+          "category": "update repair",
+          "reason": "Update 'medic' - silently repairs update components, including reverting configuration you set deliberately.",
+          "microsoft_disposition": null,
+          "tier": "light"
+        },
+        {
+          "service": "SSDPSRV",
+          "category": "network discovery",
+          "reason": "SSDP discovery - UPnP device announcement.",
+          "microsoft_disposition": "may-disable",
+          "tier": "light"
+        },
+        {
+          "service": "upnphost",
+          "category": "network discovery",
+          "reason": "UPnP Device Host - makes this machine announce itself as a UPnP device.",
+          "microsoft_disposition": "may-disable",
+          "tier": "light"
+        },
+        {
+          "service": "lltdsvc",
+          "category": "network discovery",
+          "reason": "Link-Layer Topology Discovery - network map responder.",
+          "microsoft_disposition": "may-disable",
+          "tier": "light"
+        },
+        {
+          "service": "NcdAutoSetup",
+          "category": "network discovery",
+          "reason": "Network Connected Devices auto-setup - discovers and installs network devices automatically.",
+          "microsoft_disposition": null,
+          "tier": "light"
+        },
+        {
+          "service": "wcncsvc",
+          "category": "network discovery",
+          "reason": "Windows Connect Now - WPS wireless provisioning.",
+          "microsoft_disposition": null,
+          "tier": "light"
+        },
+        {
+          "service": "WFDSConMgrSvc",
+          "category": "network discovery",
+          "reason": "Wi-Fi Direct services connection manager.",
+          "microsoft_disposition": null,
+          "tier": "light"
+        },
+        {
+          "service": "WebClient",
+          "category": "legacy protocol",
+          "reason": "WebDAV client - lets Explorer mount http:// shares; a long-standing lateral-movement path.",
+          "microsoft_disposition": null,
+          "tier": "light"
+        },
+        {
+          "service": "MapsBroker",
+          "category": "unused feature",
+          "reason": "Downloaded Maps Manager - offline maps.",
+          "microsoft_disposition": "may-disable",
+          "tier": "light"
+        },
+        {
+          "service": "AxInstSV",
+          "category": "unused feature",
+          "reason": "ActiveX Installer - installs ActiveX from web pages in Internet Explorer.",
+          "microsoft_disposition": "may-disable",
+          "tier": "light"
+        },
+        {
+          "service": "QWAVE",
+          "category": "unused feature",
+          "reason": "Quality Windows Audio Video Experience - QoS for streaming.",
+          "microsoft_disposition": "may-disable",
+          "tier": "light"
+        },
+        {
+          "service": "PushToInstall",
+          "category": "unused feature",
+          "reason": "Push-to-install - lets the Store install apps to this device remotely.",
+          "microsoft_disposition": null,
+          "tier": "light"
+        },
+        {
+          "service": "fhsvc",
+          "category": "unused feature",
+          "reason": "File History - not in use on this machine.",
+          "microsoft_disposition": null,
+          "tier": "light"
+        },
+        {
+          "service": "SDRSVC",
+          "category": "unused feature",
+          "reason": "Windows Backup (legacy).",
+          "microsoft_disposition": null,
+          "tier": "light"
+        },
+        {
+          "service": "wbengine",
+          "category": "unused feature",
+          "reason": "Block-level backup engine, used by Windows Backup.",
+          "microsoft_disposition": null,
+          "tier": "light"
+        },
+        {
+          "service": "PhoneSvc",
+          "category": "unused feature",
+          "reason": "Phone Service - telephony state for phone apps.",
+          "microsoft_disposition": "may-disable",
+          "tier": "light"
+        },
+        {
+          "service": "TapiSrv",
+          "category": "unused feature",
+          "reason": "Telephony API - modem/telephony applications.",
+          "microsoft_disposition": "must-keep",
+          "tier": "light"
+        },
+        {
+          "service": "WalletService",
+          "category": "unused feature",
+          "reason": "Wallet service for payment cards in Store apps.",
+          "microsoft_disposition": "may-disable",
+          "tier": "light"
+        },
+        {
+          "service": "AarSvc",
+          "category": "unused feature",
+          "reason": "Agent Activation Runtime - voice assistant activation.",
+          "microsoft_disposition": null,
+          "tier": "light"
+        }
+      ]
+    },
+    "moderate": {
+      "label": "MODERATE - light, plus remote access, cloud sync, diagnostics, discovery. Also ends Bluetooth PAIRING and the built-in troubleshooters",
+      "services": [
+        {
+          "service": "TermService",
+          "category": "remote access",
+          "reason": "Remote Desktop Services. RDP is DISABLED on this machine (fDenyTSConnections=1), so this is listening surface with no user.",
+          "microsoft_disposition": "must-keep",
+          "tier": "moderate"
+        },
+        {
+          "service": "UmRdpService",
+          "category": "remote access",
+          "reason": "Remote Desktop UserMode port redirector.",
+          "microsoft_disposition": "must-keep",
+          "tier": "moderate"
+        },
+        {
+          "service": "SessionEnv",
+          "category": "remote access",
+          "reason": "Remote Desktop Configuration.",
+          "microsoft_disposition": "must-keep",
+          "tier": "moderate"
+        },
+        {
+          "service": "NcaSvc",
+          "category": "remote access",
+          "reason": "Network Connectivity Assistant. Microsoft's own description is 'Provides DirectAccess status notification for UI components' - and DirectAccess is deprecated and scheduled for removal [R-118]. This machine is Windows 11 Home in WORKGROUP: it cannot join a domain, so the service's DOMAIN JOINED start trigger can never fire, but its GROUP POLICY [MACHINE POLICY PRESENT] trigger can. LocalSystem, Manual, no dependents. Added after an audit found it was the only trigger-startable LocalSystem service on this machine that no profile reached - see DEC-06-011.",
+          "microsoft_disposition": null,
+          "tier": "moderate"
+        },
+        {
+          "service": "RemoteRegistry",
+          "category": "remote access",
+          "reason": "Remote registry editing. Windows 11 client already ships this DISABLED - proof the Server 'do not disable' guidance is role-specific.",
+          "microsoft_disposition": "must-keep",
+          "tier": "moderate"
+        },
+        {
+          "service": "WinRM",
+          "category": "remote access",
+          "reason": "Windows Remote Management - PowerShell remoting endpoint. Not domain-joined, not managed.",
+          "microsoft_disposition": "must-keep",
+          "tier": "moderate"
+        },
+        {
+          "service": "SstpSvc",
+          "category": "remote access",
+          "reason": "SSTP VPN protocol service.",
+          "microsoft_disposition": "must-keep",
+          "tier": "moderate"
+        },
+        {
+          "service": "RasMan",
+          "category": "remote access",
+          "reason": "Remote Access Connection Manager - dial-up and VPN.",
+          "microsoft_disposition": null,
+          "tier": "moderate"
+        },
+        {
+          "service": "RasAuto",
+          "category": "remote access",
+          "reason": "Remote Access Auto Connection Manager.",
+          "microsoft_disposition": null,
+          "tier": "moderate"
+        },
+        {
+          "service": "IKEEXT",
+          "category": "remote access",
+          "reason": "IKE and AuthIP keying for IPsec VPN.",
+          "microsoft_disposition": null,
+          "tier": "moderate"
+        },
+        {
+          "service": "PolicyAgent",
+          "category": "remote access",
+          "reason": "IPsec Policy Agent.",
+          "microsoft_disposition": null,
+          "tier": "moderate"
+        },
+        {
+          "service": "Wecsvc",
+          "category": "remote access",
+          "reason": "Windows Event Collector - forwards/collects events over WinRM.",
+          "microsoft_disposition": "must-keep",
+          "tier": "moderate"
+        },
+        {
+          "service": "LanmanServer",
+          "category": "file sharing",
+          "reason": "SMB SERVER - makes this machine share files and printers. A laptop is a client; this is inbound surface.",
+          "microsoft_disposition": "must-keep",
+          "tier": "moderate"
+        },
+        {
+          "service": "FDResPub",
+          "category": "network discovery",
+          "reason": "Function Discovery Resource Publication - publishes this machine to the network.",
+          "microsoft_disposition": null,
+          "tier": "moderate"
+        },
+        {
+          "service": "fdPHost",
+          "category": "network discovery",
+          "reason": "Function Discovery Provider Host.",
+          "microsoft_disposition": null,
+          "tier": "moderate"
+        },
+        {
+          "service": "DPS",
+          "category": "diagnostics",
+          "reason": "Diagnostic Policy Service. The supervisor of Windows' self-diagnosis: decides which of 54 registered scenarios run and dispatches them to the two Wdi hosts. Automatic, LocalService, no start trigger. Nothing declares a dependency on it. Disabling it also stops boot and shutdown performance logging outright [R-113]. Treat as one unit with WdiServiceHost and WdiSystemHost - see BLAST-RADIUS-diagnostics.md and DEC-06-010.",
+          "microsoft_disposition": "VDI optimisation guidance lists it among services that may be considered to disable [R-110]; cost stated as 'Disabling this service disables the ability to run Windows diagnostics.' [R-111]. Server services guidance: No guidance.",
+          "tier": "moderate"
+        },
+        {
+          "service": "WdiServiceHost",
+          "category": "diagnostics",
+          "reason": "Diagnostic Service Host - wdi.dll hosted at LocalService privilege, the container DPS loads diagnostic modules into [R-108]. Named in Microsoft's Windows Filtering Platform documentation as a principal granted rights on WFP objects alongside the firewall and IPsec policy agent [R-116], which is how network diagnostics reach firewall filters. A component of DPS, so covered by Microsoft's own caveat [R-114] - see BLAST-RADIUS-diagnostics.md and DEC-06-010.",
+          "microsoft_disposition": "Absent from the VDI table and No guidance in the server services guidance. The absence carries no signal: the VDI table states it omits already-Manual services [R-115], yet lists WdiSystemHost, which is also Manual.",
+          "tier": "moderate"
+        },
+        {
+          "service": "WdiSystemHost",
+          "category": "diagnostics",
+          "reason": "Diagnostic System Host - the SAME binary as WdiServiceHost (wdi.dll), hosted at LocalSystem instead [R-109]. Running on this machine at the time of measurement. Loads any of 29 registered diagnostic modules resolving to 15 DLLs. A component of DPS, so covered by Microsoft's own caveat [R-114] - see BLAST-RADIUS-diagnostics.md and DEC-06-010.",
+          "microsoft_disposition": "VDI optimisation guidance lists it among services that may be considered to disable [R-110]; cost stated as 'Disabling this service disables the ability to run Windows diagnostics' [R-112]. Server services guidance: No guidance.",
+          "tier": "moderate"
+        },
+        {
+          "service": "DiagTrack",
+          "category": "telemetry",
+          "reason": "Connected User Experiences and Telemetry - the main diagnostic-data pipeline.",
+          "microsoft_disposition": null,
+          "tier": "moderate"
+        },
+        {
+          "service": "diagsvc",
+          "category": "diagnostics",
+          "reason": "Diagnostic Execution Service.",
+          "microsoft_disposition": null,
+          "tier": "moderate"
+        },
+        {
+          "service": "ADPSvc",
+          "category": "telemetry",
+          "reason": "Aggregated Data Platform service.",
+          "microsoft_disposition": null,
+          "tier": "moderate"
+        },
+        {
+          "service": "whesvc",
+          "category": "telemetry",
+          "reason": "Windows Health and Optimized Experiences.",
+          "microsoft_disposition": null,
+          "tier": "moderate"
+        },
+        {
+          "service": "OneSyncSvc",
+          "category": "cloud sync",
+          "reason": "Syncs mail, contacts and calendar for the Mail/People/Calendar apps.",
+          "microsoft_disposition": "may-disable",
+          "tier": "moderate"
+        },
+        {
+          "service": "UnistoreSvc",
+          "category": "cloud sync",
+          "reason": "Unified store for user data (contacts, calendar).",
+          "microsoft_disposition": "may-disable",
+          "tier": "moderate"
+        },
+        {
+          "service": "UserDataSvc",
+          "category": "cloud sync",
+          "reason": "User data access for those stores.",
+          "microsoft_disposition": "may-disable",
+          "tier": "moderate"
+        },
+        {
+          "service": "PimIndexMaintenanceSvc",
+          "category": "cloud sync",
+          "reason": "Contact data indexing.",
+          "microsoft_disposition": "may-disable",
+          "tier": "moderate"
+        },
+        {
+          "service": "CloudBackupRestoreSvc",
+          "category": "cloud sync",
+          "reason": "Cloud backup and restore of settings.",
+          "microsoft_disposition": null,
+          "tier": "moderate"
+        },
+        {
+          "service": "CDPSvc",
+          "category": "cloud sync",
+          "reason": "Connected Devices Platform - device linking, Phone Link, Nearby Share.",
+          "microsoft_disposition": null,
+          "tier": "moderate"
+        },
+        {
+          "service": "CDPUserSvc",
+          "category": "cloud sync",
+          "reason": "Connected Devices Platform per-user component.",
+          "microsoft_disposition": "may-disable",
+          "tier": "moderate"
+        },
+        {
+          "service": "DevicesFlowUserSvc",
+          "category": "cloud sync",
+          "reason": "Device flow broker for device pairing UX.",
+          "microsoft_disposition": null,
+          "tier": "moderate"
+        },
+        {
+          "service": "DeviceAssociationBrokerSvc",
+          "category": "cloud sync",
+          "reason": "Device association broker.",
+          "microsoft_disposition": null,
+          "tier": "moderate"
+        },
+        {
+          "service": "MessagingService",
+          "category": "cloud sync",
+          "reason": "Text messaging and related functionality.",
+          "microsoft_disposition": null,
+          "tier": "moderate"
+        },
+        {
+          "service": "lfsvc",
+          "category": "location",
+          "reason": "Geolocation Service - location for apps and Find My Device.",
+          "microsoft_disposition": "may-disable",
+          "tier": "moderate"
+        },
+        {
+          "service": "NPSMSvc",
+          "category": "notifications",
+          "reason": "Now Playing Session Manager (media transport UI).",
+          "microsoft_disposition": null,
+          "tier": "moderate"
+        },
+        {
+          "service": "wisvc",
+          "category": "insider",
+          "reason": "Windows Insider Service - preview builds. Not an Insider machine.",
+          "microsoft_disposition": "may-disable",
+          "tier": "moderate"
+        },
+        {
+          "service": "PrintNotify",
+          "category": "printing",
+          "reason": "Printer notifications and extensions.",
+          "microsoft_disposition": "may-disable-conditional",
+          "tier": "moderate"
+        },
+        {
+          "service": "PrintDeviceConfigurationService",
+          "category": "printing",
+          "reason": "Print device configuration.",
+          "microsoft_disposition": null,
+          "tier": "moderate"
+        },
+        {
+          "service": "PrintScanBrokerService",
+          "category": "printing",
+          "reason": "Print and scan broker for Store apps.",
+          "microsoft_disposition": null,
+          "tier": "moderate"
+        },
+        {
+          "service": "PrintWorkflowUserSvc",
+          "category": "printing",
+          "reason": "Print workflow, per-user.",
+          "microsoft_disposition": null,
+          "tier": "moderate"
+        },
+        {
+          "service": "ShellHWDetection",
+          "category": "autoplay",
+          "reason": "Shell Hardware Detection - AutoPlay when media is inserted. AutoPlay is a classic removable-media execution path.",
+          "microsoft_disposition": "may-disable",
+          "tier": "moderate"
+        },
+        {
+          "service": "SharedRealitySvc",
+          "category": "unused feature",
+          "reason": "Spatial data service.",
+          "microsoft_disposition": null,
+          "tier": "moderate"
+        },
+        {
+          "service": "SEMgrSvc",
+          "category": "payments",
+          "reason": "Payments and NFC/secure element manager.",
+          "microsoft_disposition": null,
+          "tier": "moderate"
+        },
+        {
+          "service": "LxpSvc",
+          "category": "language",
+          "reason": "Language Experience Service - installs language packs.",
+          "microsoft_disposition": null,
+          "tier": "moderate"
+        },
+        {
+          "service": "WManSvc",
+          "category": "management",
+          "reason": "Windows Management Service (MDM).",
+          "microsoft_disposition": null,
+          "tier": "moderate"
+        },
+        {
+          "service": "dcsvc",
+          "category": "management",
+          "reason": "Declared Configuration service (MDM).",
+          "microsoft_disposition": null,
+          "tier": "moderate"
+        },
+        {
+          "service": "McpManagementService",
+          "category": "management",
+          "reason": "MCP management service.",
+          "microsoft_disposition": null,
+          "tier": "moderate"
+        },
+        {
+          "service": "DevicePickerUserSvc",
+          "category": "misc",
+          "reason": "Device picker UX (cast/project targets).",
+          "microsoft_disposition": null,
+          "tier": "moderate"
+        },
+        {
+          "service": "WSAIFabricSvc",
+          "category": "misc",
+          "reason": "Windows AI fabric service - on-device AI plumbing.",
+          "microsoft_disposition": null,
+          "tier": "moderate"
+        },
+        {
+          "service": "hpatchmon",
+          "category": "servicing",
+          "reason": "Hotpatch monitoring - hotpatching is an Enterprise/Server capability.",
+          "microsoft_disposition": null,
+          "tier": "moderate"
+        },
+        {
+          "service": "refsdedupsvc",
+          "category": "storage",
+          "reason": "ReFS deduplication - this machine has no ReFS volume.",
+          "microsoft_disposition": null,
+          "tier": "moderate"
+        },
+        {
+          "service": "MSiSCSI",
+          "category": "storage",
+          "reason": "iSCSI initiator - no iSCSI targets in use.",
+          "microsoft_disposition": "must-keep",
+          "tier": "moderate"
+        },
+        {
+          "service": "smphost",
+          "category": "storage",
+          "reason": "Storage Spaces SMP - no Storage Spaces in use.",
+          "microsoft_disposition": "must-keep",
+          "tier": "moderate"
+        },
+        {
+          "service": "defragsvc",
+          "category": "storage",
+          "reason": "Optimise Drives. Scheduled optimisation still runs via Task Scheduler on demand.",
+          "microsoft_disposition": null,
+          "tier": "moderate"
+        }
+      ]
+    },
+    "super": {
+      "label": "SUPER / ENTERPRISE SECURE - moderate, plus printing, Bluetooth, Windows Search, Store surface, legacy protocols. Audio, thermal and brightness are deliberately NOT touched",
+      "services": [
+        {
+          "service": "BthAvctpSvc",
+          "category": "bluetooth",
+          "reason": "Bluetooth AVCTP (audio/video control) service.",
+          "microsoft_disposition": null,
+          "tier": "super"
+        },
+        {
+          "service": "Spooler",
+          "category": "printing",
+          "reason": "Print Spooler. WARNING: this also removes 'Microsoft Print to PDF', the only printer on this machine. The spooler has a long history of privilege-escalation vulnerabilities, which is why an enterprise-secure profile turns it off.",
+          "microsoft_disposition": "may-disable-conditional",
+          "tier": "super"
+        },
+        {
+          "service": "AppMgmt",
+          "category": "store",
+          "reason": "Application Management - MSI/GPO software installation.",
+          "microsoft_disposition": null,
+          "tier": "super"
+        },
+        {
+          "service": "EntAppSvc",
+          "category": "store",
+          "reason": "Enterprise App Management.",
+          "microsoft_disposition": null,
+          "tier": "super"
+        },
+        {
+          "service": "LPlatSvc",
+          "category": "OEM",
+          "reason": "Lenovo Platform Service.",
+          "microsoft_disposition": null,
+          "tier": "super"
+        },
+        {
+          "service": "LenovoSmartStandby",
+          "category": "OEM",
+          "reason": "Lenovo Smart Standby.",
+          "microsoft_disposition": null,
+          "tier": "super"
+        },
+        {
+          "service": "EPDService",
+          "category": "OEM",
+          "reason": "ELAN touchpad service. WARNING: advanced touchpad gestures may stop working.",
+          "microsoft_disposition": null,
+          "tier": "super"
+        },
+        {
+          "service": "cplspcon",
+          "category": "OEM",
+          "reason": "Intel content protection HDCP service - protected video playback (some streaming).",
+          "microsoft_disposition": null,
+          "tier": "super"
+        },
+        {
+          "service": "jhi_service",
+          "category": "OEM",
+          "reason": "Intel Dynamic Application Loader host interface (ME).",
+          "microsoft_disposition": null,
+          "tier": "super"
+        },
+        {
+          "service": "GraphicsPerfSvc",
+          "category": "display",
+          "reason": "Graphics performance monitor.",
+          "microsoft_disposition": null,
+          "tier": "super"
+        },
+        {
+          "service": "HvHost",
+          "category": "hyper-v",
+          "reason": "Hyper-V Host Service. Hyper-V is not installed on this machine.",
+          "microsoft_disposition": "must-keep",
+          "tier": "super"
+        },
+        {
+          "service": "vmicheartbeat",
+          "category": "hyper-v",
+          "reason": "Hyper-V heartbeat integration.",
+          "microsoft_disposition": "must-keep",
+          "tier": "super"
+        },
+        {
+          "service": "vmicvss",
+          "category": "hyper-v",
+          "reason": "Hyper-V volume shadow copy integration.",
+          "microsoft_disposition": "must-keep",
+          "tier": "super"
+        },
+        {
+          "service": "vmicshutdown",
+          "category": "hyper-v",
+          "reason": "Hyper-V guest shutdown integration.",
+          "microsoft_disposition": "must-keep",
+          "tier": "super"
+        },
+        {
+          "service": "vmictimesync",
+          "category": "hyper-v",
+          "reason": "Hyper-V time synchronisation.",
+          "microsoft_disposition": "must-keep",
+          "tier": "super"
+        },
+        {
+          "service": "vmicrdv",
+          "category": "hyper-v",
+          "reason": "Hyper-V remote desktop virtualisation.",
+          "microsoft_disposition": "must-keep",
+          "tier": "super"
+        },
+        {
+          "service": "vmicvmsession",
+          "category": "hyper-v",
+          "reason": "Hyper-V PowerShell Direct.",
+          "microsoft_disposition": "must-keep",
+          "tier": "super"
+        },
+        {
+          "service": "vmicguestinterface",
+          "category": "hyper-v",
+          "reason": "Hyper-V guest service interface.",
+          "microsoft_disposition": "must-keep",
+          "tier": "super"
+        },
+        {
+          "service": "vmickvpexchange",
+          "category": "hyper-v",
+          "reason": "Hyper-V data exchange.",
+          "microsoft_disposition": "must-keep",
+          "tier": "super"
+        },
+        {
+          "service": "vmcompute",
+          "category": "hyper-v",
+          "reason": "Host Compute Service - containers and WSL2.",
+          "microsoft_disposition": null,
+          "tier": "super"
+        },
+        {
+          "service": "P9RdrService",
+          "category": "wsl",
+          "reason": "Plan 9 filesystem redirector for WSL. WSL is not installed here.",
+          "microsoft_disposition": null,
+          "tier": "super"
+        },
+        {
+          "service": "LxssManager",
+          "category": "wsl",
+          "reason": "WSL manager. Not installed here.",
+          "microsoft_disposition": null,
+          "tier": "super"
+        },
+        {
+          "service": "WarpJITSvc",
+          "category": "misc",
+          "reason": "WARP JIT service (software rasteriser JIT).",
+          "microsoft_disposition": null,
+          "tier": "super"
+        },
+        {
+          "service": "TabletInputService",
+          "category": "input",
+          "reason": "Touch keyboard and handwriting panel. WARNING: removes the on-screen keyboard.",
+          "microsoft_disposition": null,
+          "tier": "super"
+        },
+        {
+          "service": "SysMain",
+          "category": "performance",
+          "reason": "SysMain (Superfetch). On an SSD the benefit is small and it costs constant background IO.",
+          "microsoft_disposition": null,
+          "tier": "super"
+        },
+        {
+          "service": "WSearch",
+          "category": "search",
+          "reason": "Windows Search indexing. WARNING: Start-menu and Explorer search become much slower. This is the single most user-visible entry in this profile.",
+          "microsoft_disposition": null,
+          "tier": "super"
+        },
+        {
+          "service": "PenService",
+          "category": "input",
+          "reason": "Pen service. No active pen in use.",
+          "microsoft_disposition": null,
+          "tier": "super"
+        },
+        {
+          "service": "UdkUserSvc",
+          "category": "misc",
+          "reason": "Windows UDK service (per-user), hosted in windowsudkservices.shellcommon.dll. UNVERIFIED: the DLL name says shell-common, and its neighbour CaptureService turned out to break Win+Shift+S. If a shell interaction stops working after SUPER, test this one next. Not removed from the profile because nothing has actually been observed to break - said here rather than assumed away.",
+          "microsoft_disposition": null,
+          "tier": "super"
+        },
+        {
+          "service": "AssignedAccessManagerSvc",
+          "category": "misc",
+          "reason": "Assigned Access (kiosk mode) manager.",
+          "microsoft_disposition": null,
+          "tier": "super"
+        },
+        {
+          "service": "autotimesvc",
+          "category": "time",
+          "reason": "Cellular time synchronisation. No SIM in use.",
+          "microsoft_disposition": null,
+          "tier": "super"
+        },
+        {
+          "service": "tzautoupdate",
+          "category": "time",
+          "reason": "Automatic time-zone update by location. Already disabled by default here.",
+          "microsoft_disposition": "must-keep",
+          "tier": "super"
+        },
+        {
+          "service": "workfolderssvc",
+          "category": "sync",
+          "reason": "Work Folders - enterprise file sync, not configured here.",
+          "microsoft_disposition": null,
+          "tier": "super"
+        },
+        {
+          "service": "SNMPTrap",
+          "category": "legacy",
+          "reason": "SNMP Trap receiver. SNMP is not in use; a listening management protocol on a laptop is pure surface.",
+          "microsoft_disposition": null,
+          "tier": "super"
+        },
+        {
+          "service": "RpcLocator",
+          "category": "legacy",
+          "reason": "RPC Locator - an NT-era name service kept only for very old applications.",
+          "microsoft_disposition": null,
+          "tier": "super"
+        },
+        {
+          "service": "lmhosts",
+          "category": "legacy",
+          "reason": "TCP/IP NetBIOS Helper - NetBIOS name resolution, a decades-old protocol and a classic lateral-movement path.",
+          "microsoft_disposition": null,
+          "tier": "super"
+        },
+        {
+          "service": "TrkWks",
+          "category": "legacy",
+          "reason": "Distributed Link Tracking Client - maintains shortcut links to files moved on NTFS volumes across a network.",
+          "microsoft_disposition": null,
+          "tier": "super"
+        },
+        {
+          "service": "MSDTC",
+          "category": "legacy",
+          "reason": "Distributed Transaction Coordinator - two-phase commit across databases. Server workload.",
+          "microsoft_disposition": null,
+          "tier": "super"
+        },
+        {
+          "service": "KtmRm",
+          "category": "legacy",
+          "reason": "Kernel Transaction Manager for DTC. Same server workload.",
+          "microsoft_disposition": null,
+          "tier": "super"
+        },
+        {
+          "service": "Netlogon",
+          "category": "domain",
+          "reason": "Netlogon - maintains the secure channel to a domain controller. This machine is NOT domain-joined.",
+          "microsoft_disposition": null,
+          "tier": "super"
+        },
+        {
+          "service": "DmEnrollmentSvc",
+          "category": "domain",
+          "reason": "Device Management Enrollment - MDM enrolment. Not managed.",
+          "microsoft_disposition": null,
+          "tier": "super"
+        },
+        {
+          "service": "dot3svc",
+          "category": "domain",
+          "reason": "Wired AutoConfig - 802.1X authentication on Ethernet, an enterprise network feature.",
+          "microsoft_disposition": null,
+          "tier": "super"
+        },
+        {
+          "service": "CertPropSvc",
+          "category": "smart card",
+          "reason": "Certificate Propagation - copies smart-card certificates into the user store.",
+          "microsoft_disposition": null,
+          "tier": "super"
+        },
+        {
+          "service": "SmsRouter",
+          "category": "unused hardware",
+          "reason": "SMS Router - routes text messages via the cellular radio. No SIM in use.",
+          "microsoft_disposition": null,
+          "tier": "super"
+        },
+        {
+          "service": "TieringEngineService",
+          "category": "storage",
+          "reason": "Storage Tiers Management - tiered Storage Spaces, not in use.",
+          "microsoft_disposition": null,
+          "tier": "super"
+        },
+        {
+          "service": "svsvc",
+          "category": "storage",
+          "reason": "Spot Verifier - checks for filesystem corruption for later chkdsk repair.",
+          "microsoft_disposition": null,
+          "tier": "super"
+        },
+        {
+          "service": "vds",
+          "category": "storage",
+          "reason": "Virtual Disk - used by Disk Management and diskpart. WARNING: disk management tools will need it re-enabled.",
+          "microsoft_disposition": null,
+          "tier": "super"
+        },
+        {
+          "service": "pla",
+          "category": "diagnostics",
+          "reason": "Performance Logs and Alerts - scheduled performance data collection.",
+          "microsoft_disposition": null,
+          "tier": "super"
+        },
+        {
+          "service": "PerfHost",
+          "category": "diagnostics",
+          "reason": "Performance Counter DLL Host - lets REMOTE users query performance counters.",
+          "microsoft_disposition": null,
+          "tier": "super"
+        },
+        {
+          "service": "wmiApSrv",
+          "category": "diagnostics",
+          "reason": "WMI Performance Adapter - exposes performance counters to remote WMI clients.",
+          "microsoft_disposition": null,
+          "tier": "super"
+        },
+        {
+          "service": "ALG",
+          "category": "legacy",
+          "reason": "Application Layer Gateway - protocol plug-ins for Internet Connection Sharing, which module policy already disables.",
+          "microsoft_disposition": null,
+          "tier": "super"
+        },
+        {
+          "service": "WEPHOSTSVC",
+          "category": "encryption",
+          "reason": "Windows Encryption Provider Host - third-party encryption providers.",
+          "microsoft_disposition": null,
+          "tier": "super"
+        },
+        {
+          "service": "seclogon",
+          "category": "misc",
+          "reason": "Secondary Logon - the 'run as a different user' service. WARNING: runas stops working.",
+          "microsoft_disposition": null,
+          "tier": "super"
+        }
+      ]
+    }
+  }
+}

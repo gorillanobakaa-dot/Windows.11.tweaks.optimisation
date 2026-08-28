@@ -1,0 +1,55 @@
+﻿{
+    "schemaVersion":  2,
+    "module":  "01-visual-effects",
+    "capturedUtc":  "2026-08-27T18:34:12Z",
+    "host":  "FUCKOFF_YA_CUNT",
+    "user":  "Username",
+    "osBuild":  "26200",
+    "spi":  {
+                "Menu animation":  0,
+                "Combo box animation":  0,
+                "List box smooth scrolling":  0,
+                "Gradient window captions":  0,
+                "Menu fade":  0,
+                "Selection fade":  0,
+                "Tooltip animation":  0,
+                "Tooltip fade":  0,
+                "Cursor shadow":  0,
+                "Drop shadow (windows)":  0,
+                "Client area animation":  0,
+                "UI effects (master)":  0,
+                "DragFullWindows":  0,
+                "MenuShowDelay":  0
+            },
+    "registry":  {
+                     "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize|EnableTransparency":  {
+                                                                                                                         "value":  0,
+                                                                                                                         "kind":  "DWord"
+                                                                                                                     },
+                     "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced|TaskbarAnimations":  {
+                                                                                                                       "value":  0,
+                                                                                                                       "kind":  "DWord"
+                                                                                                                   },
+                     "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced|ListviewAlphaSelect":  {
+                                                                                                                         "value":  0,
+                                                                                                                         "kind":  "DWord"
+                                                                                                                     },
+                     "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced|ListviewShadow":  {
+                                                                                                                    "value":  0,
+                                                                                                                    "kind":  "DWord"
+                                                                                                                },
+                     "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\VisualEffects|VisualFXSetting":  {
+                                                                                                                          "value":  3,
+                                                                                                                          "kind":  "DWord"
+                                                                                                                      },
+                     "HKCU:\\Software\\Microsoft\\Windows\\DWM|EnableAeroPeek":  {
+                                                                                     "value":  0,
+                                                                                     "kind":  "DWord"
+                                                                                 }
+                 },
+    "uiSettings":  {
+                       "AnimationsEnabled":  false,
+                       "AdvancedEffectsEnabled":  false
+                   },
+    "userPreferencesMask":  "80 00 03 00 10 00 00 00"
+}
