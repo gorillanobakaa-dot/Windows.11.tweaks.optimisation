@@ -113,7 +113,7 @@ A project built under this philosophy will always include:
 
 ## Part Five: On AI Assistants and This Philosophy
 
-This philosophy was developed in the context of working with AI language models as collaborative tools — specifically in the construction of systems where the stakes for non-technical users are real (legal disputes, tenancy rights, financial decisions).
+This philosophy was developed in the context of working with AI language models as collaborative tools — specifically in the construction of systems where the stakes for non-technical users are real (system stability, telemetry privacy, network security, and OS bootloader integrity).
 
 When an AI assistant is asked to help build something under this philosophy, it is being asked to hold two audiences in mind simultaneously. The code it writes must be technically sound. The explanations it produces must be genuinely accessible. Neither task is subordinate to the other.
 
@@ -306,3 +306,4 @@ For anyone who has read this far and wants the short version:
 ---
 
 *This document may be shared freely, referenced in project READMEs, included in AI assistant context, or cited in conversation. Its purpose is to make re-explanation unnecessary. Use it accordingly.*
+
