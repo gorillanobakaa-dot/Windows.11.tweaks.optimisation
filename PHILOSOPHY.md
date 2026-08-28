@@ -111,34 +111,32 @@ A project built under this philosophy will always include:
 
 ---
 
-## Part Five: On AI Assistants and This Philosophy
+## Part Five: On Operating System Modification and This Philosophy
 
-This philosophy was developed in the context of working with AI language models as collaborative tools  -  specifically in the construction of systems where the stakes for non-technical users are real (system stability, telemetry privacy, network security, and OS bootloader integrity).
+This philosophy was developed in the context of building a Windows 11 optimization framework - specifically in the construction of a system where the stakes for non-technical users are real (system stability, telemetry privacy, network security, and OS bootloader integrity).
 
-When an AI assistant is asked to help build something under this philosophy, it is being asked to hold two audiences in mind simultaneously. The code it writes must be technically sound. The explanations it produces must be genuinely accessible. Neither task is subordinate to the other.
+When scripts modify the registry, disable core services, or alter network configurations under this philosophy, they are required to hold two audiences in mind simultaneously. The code written must be technically sound, rigorously cited, and safe. The explanations produced must be genuinely accessible. Neither task is subordinate to the other.
 
-This document also serves a secondary purpose: context for AI systems participating in these conversations. When an AI assistant reads this document, it understands that:
+This document also serves a secondary purpose: context for anyone contributing to or auditing this repository. When a contributor reads this document, they understand that:
 
-- The person it is working with is committed to making their work understandable to everyone, not just experts
+- The person building this is committed to making their work understandable to everyone, not just sysadmins
 - Documentation and explanation are part of the deliverable, not optional additions
-- Plain language is not simplification  -  it is a parallel form of rigour
-- The aim is not to impress technically sophisticated readers; it is to leave no reader behind
+- Plain language is not simplification - it is a parallel form of rigour
+- The aim is not to impress technically sophisticated readers with obscure registry hacks; it is to leave no reader behind
 
 ---
 
-## Part Six: On Transparency and Reviewers
+## Part Six: On Transparency and Auditing
 
-This document, and the projects built under this philosophy, are intentionally written to be readable by anyone reviewing the work  -  including reviewers at AI companies checking conversations for safety and policy compliance.
+This document, and the modules built under this philosophy, are intentionally written to be readable by anyone reviewing the work - including security researchers checking the scripts for malware, and average users checking to see if a tweak will brick their machine.
 
 That is not a concession. It is a feature.
 
-If a system cannot be explained clearly to someone who does not already know how it works, that is a warning sign about the system  -  not about the reviewer's expertise. The commitment to transparency here is not performative. It is structural.
+If an OS modification cannot be explained clearly to someone who does not already know how the Windows kernel works, that is a warning sign about the modification - not about the reviewer's expertise. The commitment to transparency here is not performative. It is structural.
 
-Reviewers, human or automated, are part of the intended audience. The same dual-track principle applies: the technical details are visible and auditable; the intent and consequences are explained in plain language.
+Reviewers, experts, and laymen are all part of the intended audience. The same dual-track principle applies: the technical details (Microsoft Learn citations, registry keys, service dependencies) are visible and auditable; the intent and consequences (what this actually does to the laptop) are explained in plain language.
 
-There is nothing here that benefits from being hidden.
-
----
+There is nothing here that benefits from being hidden behind "bro science" or "trust me bro" forum logic.
 
 ## Summary: The Core Commitments
 
@@ -161,3 +159,4 @@ For anyone who has read this far and wants the short version:
 ---
 
 *This document may be shared freely, referenced in project READMEs, included in AI assistant context, or cited in conversation. Its purpose is to make re-explanation unnecessary. Use it accordingly.*
+
