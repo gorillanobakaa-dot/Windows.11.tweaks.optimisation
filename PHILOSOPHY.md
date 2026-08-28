@@ -1,4 +1,4 @@
-# Gorilla Open Source Philosophy
+﻿# Gorilla Open Source Philosophy
 ### A Manifesto for Radical Transparency, Universal Access, and the End of Knowledge Gatekeeping
 
 ---
@@ -10,7 +10,7 @@
 
 ## What This Document Is
 
-This is a living reference document — a manifesto and a methodology — written so that its author does not have to re-explain the same foundational ideas at the start of every conversation, collaboration, or project review.
+This is a living reference document  -  a manifesto and a methodology  -  written so that its author does not have to re-explain the same foundational ideas at the start of every conversation, collaboration, or project review.
 
 It is written for **everyone**: the developer reading the source code, the layperson trying to understand what was built and why, the AI assistant being asked to help, and the human reviewer checking whether any of this raises a flag. You are all equally welcome here, and this document is designed so that none of you needs to translate it for the other.
 
@@ -20,7 +20,7 @@ That, in itself, is the point.
 
 ## Part One: The Problem With Open Source As It Currently Exists
 
-Open source software changed the world. The philosophy behind it — that knowledge, code, and tools should be freely available and not locked behind corporate walls — is one of the most important ideas in the history of computing.
+Open source software changed the world. The philosophy behind it  -  that knowledge, code, and tools should be freely available and not locked behind corporate walls  -  is one of the most important ideas in the history of computing.
 
 And yet open source, as it is most commonly practised, **fails the majority of human beings on Earth.**
 
@@ -40,22 +40,22 @@ This is not a failure of intention. It is a failure of **communication methodolo
 
 The name comes from a simple image.
 
-A gorilla in a cage is not limited by its intelligence or its strength. It is limited by the structure around it. Open the cage, and the animal does not become more capable — it already was. What changes is its access to the full expression of what it already is.
+A gorilla in a cage is not limited by its intelligence or its strength. It is limited by the structure around it. Open the cage, and the animal does not become more capable  -  it already was. What changes is its access to the full expression of what it already is.
 
-Most people walk around as caged gorillas. Not because they lack intelligence. Not because they lack curiosity. Because the structures around knowledge — the jargon, the assumed expertise, the culture of "if you don't know this already you probably shouldn't be here" — function exactly like bars.
+Most people walk around as caged gorillas. Not because they lack intelligence. Not because they lack curiosity. Because the structures around knowledge  -  the jargon, the assumed expertise, the culture of "if you don't know this already you probably shouldn't be here"  -  function exactly like bars.
 
 **The Gorilla Open Source Philosophy is not about software. It is about structural access to knowledge.**
 
 It holds three things to be true:
 
 **1. Hardware and capability are only the beginning.**  
-Unleashing the full performance of a machine, a model, or a system matters — but it is the smallest part of the work. The larger work is making what that capability *does* understandable to every person it affects.
+Unleashing the full performance of a machine, a model, or a system matters  -  but it is the smallest part of the work. The larger work is making what that capability *does* understandable to every person it affects.
 
 **2. Transparency must be legible, not merely visible.**  
-Publishing code satisfies a legal and ethical standard of openness. But openness without comprehension is a formality. True transparency means that any person — regardless of their technical background — can understand *what* a system does, *why* it was built that way, and *what consequences* it may have for them. If they cannot read it, it is not truly open.
+Publishing code satisfies a legal and ethical standard of openness. But openness without comprehension is a formality. True transparency means that any person  -  regardless of their technical background  -  can understand *what* a system does, *why* it was built that way, and *what consequences* it may have for them. If they cannot read it, it is not truly open.
 
 **3. Education is not optional. It is the product.**  
-Every project built under this philosophy treats documentation, explanation, and accessible language as first-class deliverables — not afterthoughts, not README files written at midnight before a launch. The explanation is part of what is being built.
+Every project built under this philosophy treats documentation, explanation, and accessible language as first-class deliverables  -  not afterthoughts, not README files written at midnight before a launch. The explanation is part of what is being built.
 
 ---
 
@@ -69,7 +69,7 @@ The idea is straightforward: every significant piece of work produces two parall
 
 Written in plain language. No assumed knowledge. Explains *what* the system does from the perspective of the person who will use it or be affected by it. Uses analogies, examples, and real-world consequences. Answers the question a non-technical person would actually ask: *"What does this do to me, or for me?"*
 
-This track is not a dumbed-down version of the technical document. It is a complete and honest explanation in a different language. It does not omit complexity — it translates it.
+This track is not a dumbed-down version of the technical document. It is a complete and honest explanation in a different language. It does not omit complexity  -  it translates it.
 
 ### Track Two: The Developer Track
 
@@ -113,7 +113,7 @@ A project built under this philosophy will always include:
 
 ## Part Five: On AI Assistants and This Philosophy
 
-This philosophy was developed in the context of working with AI language models as collaborative tools — specifically in the construction of systems where the stakes for non-technical users are real (system stability, telemetry privacy, network security, and OS bootloader integrity).
+This philosophy was developed in the context of working with AI language models as collaborative tools  -  specifically in the construction of systems where the stakes for non-technical users are real (system stability, telemetry privacy, network security, and OS bootloader integrity).
 
 When an AI assistant is asked to help build something under this philosophy, it is being asked to hold two audiences in mind simultaneously. The code it writes must be technically sound. The explanations it produces must be genuinely accessible. Neither task is subordinate to the other.
 
@@ -121,18 +121,18 @@ This document also serves a secondary purpose: context for AI systems participat
 
 - The person it is working with is committed to making their work understandable to everyone, not just experts
 - Documentation and explanation are part of the deliverable, not optional additions
-- Plain language is not simplification — it is a parallel form of rigour
+- Plain language is not simplification  -  it is a parallel form of rigour
 - The aim is not to impress technically sophisticated readers; it is to leave no reader behind
 
 ---
 
 ## Part Six: On Transparency and Reviewers
 
-This document, and the projects built under this philosophy, are intentionally written to be readable by anyone reviewing the work — including reviewers at AI companies checking conversations for safety and policy compliance.
+This document, and the projects built under this philosophy, are intentionally written to be readable by anyone reviewing the work  -  including reviewers at AI companies checking conversations for safety and policy compliance.
 
 That is not a concession. It is a feature.
 
-If a system cannot be explained clearly to someone who does not already know how it works, that is a warning sign about the system — not about the reviewer's expertise. The commitment to transparency here is not performative. It is structural.
+If a system cannot be explained clearly to someone who does not already know how it works, that is a warning sign about the system  -  not about the reviewer's expertise. The commitment to transparency here is not performative. It is structural.
 
 Reviewers, human or automated, are part of the intended audience. The same dual-track principle applies: the technical details are visible and auditable; the intent and consequences are explained in plain language.
 
@@ -145,7 +145,7 @@ There is nothing here that benefits from being hidden.
 For anyone who has read this far and wants the short version:
 
 1. **Open source must mean open to everyone, not only to engineers.**
-2. **Every project produces two forms of documentation: one for humans, one for developers � both complete, both honest.**
+2. **Every project produces two forms of documentation: one for humans, one for developers � both complete, both honest.**
 3. **Explanation is not an add-on. It is the work.**
 4. **The measure of transparency is not whether the code is published. It is whether a non-technical person affected by the system can understand what it does.**
 5. **No one should have to trust a summary they cannot verify. Both tracks of documentation exist so that everyone can read what was written for them.**
