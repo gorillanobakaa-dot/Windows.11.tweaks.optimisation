@@ -1,0 +1,10 @@
+{
+  "philosophy-enforcer": {
+    "PreInvocation": [
+      {
+        "type": "command",
+        "command": "python .agents/scripts/enforce-philosophy.py"
+      }
+    ]
+  }
+}

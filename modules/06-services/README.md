@@ -350,6 +350,24 @@ It sat in the SUPER profile under the category "misc".
 **Fixed:** it is now on the never-touch list, so no profile can reach it, and a
 profile that names it is refused outright. See `DEC-06-013`.
 
+### The Fn keys (Lenovo laptops) - hardware vs software
+
+If you apply a profile on a Lenovo laptop, your `Fn + Esc` key combo (the Fn Lock) will stop working in Windows.
+
+Why? Because Lenovo uses a privileged background service (`TPHKLOAD`) to listen for that key combination. Our profiles disable that service to reduce the background noise and attack surface on your machine.
+
+**The Fix:** You do not need the software to get your function keys back. You can set this directly in the laptop's hardware:
+1. Reboot and press `F1` or `Enter` to enter the BIOS/UEFI.
+2. Go to **Config** -> **Keyboard/Mouse**.
+3. Enable **F1-F12 as Primary Function**.
+
+By doing this, your keyboard firmware sends standard `F1-F12` keystrokes directly to the operating system. You get your F-keys back perfectly across Windows, Debian, or any other OS, and you keep Lenovo's bloatware service permanently disabled.
+
+**Technical Proof:**
+* The service is `TPHKLOAD` (Lenovo hotkey loader).
+* Disabling it breaks software-based Fn key intercepts.
+* Hardware interception via BIOS/UEFI predates the OS bootloader, sending raw scancodes (e.g., 0x3B for F1) directly to the OS input stack, completely bypassing the need for an OEM driver or Windows service.
+
 ### The honest part
 
 Neither of these was found by anything in this project. Not by the blast-radius
