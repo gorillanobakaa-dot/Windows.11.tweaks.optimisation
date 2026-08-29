@@ -1,0 +1,34 @@
+﻿name: Build and Publish Standalone Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Build Standalone ZIP
+        run: |
+          mkdir -p build_output
+          cp -r modules build_output/
+          cp README.md build_output/ || true
+          cp LICENSE* build_output/ || true
+          cp HOWTO.md build_output/ || true
+          cd build_output
+          zip -r ../Windows11Tweaks_Standalone.zip ./*
+          cd ..
+
+      - name: Update GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: Windows11Tweaks_Standalone.zip
+          generate_release_notes: true
