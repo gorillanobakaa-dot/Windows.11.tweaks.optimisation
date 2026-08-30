@@ -595,3 +595,16 @@ python ..\..\READ-ONLY-verification\Build-ReferenceLibrary.py
 | R-117 | MSDT, the engine behind the legacy Windows built-in troubleshooters, is being retired | windows-itpro-docs/whats-new/deprecated-features-resources.md | 155 | MSDT is the engine used to run legacy Windows built-in troubleshooters. There are currently 28 built-in troubleshooters for MSDT. Half of the built-in troubleshooters have already been redirected to the Get Help platform, while the other half will be retired. |
 | R-118 | DirectAccess - the only thing NcaSvc reports on - is deprecated and scheduled for removal | windows-itpro-docs/whats-new/deprecated-features.md | 98 | DirectAccess is deprecated and will be removed in a future release of Windows. |
 | R-119 | What NcaSvc is for, in Microsoft's own words | windowsserverdocs/WindowsServerDocs/security/windows-services/security-guidelines-for-disabling-system-services-in-windows-server.md | 999 | Provides DirectAccess status notification for UI components |
+
+### ⚠️ WARNING: Lenovo Business Laptops & Special Hardware Buttons
+
+Business-oriented laptops (like Lenovo ThinkPads) feature special hardware buttons (Microphone Mute, Phone Answer/Hang-up, Airplane Mode, Brightness sliders). **These hardware buttons physically rely on OEM background services to function.**
+
+If you aggressively disable services like `ImControllerService` (Lenovo System Interface Foundation) or `DisplayEnhancementService`, **you will lobotomize your expensive hardware** and these buttons will silently fail.
+
+To prevent this, the standard profiles NO LONGER touch these services automatically. 
+
+If you still wish to strictly reduce your attack surface and do not care about losing these hardware capabilities, you can manually opt-in to disabling them by running the interactive script:
+```powershell
+.\Disable-LenovoServices.ps1
+```
