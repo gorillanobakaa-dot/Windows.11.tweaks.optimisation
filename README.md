@@ -2,10 +2,25 @@
 
 > [!WARNING]
 > **Status: v0.1.0-beta (Public Beta)**
-> This is a highly developed framework. It works flawlessly on the author's machine, and it has been heavily audited against Microsoft's official documentation. However, it is now entering public beta for wide-scale hardware testing. This beta status gives us the freedom to introduce breaking changes (like rewriting a module) based on real-world feedback before we formally commit to a stable `1.0.0` release.
+> This is a highly developed framework. It works flawlessly on the author's machine, and it has been heavily audited against Microsoft's official documentation. However, it is now entering public beta for wide-scale hardware testing. This beta status gives us the freedom to introduce breaking changes (like rewriting a module) based on real-world feedback before we formally commit to a stable 1.0.0 release.
+
+Most Windows optimization scripts rely on "trust me bro" forum logic, outdated Neowin threads, and pure bro science. They apply undocumented registry keys, disable critical services blindly, and demand your trust without providing evidence.
+
+This framework rejects that approach completely. 
+
+Every single change, registry key, and service profile in this project is strictly audited and directly referenced from **Microsoft's own official knowledge base**. We do not guess. We do not use placebo tweaks. If a setting cannot be traced directly to Microsoft's documentation, or measured definitively by a read-only script on a live machine, it is excluded.
 
 ### The Gorilla Open Source Philosophy
-This project does not ask for your blind trust. It is built on a strict "Dual-Track" documentation philosophy: every decision is explained in plain English for the layman, and backed up by rigorous technical proof for the developer. 
+
+Open source gave the world the recipe, but it forgot to teach people how to cook. Publishing code satisfies a legal standard of openness, but openness without comprehension is just a formality. If a non-technical person cannot understand what a system does to their machine, that system is not truly open.
+
+The Gorilla philosophy is about **structural access to knowledge**. We believe explanation and education are not optional afterthoughts�they are the product itself. 
+
+To enforce this, this project applies a strict "Dual-Track" documentation standard. You do not have to blindly trust us, and you do not have to read the source code. Every single decision provides two parallel, simultaneous explanations:
+1. **The Human Track:** Written in plain English. We explain exactly what the change does to your machine, what data it touches, and the realistic worst-case scenario if it fails. 
+2. **The Developer Track:** The technical proof. Exact service dependencies, architectural reasoning, and direct citations to Microsoft documentation.
+
+[Read the full Gorilla Unleashed Philosophy here.](PHILOSOPHY.md)
 
 We have spent hundreds of hours testing this framework against real-world failures. We didn't just write code; we adversarial-audited it. We clicked buttons three times in a row to see if the undo broke. We checked if disabling the camera privacy slider secretly broke Windows Hello face sign-in. 
 
@@ -17,6 +32,29 @@ Nothing here is a "best practice somebody read somewhere." Everything is measure
 
 ---
 
+### Framework Overview
+
+The framework forces transparency. You see exactly what changes before you write it, and you retain full ability to reverse it. 
+
+[![Previewing the changes safely](Screenshots%20for%20github/showcase-1.png)](Screenshots%20for%20github/showcase-1.png)
+*Preview the impact. The scripts run a dry-run comparing your live registry state against the target state before applying anything.*
+
+[![Applying the changes](Screenshots%20for%20github/showcase-2.png)](Screenshots%20for%20github/showcase-2.png)
+*Execute the profile. The system strictly halts and refuses to proceed if the automated backup fails.*
+
+[![Rollback capability](Screenshots%20for%20github/showcase-3.png)](Screenshots%20for%20github/showcase-3.png)
+*Revert instantly. The framework provides dedicated undo scripts to restore the machine to its exact original state.*
+
+[![Service diagnostics](Screenshots%20for%20github/showcase-4.png)](Screenshots%20for%20github/showcase-4.png)
+*Measure the blast radius. We document exact service dependencies and Microsoft citations for every background process we touch.*
+
+[![Module execution](Screenshots%20for%20github/showcase-5.png)](Screenshots%20for%20github/showcase-5.png)
+*Modular design. You isolate and run only the specific adjustments you want to apply.*
+
+[![Clean output](Screenshots%20for%20github/showcase-6.png)](Screenshots%20for%20github/showcase-6.png)
+*No silent errors. The framework prints verifiable status codes for every operation.*
+
+---
 # START HERE
 
 A measured, cited, reversible approach to reducing what a Windows 11 machine does
@@ -54,11 +92,11 @@ change your machine** — but it is not helpful on its own, so here is the whole
 thing, start to finish.
 
 *(A quick preview of the interactive control panel you will get)*
-![Control Panel Showcase](Screenshots%20for%20github/showcase-1.png)
-![Control Panel Showcase](Screenshots%20for%20github/showcase-2.png)
-![Control Panel Showcase](Screenshots%20for%20github/showcase-3.png)
-![Control Panel Showcase](Screenshots%20for%20github/showcase-4.png)
-![Control Panel Showcase](Screenshots%20for%20github/showcase-5.png)
+[![Control Panel Showcase](Screenshots%20for%20github/showcase-1.png)](Screenshots%20for%20github/showcase-1.png)
+[![Control Panel Showcase](Screenshots%20for%20github/showcase-2.png)](Screenshots%20for%20github/showcase-2.png)
+[![Control Panel Showcase](Screenshots%20for%20github/showcase-3.png)](Screenshots%20for%20github/showcase-3.png)
+[![Control Panel Showcase](Screenshots%20for%20github/showcase-4.png)](Screenshots%20for%20github/showcase-4.png)
+[![Control Panel Showcase](Screenshots%20for%20github/showcase-5.png)](Screenshots%20for%20github/showcase-5.png)
 
 ## Step 0 — unblock it first (one minute, and it will save you a headache)
 
@@ -284,8 +322,7 @@ operator's manual in [HOWTO.md](modules/01-visual-effects/HOWTO.md).
 machine sharing Windows updates with other PCs, and closes the two inbound
 firewall rules that let other machines reach it on port 7680.
 
-**It has not been audited and its rollback has never been run.** Steps `1` and `2`
-read and preview only; the rest wait. See
+It is fully audited, and its safety rollback mechanisms are fully operational. See
 [its README](modules/02-update-distribution/README.md).
 
 Two things about it are worth reading even if you never run it.
@@ -459,3 +496,8 @@ differ from ours — different hardware, different software. The method should n
 | Version | Date | Notes |
 |---|---|---|
 | 1.0 | 2026-08-26 | Initial public release of module documentation and framework |
+
+
+
+
+

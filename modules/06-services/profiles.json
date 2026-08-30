@@ -402,6 +402,18 @@
     {
       "service": "SharedAccess",
       "reason": "Internet Connection Sharing - the hotspot's plumbing; same ruling as icssvc (DEC-06-016)."
+    },
+    {
+      "service": "SensorService",
+      "reason": "Must remain Manual/Running. Disabling causes the Windows 11 Power & Battery Settings menu to hard-crash due to missing ambient light sensor RPC endpoint for Energy Recommendations."
+    },
+    {
+      "service": "SensorDataService",
+      "reason": "Must remain Manual/Running. Disabling causes the Windows 11 Power & Battery Settings menu to hard-crash due to missing ambient light sensor RPC endpoint for Energy Recommendations."
+    },
+    {
+      "service": "SensrSvc",
+      "reason": "Must remain Manual/Running. Disabling causes the Windows 11 Power & Battery Settings menu to hard-crash due to missing ambient light sensor RPC endpoint for Energy Recommendations."
     }
   ],
   "lockoutRisk": [
@@ -535,27 +547,6 @@
           "category": "unused hardware",
           "reason": "Windows Perception Simulation - mixed reality headsets.",
           "microsoft_disposition": null,
-          "tier": "light"
-        },
-        {
-          "service": "SensorDataService",
-          "category": "unused hardware",
-          "reason": "Sensor data (accelerometer, ambient light).",
-          "microsoft_disposition": "may-disable",
-          "tier": "light"
-        },
-        {
-          "service": "SensorService",
-          "category": "unused hardware",
-          "reason": "Sensor service.",
-          "microsoft_disposition": "may-disable",
-          "tier": "light"
-        },
-        {
-          "service": "SensrSvc",
-          "category": "unused hardware",
-          "reason": "Sensor monitoring, rotation and adaptive brightness.",
-          "microsoft_disposition": "may-disable",
           "tier": "light"
         },
         {

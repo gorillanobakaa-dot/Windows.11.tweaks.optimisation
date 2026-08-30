@@ -1,4 +1,4 @@
-# Module 08 — app de-bloat
+# Module 08 - app de-bloat
 
 *Remove the preinstalled apps you never asked for. Three cumulative tiers, 31
 protected packages that no tier may name, and an honest answer to the question
@@ -39,14 +39,14 @@ There is one real undo path, and it works only sometimes:
 > re-registered from it. If the payload went with the package, the Microsoft
 > Store is the only route back.
 
-So the module records, for every removal, whether the payload survived — and
+So the module records, for every removal, whether the payload survived - and
 launcher 8 sorts the record into "can retry" and "Store only" and tells you
 which is which. That record is **not** a backup and is never called one.
 
 ### Removed apps come back. This is measured, not theoretical.
 
 On **2026-08-27 at 16:59** this machine's own Windows Update reinstalled
-`Microsoft.XboxGameOverlay` and `Microsoft.XboxIdentityProvider` — hours after
+`Microsoft.XboxGameOverlay` and `Microsoft.XboxIdentityProvider` - hours after
 the Xbox *services* had been disabled by module 05.
 
 Microsoft documents exactly one mechanism that stops this. Under policy-based
@@ -64,8 +64,8 @@ say so and to give you a checker that names anything that crawled back.
 
 Microsoft's documented method has two steps, and most guides only do the second:
 
-- *"Remove the app for new user accounts."* [R-137] — the **provisioned** copy
-- *"Remove the app for the current user."* [R-138] — your copy
+- *"Remove the app for new user accounts."* [R-137] - the **provisioned** copy
+- *"Remove the app for the current user."* [R-138] - your copy
 
 Removing only your copy leaves the app waiting for the next account created on
 the machine. This module does both, in that order, which is why the real run
@@ -76,7 +76,7 @@ needs administrator rights while the preview does not.
 ## The three tiers
 
 Cumulative: MODERATE includes LIGHT, SUPER includes both. On this machine
-**every package named by every tier is actually present** — 16, 30 and 37.
+**every package named by every tier is actually present** - 16, 30 and 37.
 
 | Tier | Packages | What goes |
 |---|---|---|
@@ -92,12 +92,12 @@ launcher, because a surprise like that discovered a week later is indefensible.
 
 ## The three refusals, enforced in code
 
-A tier that names a protected package is **refused whole** — exit 6 — not
+A tier that names a protected package is **refused whole** - exit 6 - not
 quietly trimmed. A tier naming a protected package is a tier somebody edited
 without understanding it, and skipping the entry hides that from the person who
 most needs to see it.
 
-**1. The never-remove list — 31 patterns.** Not a taste list; each entry has a
+**1. The never-remove list - 31 patterns.** Not a taste list; each entry has a
 reason:
 
 | Protected | Because |
@@ -111,7 +111,7 @@ reason:
 | `Claude` | **the owner's own installed application.** Nothing in a de-bloat module should touch software the owner chose to install |
 
 **2. `NonRemovable` computed live.** Windows marks packages it will not release
-— **44 of the 107** on this machine. The module reads that flag from the
+- **44 of the 107** on this machine. The module reads that flag from the
 machine rather than trusting a list, and refuses those too.
 
 **3. Frameworks and resource packages are never enumerated.** A framework is a
@@ -126,7 +126,7 @@ exclude it.
 |---|---|
 | Self-test checks | **55**, 0 failures |
 | Refusals proved able to fire | protected name, and a live `NonRemovable` flag |
-| Applied to this machine | **NO — not yet.** Which tier, if any, is the owner's call |
+| Applied to this machine | **NO - not yet.** Which tier, if any, is the owner's call |
 | Citations verified at the cited line | every row below |
 
 The self-test does not merely assert the refusals exist. It builds a **doctored

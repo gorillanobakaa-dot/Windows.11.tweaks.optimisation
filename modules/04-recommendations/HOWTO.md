@@ -1,7 +1,7 @@
 # How to use the recommendations module
 
-*Ten switches that turn off suggestions, tips, "recommendations" and — the one
-that matters — Windows installing promoted apps without asking. All per-user,
+*Ten switches that turn off suggestions, tips, "recommendations" and - the one
+that matters - Windows installing promoted apps without asking. All per-user,
 all reversible, no administrator rights needed anywhere.*
 
 ---
@@ -28,7 +28,7 @@ the internet, and absent from Microsoft's documentation entirely.** They sit
 behind a separate switch, `-IncludeObserved`, and are labelled `[uncited]`
 everywhere they appear.
 
-That split is the project's rule — a claim is quoted or it is labelled — and it
+That split is the project's rule - a claim is quoted or it is labelled - and it
 does not bend for a good story. Including the most important one:
 
 > **`SilentInstalledAppsEnabled` was set to `1` on this machine.** That governs
@@ -48,7 +48,7 @@ does not bend for a good story. Including the most important one:
 | 4 | Apply the undocumented ones too | All ten |
 | 5 | UNDO everything | Back to the newest backup |
 | 6 | UNDO back to the original | As if this was never run |
-| 7 | Prove the undo works | Apply, undo, compare — net zero on a pass |
+| 7 | Prove the undo works | Apply, undo, compare - net zero on a pass |
 | 8 | Test the safety logic | 36 checks on the machinery |
 
 None of them needs administrator rights.
@@ -57,9 +57,9 @@ None of them needs administrator rights.
 
 ## Recommended first session
 
-1. **`1 - Check what is on now`** — see which are set, and read the citations.
-2. **`7 - Prove the undo works`** — prove the round trip on your machine first.
-3. **`3 - Apply the changes`** — the documented five.
+1. **`1 - Check what is on now`** - see which are set, and read the citations.
+2. **`7 - Prove the undo works`** - prove the round trip on your machine first.
+3. **`3 - Apply the changes`** - the documented five.
 4. If you also want the undocumented five, **`4`**. Read what they are first.
 
 ---
@@ -70,7 +70,7 @@ None of them needs administrator rights.
 
 | Setting | What it stops |
 |---|---|
-| `HttpAcceptLanguageOptOut` | Handing websites your language list — a browser-fingerprinting signal |
+| `HttpAcceptLanguageOptOut` | Handing websites your language list - a browser-fingerprinting signal |
 | `DisableTailoredExperiencesWithDiagnosticData` | Your diagnostic data being used to tailor tips and ads |
 | `DisableWindowsSpotlightFeatures` | The whole Spotlight family: suggested apps, Windows tips, lock-screen rotation |
 | `DisableCloudOptimizedContent` | Windows fetching cloud-chosen content to show you |
@@ -88,7 +88,7 @@ None of them needs administrator rights.
 
 ---
 
-## `Disable-Recommendations.ps1` — every option
+## `Disable-Recommendations.ps1` - every option
 
 ```bash
 powershell -ExecutionPolicy Bypass -File .\Disable-Recommendations.ps1 -WhatIf
@@ -116,7 +116,7 @@ Preview without writing; label the backup file.
 
 ---
 
-## `Restore-Recommendations.ps1` — every option
+## `Restore-Recommendations.ps1` - every option
 
 ```bash
 powershell -ExecutionPolicy Bypass -File .\Restore-Recommendations.ps1
@@ -127,7 +127,7 @@ powershell -ExecutionPolicy Bypass -File .\Restore-Recommendations.ps1 -List
 ### Absent is not zero
 
 Most of these values **did not exist** before the module ran. The backup
-records that, so the undo **removes** the value rather than writing a `0` —
+records that, so the undo **removes** the value rather than writing a `0` -
 and removes the registry key the apply created, if nothing else has been
 written into it.
 

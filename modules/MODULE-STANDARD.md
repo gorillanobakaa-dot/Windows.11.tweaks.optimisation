@@ -13,7 +13,7 @@ the rules they embody.
 ### 0.1 In plain language
 
 This project is a folder of scripts that change settings on a Windows 11 machine
-— what runs in the background, what gets sent to Microsoft, how much work the
+- what runs in the background, what gets sent to Microsoft, how much work the
 graphics chip is asked to do. There is one such set of scripts so far. There will
 be roughly a dozen.
 
@@ -25,7 +25,7 @@ all of them: the same three scripts with the same three names, the same undo
 button, the same two documents, the same promises about backups.
 
 The rules are written as requirements, not suggestions, because a module that
-half-follows them is more dangerous than one that follows none — you would trust
+half-follows them is more dangerous than one that follows none - you would trust
 it out of habit and it would not deserve the trust.
 
 ### 0.2 In technical terms
@@ -53,7 +53,7 @@ together, neither derived from the other by deletion:
   sysadmin literacy but not familiarity with this project.
 
 The human track is **not** a simplification. It is a translation. It carries the
-same facts — including the uncomfortable ones — in a different vocabulary. It
+same facts - including the uncomfortable ones - in a different vocabulary. It
 MUST NOT omit a consequence because the consequence is complicated, and it MUST
 NOT patronise, moralise or repeat warnings for emphasis. Assume the reader is
 intelligent; assume only that the jargon is new to them.
@@ -140,7 +140,7 @@ if its module is deleted.
 | 02 | `02-update-distribution` | Delivery Optimization peer sharing, port 7680, inbound firewall rules | **built, not shipped.** No adversarial audit; rollback never executed (needs elevation) |
 | 03 | `03-copilot` | the Copilot app, the 1.3 GB Program Files install, its LocalSystem service | **finished and executed 2026-08-26.** Two tiers: settings proved reversible; removals executed, recorded as not-restorable with the route back. Audited: 14 findings, all fixed |
 | 04 | `04-recommendations` | suggestions, tips, personalised content, Start recommendations | **built, not shipped.** Round trip proved and comparison shown falsifiable; no adversarial audit |
-| 05+ | — | unallocated | — |
+| 05+ | - | unallocated | - |
 
 Candidate subjects not yet allocated a number: services hardening, telemetry
 scheduled tasks, Defender posture, and the ownership/update-cache tools. Earlier
@@ -151,7 +151,7 @@ specification, not moving the file.
 
 **Two modules are per-user and two are not, and it shows.** Modules 01 and 04
 touch only `HKEY_CURRENT_USER`, so they could be built, applied, undone and proved
-end to end without anyone approving an elevation prompt — and both are further
+end to end without anyone approving an elevation prompt - and both are further
 along as a direct result. Modules 02 and 03 need administrator rights for their
 central settings, and both are stalled at exactly the step that requires them.
 That is not a coincidence to design around: prefer per-user mechanisms where they
@@ -178,7 +178,7 @@ a careful person would:
 
 The undo is a separate file rather than an option on the change script for a
 specific reason. Someone reaching for the undo is usually worried and often in a
-hurry — something looks wrong, the machine behaves oddly, a colleague needs the
+hurry - something looks wrong, the machine behaves oddly, a colleague needs the
 laptop back in ten minutes. That person must not have to read documentation to
 find out what to type. They should be able to look in the folder, see a file with
 "Restore" in the name, run it, and have it do the sensible thing. Making the
@@ -237,7 +237,7 @@ input the module would never meet in normal use.
 
 The round-trip test proves the writes work by performing them. It cannot prove
 the module refuses a corrupt backup, or a backup naming registry paths the module
-does not own, or that a failed backup is reported as failed — because those
+does not own, or that a failed backup is reported as failed - because those
 situations cannot be produced by using the module correctly, which is precisely
 why they are never found by using it correctly.
 
@@ -281,7 +281,7 @@ trivially. Both ends of a journey of zero distance are the same place. That is
 not evidence the undo works, and printing `PASS` there hands the reader
 reassurance the test did not earn.
 
-The message MUST say how to get a real test — restore to the original state
+The message MUST say how to get a real test - restore to the original state
 first, then run it again.
 
 *(Found by running module 01's round-trip on an already-applied machine. It
@@ -357,8 +357,8 @@ value. Asking the API that applications themselves consult was the only honest
 read. Where the authoritative source is expensive or awkward, use it anyway and
 say so in the README.
 
-**R3.8** Where a setting family has a **master gate** — one switch that
-suppresses a whole group — the ordering MUST be explicit and commented: the gate
+**R3.8** Where a setting family has a **master gate** - one switch that
+suppresses a whole group - the ordering MUST be explicit and commented: the gate
 is written **last** when disabling (so the individual writes are not swallowed)
 and **first** when restoring (so the individual restores take effect under it).
 Module 01 does this with `SPI_SETUIEFFECTS`.
@@ -372,8 +372,8 @@ Module 01 does this with `SPI_SETUIEFFECTS`.
 Four promises. All of them are mechanical properties of the code, not intentions.
 
 **One: nothing changes before the current state is written down.** The change
-script's first action is to record every setting it knows about — not only the
-ones it is about to alter — into a timestamped file in `backups/`.
+script's first action is to record every setting it knows about - not only the
+ones it is about to alter - into a timestamped file in `backups/`.
 
 **Two: the very first backup is kept forever.** The first time you run the change
 script, it also writes `original-state.json`, a copy of how your machine was
@@ -382,14 +382,14 @@ overwritten, no matter how many times you run anything.
 
 This defeats a specific and common trap. Imagine backups that overwrite each
 other. You run the change script and it saves your original settings. A week
-later you run it again — perhaps to include a layer you skipped the first time —
+later you run it again - perhaps to include a layer you skipped the first time -
 and it dutifully saves the current state, which is the state it created last
 week. Your original settings are gone. The route home has been paved over by the
 thing you wanted to escape. The write-once original file means that cannot happen
 here: `Restore-<Topic>.ps1 -Original` always leads back to the machine as it was.
 
-**Three: undoing is itself undoable.** The restore script takes its own backup —
-tagged `pre-restore` — before it puts anything back. If you restore and decide
+**Three: undoing is itself undoable.** The restore script takes its own backup -
+tagged `pre-restore` - before it puts anything back. If you restore and decide
 you preferred the changed state, that state is still on disk.
 
 **Four: restoring removes what was not there.** If a setting did not exist before
@@ -427,7 +427,7 @@ that no flag can destroy it.
 
 **R4.4a** `original-state.json` MUST only be written by a script that is **about
 to change something**, from the reading it took **beforehand**. The backup writer
-MUST gate it behind an explicit switch — `-RecordAsOriginal` — and only the
+MUST gate it behind an explicit switch - `-RecordAsOriginal` - and only the
 applying script may pass it.
 
 ```powershell
@@ -448,7 +448,7 @@ $backupPath = Save-XxxBackup -BackupDir $backupDir -Tag $Tag -RecordAsOriginal
 **This was a real defect in modules 01 and 02, fixed 2026-08-26, and R4.4 alone
 did not prevent it.** R4.5 requires the restore script to take a `pre-restore`
 backup. That call went through the same writer, which created
-`original-state.json` whenever none existed — recording the **current** state as
+`original-state.json` whenever none existed - recording the **current** state as
 "original". Since the file is then never overwritten, a machine that had already
 been modified had "before any of this" permanently defined as "after all of
 this", and `-Original` restored to the applied state forever, with nothing in its
@@ -488,7 +488,7 @@ small JSON files. Deleting a user's route home to save kilobytes is not a
 trade-off this project makes.
 
 **R4.10** If a module's change is **not** fully reversible by replaying a state
-file — an uninstalled package, a deleted file, a service binary removed — the
+file - an uninstalled package, a deleted file, a service binary removed - the
 module MUST say so explicitly in both tracks of its README, name precisely which
 parts are irreversible, and state what would be needed to recover them. A module
 MUST NOT present a partial rollback as a complete one.
@@ -505,10 +505,10 @@ Two documents ship with every module, and they have different jobs.
 run it?" It leads with the human track: what changes, what you will notice, what
 it will not fix, what might break. The technical explanation follows in the same
 document, so a developer reading it top to bottom gets the plain account first
-and then the mechanisms — which is the right order for anyone, not a concession.
+and then the mechanisms - which is the right order for anyone, not a concession.
 
 `HOWTO.md` answers "how do I actually use this?" Every script, every parameter,
-and a worked example for each — the literal command line, and what it prints.
+and a worked example for each - the literal command line, and what it prints.
 
 Writing the plain-language version is not a courtesy that comes after the real
 work. It is a form of rigour. Explaining a mechanism without jargon forces you to
@@ -516,28 +516,28 @@ know what it actually does; vagueness that hides comfortably behind
 `SPI_SETCLIENTAREAANIMATION` becomes visible the moment you have to say it in
 ordinary words. Several errors in this project were caught that way.
 
-### 5.2 `README.md` — required sections, in order
+### 5.2 `README.md` - required sections, in order
 
 **R5.1** `README.md` MUST exist in the module folder and MUST open with the human
 track. Required sections:
 
-1. **Title** — the subject, in ordinary words.
-2. **In plain language** — what the module changes and what the reader will
+1. **Title** - the subject, in ordinary words.
+2. **In plain language** - what the module changes and what the reader will
    notice, in concrete terms. What it does for them; what it costs them.
-3. **What we found on this machine** — the measured starting state, including
+3. **What we found on this machine** - the measured starting state, including
    anything that was **already** done. Claiming credit for a setting that was
    already off is a form of dishonesty this project rejects.
-4. **What this will not do** — the honest limits. What is out of reach, what
+4. **What this will not do** - the honest limits. What is out of reach, what
    cannot be guaranteed, what a reasonable person might expect that will not
    happen.
-5. **What might break** — the realistic failure modes, named specifically.
-6. **Technical detail** — mechanisms, exact paths, API names, ordering
+5. **What might break** - the realistic failure modes, named specifically.
+6. **Technical detail** - mechanisms, exact paths, API names, ordering
    constraints, the traps.
-7. **Errors worth recording** — any place an earlier version of this module, or
+7. **Errors worth recording** - any place an earlier version of this module, or
    this project, got it wrong. Include the wrong answer, why it was believable,
    and how it was corrected.
-8. **Grounding** — the citations, per §8.
-9. **Honest limits** — what the documentation corpus does *not* support, stated
+8. **Grounding** - the citations, per §8.
+9. **Honest limits** - what the documentation corpus does *not* support, stated
    plainly rather than left implicit.
 
 **R5.2** The README MUST state whether the module needs administrator rights, and
@@ -549,7 +549,7 @@ touches only your own settings, not the machine's."*
 quotes. Measurements from another machine, or of unknown vintage, MUST NOT be
 presented as this machine's state.
 
-### 5.3 `HOWTO.md` — required content
+### 5.3 `HOWTO.md` - required content
 
 **R5.4** `HOWTO.md` MUST document **every** capability of **every** script in the
 module. A parameter that exists in code and not in HOWTO.md is a defect.
@@ -559,7 +559,7 @@ module. A parameter that exists in code and not in HOWTO.md is a defect.
 - one sentence on what it does and whether it changes anything;
 - a table of every parameter: name, type, default, and what it does in plain
   language;
-- **a worked example per capability** — the literal command line, and a
+- **a worked example per capability** - the literal command line, and a
   description or excerpt of what it prints;
 - the expected exit behaviour when there is nothing to do.
 
@@ -583,7 +583,7 @@ This includes British spelling and the ban on "simply" and "just".
 **R5.9** Every script MUST carry a PowerShell comment-based help block with
 `.SYNOPSIS`, `.DESCRIPTION`, a `.PARAMETER` entry for every parameter, and at
 least one `.EXAMPLE` per capability. The help block is written in the human track
-— it is what `Get-Help` shows, and it is often the only documentation a person
+- it is what `Get-Help` shows, and it is often the only documentation a person
 reads. Module 01's `Disable-VisualEffects.ps1` carries four examples and a SAFETY
 block inside `.DESCRIPTION`; treat that as the floor.
 
@@ -698,8 +698,8 @@ implies, and that no action is needed. All four are required.
 ### 6.6 Elevation
 
 **R6.14** A module MUST NOT request administrator rights unless it genuinely
-writes outside the user's own hive or otherwise requires them. Per-user modules —
-HKCU, per-user API settings — MUST state in both README and `.DESCRIPTION` that
+writes outside the user's own hive or otherwise requires them. Per-user modules -
+HKCU, per-user API settings - MUST state in both README and `.DESCRIPTION` that
 no elevation is needed or asked for.
 
 **R6.15** Where elevation **is** required, the script MUST self-elevate rather
@@ -736,8 +736,8 @@ without elevation and says explicitly which subset that is.
 
 ### 6.7 Side effects
 
-**R6.19** Any action with a visible cost to the user — restarting Explorer,
-stopping a service, signing out — MUST be opt-in behind an explicit switch, MUST
+**R6.19** Any action with a visible cost to the user - restarting Explorer,
+stopping a service, signing out - MUST be opt-in behind an explicit switch, MUST
 name its cost in the help text (*"This closes any open File Explorer
 windows"*), and MUST NOT be implied by any other parameter.
 
@@ -775,7 +775,7 @@ and never require the reader to already know what the module does.
 (`"    {0,-28} {1}"`), two-space indentation for the body, four for list items.
 
 **R7.2** Every script MUST print a header naming the module, the scope in effect,
-and — for the `Test-` script — the machine, build and user.
+and - for the `Test-` script - the machine, build and user.
 
 **R7.3** State MUST be printed in the human track's vocabulary. Print the setting
 name a person can recognise (`Menu fade`), and where a raw identifier matters,
@@ -789,8 +789,8 @@ print it alongside rather than instead.
 use emoji or box-drawing characters. Console encoding on a default Windows 11
 PowerShell 5.1 host mangles them. ASCII rules (`-`), ASCII arrows (`->`).
 
-**R7.6** Where the module can measure the thing it claims to affect — process
-memory, service count, listener count — the `Test-` script SHOULD print that
+**R7.6** Where the module can measure the thing it claims to affect - process
+memory, service count, listener count - the `Test-` script SHOULD print that
 measurement so a before/after comparison is available without extra tooling.
 Module 01 prints `dwm.exe` resident size and the WebView2 process count.
 
@@ -804,10 +804,10 @@ Every factual claim in a module's documentation is backed by one of two things,
 and you can check both without trusting anyone:
 
 - **A Microsoft document**, quoted verbatim, with the file and line where the
-  sentence lives — tagged `[R-nn]`. The repository ships a script that opens each
+  sentence lives - tagged `[R-nn]`. The repository ships a script that opens each
   cited file and confirms the sentence is really there.
 - **A measurement from this machine**, saved as a file you can re-create by
-  running the same read-only scan — tagged `[M-nn]`.
+  running the same read-only scan - tagged `[M-nn]`.
 
 There is a third category, and it is the one that matters most for honesty:
 things that are true, that we rely on, and that the documentation we hold does
@@ -851,13 +851,13 @@ Documentation is written by reading the code, not by reading the plan.
 
 | Tag | Source | Supports |
 |---|---|---|
-| R-63 | `windows-uwp/hub/apps/design/style/acrylic.md` line 70 | *"Rendering acrylic surfaces is GPU-intensive, which can increase device power consumption and shorten battery life. Acrylic effects are automatically disabled when a device enters Battery Saver mode."* |
-| R-66 | `windows-uwp/hub/apps/develop/composition/composition-tailoring.md` line 114 | Gaussian Blur, Shadow Mask, BackDropBrush, HostBackDropBrush and Layer Visual are of "high performance impact … not recommended for low end devices" |
+| R-63 | https://learn.microsoft.com/en-us/windows/apps/design/style/acrylic line 70 | *"Rendering acrylic surfaces is GPU-intensive, which can increase device power consumption and shorten battery life. Acrylic effects are automatically disabled when a device enters Battery Saver mode."* |
+| R-66 | https://learn.microsoft.com/en-us/windows/apps/develop/composition/composition-tailoring line 114 | Gaussian Blur, Shadow Mask, BackDropBrush, HostBackDropBrush and Layer Visual are of "high performance impact ... not recommended for low end devices" |
 | R-67, R-68 | as above | applications are expected to honour `UISettings.AnimationsEnabled` and `UISettings.AdvancedEffectsEnabled` |
-| R-69, R-70 | `win32/desktop-src/WinAuto/client-area-animation.md` lines 11 and 13 | the client-area animation parameter "indicates whether the user wants to disable animations in UI elements"; applications use `SPI_GETCLIENTAREAANIMATION` / `SPI_SETCLIENTAREAANIMATION` with `SystemParametersInfo` "to turn client area animations on or off" |
+| R-69, R-70 | https://learn.microsoft.com/en-us/windows/win32/WinAuto/client-area-animation lines 11 and 13 | the client-area animation parameter "indicates whether the user wants to disable animations in UI elements"; applications use `SPI_GETCLIENTAREAANIMATION` / `SPI_SETCLIENTAREAANIMATION` with `SystemParametersInfo` "to turn client area animations on or off" |
 | R-71, R-72, R-73 | three corpus documents | DWM composition has been always-on since Windows 8 and `DwmEnableComposition` cannot disable it |
 | M-05 | `evidence/2026-08-26_07-31-11_baseline/visual-effects.txt` | the measured state below |
-| *(uncited)* | — | `SystemParametersInfo` parameter conventions — engineering observation, per R8.4 |
+| *(uncited)* | - | `SystemParametersInfo` parameter conventions - engineering observation, per R8.4 |
 
 ### 8.4 Measured baseline, module 01
 
@@ -1044,7 +1044,7 @@ Recorded rather than quietly fixed, per §9.
 At the time of writing, `modules/01-visual-effects` contains its four scripts and
 an empty `backups/` folder. It does **not** yet contain `README.md` or
 `HOWTO.md`, and therefore fails **R5.1** and **R5.4**. A dual-track README for
-this subject exists at `visual-effects/README.md` — the pre-modules location —
+this subject exists at `visual-effects/README.md` - the pre-modules location -
 and is the right starting material, but it is not in the module folder, does not
 carry all nine required sections, and documents an older script that used a
 `-Restore` flag rather than a separate rollback file.
@@ -1086,21 +1086,21 @@ Anything less is a module in progress, and its status in §1.4 says so.
 |---|---|---|---|---|
 | Folder layout (§1) | yes | yes | partial | yes |
 | Mandatory trio (§2) | yes | yes | yes | yes |
-| Safety-logic self-test (R2.8) | **yes — 40 checks** | **yes — 37 checks** | not yet | **yes — 33 checks** |
+| Safety-logic self-test (R2.8) | **yes - 40 checks** | **yes - 37 checks** | not yet | **yes - 33 checks** |
 | Harness cannot skip silently (R2.8a) | yes | yes | n/a yet | yes |
 | Round-trip INCONCLUSIVE rule (R2.9) | yes | yes | n/a yet | yes |
 | Backup contract (§4) | yes | yes | n/a yet | yes |
 | `-RecordAsOriginal` (R4.4a) | yes | yes | n/a yet | yes |
-| Absent-value restore (R4.6) | n/a — no absent values | **yes** | will apply | **yes — 8 of 10 are absent by default** |
-| Irreversible-change rule (R4.10) | n/a | n/a | **yes — its hard case** | n/a |
+| Absent-value restore (R4.6) | n/a - no absent values | **yes** | will apply | **yes - 8 of 10 are absent by default** |
+| Irreversible-change rule (R4.10) | n/a | n/a | **yes - its hard case** | n/a |
 | README + HOWTO (§5) | yes | yes | README only | README only |
 | Script requirements (§6) | yes | yes | checker only | yes |
 | Citations (§8) | 90/90 verified | 5/5 verified | 6/6 verified | 5/5 verified |
-| Uncited claims labelled (§8) | yes | yes | yes | **yes — enforced by a second tier in code** |
+| Uncited claims labelled (§8) | yes | yes | yes | **yes - enforced by a second tier in code** |
 | Launchers (§14) | 8, none elevated | 7, four elevated | 1, none elevated | 8, none elevated |
-| Measurement (§15) | `Measure-VisualEffects.ps1` | n/a — stated | disk only, stated | **n/a — no performance claim, stated** |
-| Adversarial audit | **done** — 10 defects fixed | **done — 9 findings, all fixed** | **in progress** | **done — 16 findings, all fixed** |
-| Round trip proved on a real machine | **yes** — 13 moved, returned | **yes — 3 moved, returned, elevated** | **yes — 3 moved, returned, elevated (tier 1)** | **yes — 10 moved, returned** |
+| Measurement (§15) | `Measure-VisualEffects.ps1` | n/a - stated | disk only, stated | **n/a - no performance claim, stated** |
+| Adversarial audit | **done** - 10 defects fixed | **done - 9 findings, all fixed** | **in progress** | **done - 16 findings, all fixed** |
+| Round trip proved on a real machine | **yes** - 13 moved, returned | **yes - 3 moved, returned, elevated** | **yes - 3 moved, returned, elevated (tier 1)** | **yes - 10 moved, returned** |
 | Round-trip comparison proved falsifiable | not yet | **yes** | **yes** | **yes** |
 | Applied on the audited machine | **yes** | **no** | **no** | **no** |
 
@@ -1112,25 +1112,25 @@ rule this project applies to everything else, that means it does not ship.
 Module 04 is the furthest along after module 01, and got there because every
 setting it manages is per-user: it could be built, applied, undone and proved
 without anyone approving an elevation prompt. It is the only module whose
-round-trip comparison has itself been shown capable of failing — a doctored entry
-is detected and a null state trips a guard — which matters because that
+round-trip comparison has itself been shown capable of failing - a doctored entry
+is detected and a null state trips a guard - which matters because that
 comparison returned a **false PASS** on its first run.
 
-Module 03 was **earlier still, deliberately** — a read-only checker shipped
+Module 03 was **earlier still, deliberately** - a read-only checker shipped
 alone until the removal scripts could be tested elevated. That caution paid its
 way: before execution the module went through the same adversarial audit as the
-others and it produced the largest haul of the day — **14 findings, 2 severe**,
+others and it produced the largest haul of the day - **14 findings, 2 severe**,
 among them an exit-code contract that was gated on but never implemented, and a
 key-cleanup emptiness check that would have deleted a third party's data. All
 fixed, all regression-tested (45 checks), and only then was the removal
 executed on 2026-08-26. The uninstaller exited 19 with its folder verifiably
 gone; the module recorded the removal **with** that exit code rather than
-rounding it to success — R16-grade honesty exercised on the first real run.
+rounding it to success - R16-grade honesty exercised on the first real run.
 
 Module 03 is also the first to meet **R4.10**: part of what it does cannot be
 reversed by replaying a state file, because deleting 1.3 GB of software is not a
 settings change. Its two tiers are separated in `_Common.ps1` so that the restore
-allow-list physically cannot contain the removals — the honesty is enforced by
+allow-list physically cannot contain the removals - the honesty is enforced by
 the data structure, not by the documentation.
 
 ## 14. Double-clickable launchers (mandatory)
@@ -1343,7 +1343,7 @@ other.
 | Module | R15.1 | R15.2 | R15.4 | R15.5 | R15.7 |
 |---|---|---|---|---|---|
 | 01 visual effects | `Measure-VisualEffects.ps1`, launcher 7 | yes | yes | yes | yes |
-| 02 update distribution | n/a — security benefit only, and its README says so in as many words | — | — | — | — |
+| 02 update distribution | n/a - security benefit only, and its README says so in as many words | - | - | - | - |
 
 ### The undo must be as clickable as the change
 

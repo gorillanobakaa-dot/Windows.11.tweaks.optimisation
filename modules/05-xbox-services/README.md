@@ -7,8 +7,8 @@
 | **1 - Check what is on now** | Every Xbox service, task and app, read-only | No | reads only |
 | **2 - Preview the changes (safe)** | Every change that would happen; does none of it | No | reads only |
 | **3 - Apply the changes** | Disables 5 services + 1 scheduled task, backup first | **Yes** | **yes, from a backup** |
-| **4 - UNDO everything** | Puts every start type back from the newest backup | **Yes** | — |
-| **5 - UNDO back to the original** | Back to before this module ever ran | **Yes** | — |
+| **4 - UNDO everything** | Puts every start type back from the newest backup | **Yes** | - |
+| **5 - UNDO back to the original** | Back to before this module ever ran | **Yes** | - |
 | **6 - Prove the undo works** | Applies, undoes, compares every reading | **Yes** | net zero on a pass |
 | **7 - Test the safety logic** | Tests the machinery that decides whether to write | No | reads only |
 
@@ -68,12 +68,12 @@ are the vendor's own words about these exact services" - no more.
 
 | | Result |
 |---|---|
-| Round trip, elevated, on this machine | **PASS** — 6 readings moved (5 services + the task) and every one came back; test backups cleaned up |
+| Round trip, elevated, on this machine | **PASS** - 6 readings moved (5 services + the task) and every one came back; test backups cleaned up |
 | Comparison proved falsifiable | doctored start type detected; null state trips the guard |
-| Safety logic self-test | **39 checks, 0 failures** — its first run caught a real defect: `$null -as [int]` coerces to 0, and 0 is a BOOT-DRIVER start type, so the valid range was tightened to 2–4 |
+| Safety logic self-test | **39 checks, 0 failures** - its first run caught a real defect: `$null -as [int]` coerces to 0, and 0 is a BOOT-DRIVER start type, so the valid range was tightened to 2-4 |
 | Citations | **7 / 7 verified** against the offline corpus |
-| Adversarial audit | **done — 14 findings (2 serious), all fixed.** The serious pair: the round trip ran its undo on ANY unexpected apply exit code (a crashed apply would have sent it after a stale backup), and the apply exited 0 even when every write failed. Both fixed and tripwired; the self-test grew from 39 to 44 checks |
-| Applied to this machine | **YES — 2026-08-26 22:10.** All 5 services Start=4, task disabled, every value read back. The per-user instance `BcastDVRUserService_7d78f` keeps Start=3 until the next sign-out — instances are stamped from the template, which is what Microsoft says to disable [R-104] |
+| Adversarial audit | **done - 14 findings (2 serious), all fixed.** The serious pair: the round trip ran its undo on ANY unexpected apply exit code (a crashed apply would have sent it after a stale backup), and the apply exited 0 even when every write failed. Both fixed and tripwired; the self-test grew from 39 to 44 checks |
+| Applied to this machine | **YES - 2026-08-26 22:10.** All 5 services Start=4, task disabled, every value read back. The per-user instance `BcastDVRUserService_7d78f` keeps Start=3 until the next sign-out - instances are stamped from the template, which is what Microsoft says to disable [R-104] |
 
 This table is updated as each row becomes true.
 

@@ -1,7 +1,7 @@
 # How to remove preinstalled apps
 
 *The module that deletes software. Read the first two sections before you click
-anything — this is the one where a wrong choice costs you something real.*
+anything - this is the one where a wrong choice costs you something real.*
 
 ---
 
@@ -27,7 +27,7 @@ module records the answer at the moment of removal, so you are never guessing.
 On **2026-08-27 at 16:59** this machine's Windows Update reinstalled two Xbox
 packages on its own, hours after the Xbox services were disabled.
 
-Microsoft documents one mechanism that blocks reinstallation — and documents it
+Microsoft documents one mechanism that blocks reinstallation - and documents it
 as **Enterprise and Education only**. This is Home.
 
 So the honest expectation is: **removal is a delete, not a block.** Run
@@ -38,17 +38,17 @@ you re-run the removal. That is the workflow, not a workaround.
 
 Microsoft's method is two steps. Most guides do only the second, which leaves
 the app waiting for the next account created on the machine. This module does
-both — which is why the real run asks for administrator rights and the preview
+both - which is why the real run asks for administrator rights and the preview
 does not.
 
 ---
 
 ## Recommended first session
 
-1. **`1 - Check what is on now`** — 107 packages, 44 of which Windows will not
+1. **`1 - Check what is on now`** - 107 packages, 44 of which Windows will not
    let go of.
-2. **`10 - Test the safety logic`** — 58 checks, ten seconds, no admin.
-3. **`4 - Preview SUPER`** — read the most aggressive tier even if you want
+2. **`10 - Test the safety logic`** - 58 checks, ten seconds, no admin.
+3. **`4 - Preview SUPER`** - read the most aggressive tier even if you want
    LIGHT. It is the fastest way to understand what these tiers are.
 4. Then pick a tier.
 
@@ -64,17 +64,17 @@ does not.
 
 ### The three that catch people out
 
-- **Widgets** (MODERATE) — `MicrosoftWindows.Client.WebExperience` *is* the
+- **Widgets** (MODERATE) - `MicrosoftWindows.Client.WebExperience` *is* the
   widgets board. The taskbar button stops working because the thing behind it
   is gone.
-- **Bing web results in Start** (MODERATE) — Start still searches your machine
+- **Bing web results in Start** (MODERATE) - Start still searches your machine
   normally. Only the web results panel goes.
-- **Photos** (SUPER) — **no default image viewer afterwards** unless you install
+- **Photos** (SUPER) - **no default image viewer afterwards** unless you install
   one. Double-clicking a JPG will ask you what to open it with.
 
 ---
 
-## `Remove-Apps.ps1` — every option
+## `Remove-Apps.ps1` - every option
 
 ```bash
 powershell -ExecutionPolicy Bypass -File .\Remove-Apps.ps1 -Tier light -WhatIf
@@ -93,7 +93,7 @@ Works **without** administrator rights, deliberately.
 
 ### `-Force`
 
-Skips the typed confirmation. Without it you must type the **tier name** — not
+Skips the typed confirmation. Without it you must type the **tier name** - not
 "y", the actual word.
 
 ### `-Tag`
@@ -108,7 +108,7 @@ Labels the inventory file.
 | 3 | inventory could not be written; nothing removed |
 | 4 | nothing to do, unelevated, or you declined |
 | 5 | completed, but a removal failed |
-| 6 | the tier names a protected package — **nothing was touched** |
+| 6 | the tier names a protected package - **nothing was touched** |
 
 ### What a refusal looks like
 
@@ -119,7 +119,7 @@ Labels the inventory file.
     Nothing was changed.
 ```
 
-The refusal fires **before** the inventory is written — the self-test asserts
+The refusal fires **before** the inventory is written - the self-test asserts
 that ordering, so an illegal tier cannot even leave a file behind.
 
 ### What the output tells you, precisely
@@ -138,7 +138,7 @@ reported as a failure.
 
 ---
 
-## `Restore-Apps.ps1` — best effort
+## `Restore-Apps.ps1` - best effort
 
 ```bash
 powershell -ExecutionPolicy Bypass -File .\Restore-Apps.ps1 -List
@@ -146,7 +146,7 @@ powershell -ExecutionPolicy Bypass -File .\Restore-Apps.ps1
 powershell -ExecutionPolicy Bypass -File .\Restore-Apps.ps1 -Name Microsoft.GetHelp
 ```
 
-`-List` shows everything removed and the route back for each — changes nothing.
+`-List` shows everything removed and the route back for each - changes nothing.
 Without arguments it re-registers everything whose payload survived, and lists
 the ones only the Store can bring back.
 
@@ -159,12 +159,12 @@ removed, and check 1 uses it to spot apps that come back on their own.
 
 ### An app I removed is back
 
-Expected on this edition. Check 1 names it. Re-run the removal for its tier —
+Expected on this edition. Check 1 names it. Re-run the removal for its tier -
 it is idempotent and reports anything already absent as nothing to do.
 
 ### Photos is gone and I want it back
 
-Launcher 8 first. If the payload went, install Photos from the Microsoft Store —
+Launcher 8 first. If the payload went, install Photos from the Microsoft Store -
 launcher 9 shows the exact package name that was removed.
 
 ### The Widgets button does nothing
@@ -192,7 +192,7 @@ the tier is idempotent.
   `removed-not-restorable.json`.
 - **Remove Edge**, hardware control panels (Realtek, Intel, ELAN, Dolby), shared
   runtimes, media codecs, or the Store.
-- **Touch anything you installed yourself** — including `Claude`, which is on
+- **Touch anything you installed yourself** - including `Claude`, which is on
   the never-remove list by name.
 - **Delete package folders by hand.**
 - **Enumerate frameworks or resource packages at all.**

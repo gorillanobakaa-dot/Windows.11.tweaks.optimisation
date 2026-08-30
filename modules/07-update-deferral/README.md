@@ -1,4 +1,4 @@
-# Module 07 — hold feature updates back
+# Module 07 - hold feature updates back
 
 *Stop Windows installing the big twice-yearly feature releases for 3, 6 or 12
 months. Keep every security patch. Let somebody else find the bugs first.*
@@ -29,7 +29,7 @@ Full walkthrough with every option and troubleshooting: [`HOWTO.md`](HOWTO.md).
 
 Every deferral and pinning policy this module writes is documented as a feature
 of a service *"available for the following editions of Windows 10 and Windows
-11"* [R-123] — and the list is Pro, Education and Enterprise [R-134][R-135][R-136].
+11"* [R-123] - and the list is Pro, Education and Enterprise [R-134][R-135][R-136].
 **Home is not on it.** Home is also not explicitly listed as *unsupported*.
 
 So the module makes three claims and no more:
@@ -50,7 +50,7 @@ history builds itself.
 
 ### Security updates are not touched. That is the whole design.
 
-The brief was to avoid being an early adopter of *feature* releases — not to
+The brief was to avoid being an early adopter of *feature* releases - not to
 stop being patched. Microsoft: *"Most organizations consider monthly security
 update releases as mandatory."* [R-127] And the mechanisms are genuinely
 separate: *"If you pause a feature update, quality updates are still offered to
@@ -85,13 +85,13 @@ Five values under it:
 | Value | Set to | In plain English |
 |---|---|---|
 | `TargetReleaseVersion` | `1` | release pinning: **ON** |
-| `TargetReleaseVersionInfo` | **read from this machine** (e.g. `25H2`) | "stay on this release" — never hardcoded, see [Why not just a .reg file](#why-not-just-a-reg-file) |
+| `TargetReleaseVersionInfo` | **read from this machine** (e.g. `25H2`) | "stay on this release" - never hardcoded, see [Why not just a .reg file](#why-not-just-a-reg-file) |
 | `ProductVersion` | `Windows 11` | the product the pin applies to |
-| `DeferFeatureUpdates` | `1` | the older-style day-count deferral: **ON** — belt *and* braces |
+| `DeferFeatureUpdates` | `1` | the older-style day-count deferral: **ON** - belt *and* braces |
 | `DeferFeatureUpdatesPeriodInDays` | `90` / `180` / `365` | your 3 / 6 / 12 months, as a number of days |
 
 After an apply, check 1 (`1 - Check what is on now`) reads these five back, shows
-what the update client itself believes, and records your release — so "did Home
+what the update client itself believes, and records your release - so "did Home
 actually obey?" gets answered by the release history over time, not by hope.
 
 ### Why both a pin and a day count
@@ -106,7 +106,7 @@ where the pin is not honoured. The day count is also flagged by Microsoft as
 legacy: *"This policy is a legacy policy and isn't applicable for Windows 11."*
 [R-121] It is written anyway, labelled `[LEGACY]` everywhere it appears, because
 on an edition where neither is documented to work, writing only the one the
-vendor calls legacy — or only the one the vendor calls current — would be
+vendor calls legacy - or only the one the vendor calls current - would be
 guessing which guess is right.
 
 The day count's own semantics are documented plainly: *"if you set a feature
@@ -116,7 +116,7 @@ that has been released for less than 365 days."* [R-122] 365 is the maximum
 
 ### A documentation trap worth knowing
 
-Microsoft's prose spells the value **`DeferFeatureUpdatesPeriodinDays`** — lower
+Microsoft's prose spells the value **`DeferFeatureUpdatesPeriodinDays`** - lower
 case `i` in `in`. The registry value is `DeferFeatureUpdatesPeriodInDays`, capital
 `I`. Copying the sentence straight out of the documentation gives you a value
 name Windows ignores silently. This module writes the capital-`I` form.
@@ -126,7 +126,7 @@ name Windows ignores silently. This module writes the capital-`I` form.
 ## Why not just a .reg file?
 
 Back in the day this whole module would have been a `Hold-updates.reg` you
-double-click, and regedit would merge the five values. It would even work —
+double-click, and regedit would merge the five values. It would even work -
 once, on one machine, on the day it was written. This project refuses that
 shortcut for four reasons, all of them scars rather than preferences:
 
@@ -137,14 +137,14 @@ something. A `.reg` merge is a write with amnesia.
 
 **2. One of the five values must be read from *your* machine at the moment of
 writing.** `TargetReleaseVersionInfo` pins the release you are currently on.
-A shipped `.reg` file freezes whatever release its author had — and this value
+A shipped `.reg` file freezes whatever release its author had - and this value
 is not just a brake. Microsoft's guidance for it is to *"specify the version
-that you want your devices to use"* [R-143] — and Microsoft names this same
+that you want your devices to use"* [R-143] - and Microsoft names this same
 value as the thing that *upgrades* managed machines: endpoints *"don't
 automatically upgrade to Windows 11 unless an administrator explicitly
 configures a Target Version"* [R-144]. Point it at a newer release and it is
-an upgrade order, not a hold. Point it at an older or invalid one — say,
-a `.reg` file written a year ago — and *"the device won't receive any feature
+an upgrade order, not a hold. Point it at an older or invalid one - say,
+a `.reg` file written a year ago - and *"the device won't receive any feature
 updates until the policy is updated"* [R-142]: silent update starvation, with
 no expiry and no error, which is *more* broken than what anyone intended. The
 same five characters hold one machine, move a second, and starve a third.
@@ -157,7 +157,7 @@ nothing. Every apply here exits with a code its caller gates on, and check 1
 reads the values back independently.
 
 **4. The classic companion `undo.reg` is a trap.** The old pattern starts
-with `[-HKEY_LOCAL_MACHINE\...\WindowsUpdate]` — delete the whole key. That
+with `[-HKEY_LOCAL_MACHINE\...\WindowsUpdate]` - delete the whole key. That
 key is shared: anything else that ever set a Windows Update policy loses its
 values along with ours. This project has already deleted a stranger's data
 once by treating a shared container as its own (lesson L5 in
@@ -165,8 +165,8 @@ once by treating a shared container as its own (lesson L5 in
 and removes only what the apply created.
 
 The registry writes themselves are exactly what a `.reg` file would do.
-Everything around them — look first, back up, refuse when wrong, prove by
-read-back, undo precisely — is the part the `.reg` file never had.
+Everything around them - look first, back up, refuse when wrong, prove by
+read-back, undo precisely - is the part the `.reg` file never had.
 
 ---
 
@@ -176,7 +176,7 @@ read-back, undo precisely — is the part the `.reg` file never had.
   pause. Asserted by the self-test.
 - **Use the pause mechanism.** A pause lasts *"up to 35 days from when the value
   is set"* [R-130] and then silently stops protecting anything. Using an
-  expiring mechanism for a 3–12 month hold would be a setting that lies.
+  expiring mechanism for a 3-12 month hold would be a setting that lies.
 - **Touch `NoAutoUpdate` or `AUOptions`.** Turning automatic updating off
   altogether is a different and worse decision.
 - **Touch `wuauserv`, `UsoSvc`, `BITS` or `DoSvc`.** All never-touch in module 06.
@@ -186,7 +186,7 @@ read-back, undo precisely — is the part the `.reg` file never had.
 
 ---
 
-## Safeguard holds — what Microsoft is doing to you
+## Safeguard holds - what Microsoft is doing to you
 
 Separate from anything you set, Microsoft can hold *your* machine back. It is
 edition-agnostic and locally readable [R-128]:
@@ -202,7 +202,7 @@ Check 1 reads and reports it. On this machine at the time of writing: **GStatus
 
 ---
 
-## Policy set by registry still counts as managed — with a caveat
+## Policy set by registry still counts as managed - with a caveat
 
 Microsoft is explicit that writing these keys directly makes the device managed,
 and equally explicit about the risk:
@@ -216,7 +216,7 @@ protection against a recorded decision. **Re-run check 1 after any feature
 update to confirm the values are still there.**
 
 The visible symptom of "managed": Windows Update in Settings may now say
-**"Some settings are managed by your organization."** That is you — you are
+**"Some settings are managed by your organization."** That is you - you are
 the organization. Launcher `7 - UNDO back to the original` removes every
 value this module wrote, and the banner with it.
 
@@ -228,12 +228,12 @@ value this module wrote, and the banner with it.
 |---|---|
 | Self-test checks | **67**, 0 failures |
 | Round trip executed on this machine | see below |
-| Applied to this machine | **NO — not yet applied.** Which hold, if any, is the owner's call |
+| Applied to this machine | **NO - not yet applied.** Which hold, if any, is the owner's call |
 | Citations verified at the cited line | every row in the table below |
 
 The self-test found a real defect in this module's own code before it shipped:
 `Test-UdfStateShape` **threw** on an object with no properties instead of
-returning false — a shape check that crashed on the most malformed input it
+returning false - a shape check that crashed on the most malformed input it
 would ever see. Fixed, and the check that caught it is check 7.
 
 ---

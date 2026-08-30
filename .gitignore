@@ -15,3 +15,15 @@ TOOLS-HOWTO.md
 FINDINGS.md
 *.zip
 *.log
+.gemini/
+
+# Gemini rules
+GEMINI.md
+.gemini/
+# dual_track.py working files — local only, never published
+*.prep.json
+*.filled.json
+PAYLOAD.*
+PRECHECK.json
+
+.agents/

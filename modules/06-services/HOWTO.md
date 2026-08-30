@@ -11,7 +11,7 @@ refusals built into it. Read the first section before you run anything.*
 
 Everything else here changes settings. This changes **whether Windows is
 allowed to start a service at all**, and a bad set does not fail when you
-apply it — it fails at the next boot, potentially with no network, no sign-in,
+apply it - it fails at the next boot, potentially with no network, no sign-in,
 or no way to elevate and undo it.
 
 That risk is why roughly half the code is refusals:
@@ -22,7 +22,7 @@ That risk is why roughly half the code is refusals:
   **signing in**. A backup on a disk you cannot log in to reach is not a
   rescue.
 - **A dependency check computed from the live machine** before any write,
-  which now also scans **drivers** — a kernel driver can declare a dependency
+  which now also scans **drivers** - a kernel driver can declare a dependency
   on a service, and there is a live example on this machine.
 
 None of that makes it safe. It makes it *checkable*.
@@ -35,10 +35,10 @@ machine normally for a day, and only then decide it worked.
 
 ### Do this first, in this order
 
-1. **`10 - Prove the undo works`** — before applying anything, prove the undo
+1. **`10 - Prove the undo works`** - before applying anything, prove the undo
    round-trips on *your* machine. It applies LIGHT for real, undoes it, and
    compares every service. Net zero on a pass.
-2. **`4 - Preview SUPER`** — read what the most aggressive profile would take
+2. **`4 - Preview SUPER`** - read what the most aggressive profile would take
    away, even if you intend to use LIGHT. It is the fastest way to understand
    what these profiles are.
 3. Then pick a profile.
@@ -58,7 +58,7 @@ machine normally for a day, and only then decide it worked.
 | 7 | APPLY profile SUPER | **Yes** | ~167 |
 | 8 | UNDO everything | **Yes** | Every start type back from the newest backup |
 | 9 | UNDO back to the original | **Yes** | Back to before this module ever ran |
-| 10 | Prove the undo works | **Yes** | Apply LIGHT, undo, compare — net zero on a pass |
+| 10 | Prove the undo works | **Yes** | Apply LIGHT, undo, compare - net zero on a pass |
 | 11 | Test the safety logic | No | 83 checks on the refusals themselves |
 | 12 | Does Alt-Tab still work | No | Presses Alt+Tab and looks |
 
@@ -73,7 +73,7 @@ number here; 4 is *Preview SUPER*.
 |---|---|---|
 | **LIGHT** | 64 | Scanning, Mobile Hotspot, File History, Windows Backup, WebDAV, smart cards, and Windows' own self-repair services |
 | **MODERATE** | 116 | LIGHT + remote access (RDP, WinRM, SMB *server*), cloud sync, diagnostics, geolocation, **Bluetooth pairing**, the built-in troubleshooters |
-| **SUPER** | 165 | MODERATE + **printing** (including Print to PDF), **Bluetooth**, **Windows Search indexing**, the Store surface, legacy protocols. The **camera is no longer touched by any profile** — see below |
+| **SUPER** | 165 | MODERATE + **printing** (including Print to PDF), **Bluetooth**, **Windows Search indexing**, the Store surface, legacy protocols. The **camera is no longer touched by any profile** - see below |
 
 Profiles are **cumulative**: MODERATE includes LIGHT, SUPER includes both.
 
@@ -90,7 +90,7 @@ the corrected version.
 
 ---
 
-## `Test-Services.ps1` — every option
+## `Test-Services.ps1` - every option
 
 ```bash
 powershell -ExecutionPolicy Bypass -File .\Test-Services.ps1
@@ -119,11 +119,11 @@ so before you write anything:
       ! Printing: 1 printer(s) installed, including 'Microsoft Print to PDF'.
 ```
 
-They are **warnings, not refusals** — you may genuinely want the trade.
+They are **warnings, not refusals** - you may genuinely want the trade.
 
 ---
 
-## `Apply-ServiceProfile.ps1` — every option
+## `Apply-ServiceProfile.ps1` - every option
 
 ```bash
 powershell -ExecutionPolicy Bypass -File .\Apply-ServiceProfile.ps1 -Profile light
@@ -136,12 +136,12 @@ powershell -ExecutionPolicy Bypass -File .\Apply-ServiceProfile.ps1 -Profile lig
 ### `-WhatIf`
 
 Prints every change and makes none. Works **without** administrator rights,
-deliberately — the preview should not require elevation.
+deliberately - the preview should not require elevation.
 
 ### `-Force`
 
 Skips the typed confirmation. Intended for the round-trip proof. Without it,
-you must type the profile name to proceed — not "y", the actual word, because
+you must type the profile name to proceed - not "y", the actual word, because
 this is not a decision to make by reflex.
 
 ### `-Tag`
@@ -180,7 +180,7 @@ Labels the backup file. Useful if you want to find a specific backup later.
 
 ---
 
-## `Restore-Services.ps1` — every option
+## `Restore-Services.ps1` - every option
 
 ```bash
 powershell -ExecutionPolicy Bypass -File .\Restore-Services.ps1
@@ -194,7 +194,7 @@ Restores from the most recent usable backup. This is what launcher 8 runs.
 
 ### `-Original`
 
-Restores from the write-once `original-state.json` — the state from before
+Restores from the write-once `original-state.json` - the state from before
 this module was ever used. Launcher 9.
 
 ### `-Backup <path>`
@@ -205,7 +205,7 @@ Restores from a specific file. Use `-List` to see what exists.
 
 Shows every backup, marking internal snapshots as *not offered as a restore
 point*. That annotation is derived from the real filter, not a second
-hand-written pattern — in another module, a duplicated pattern annotated the
+hand-written pattern - in another module, a duplicated pattern annotated the
 list exactly backwards.
 
 ### `-Verbose`
@@ -216,13 +216,13 @@ lockout-risk lists are out of scope in **both** directions).
 
 ### What it will not restore
 
-Services on the never-touch or lockout-risk lists — even if a backup file says
+Services on the never-touch or lockout-risk lists - even if a backup file says
 to. A doctored or simply stale backup must not be able to disable Windows Hello
 through the undo, which is the script you run when you are already in trouble.
 
 ---
 
-## `Test-RoundTrip.ps1` — proving the undo
+## `Test-RoundTrip.ps1` - proving the undo
 
 ```bash
 powershell -ExecutionPolicy Bypass -File .\Test-RoundTrip.ps1 -Force
@@ -248,7 +248,7 @@ A pass looks like this:
 On a pass it deletes the backups it created. On a failure it keeps them, and
 prints what the apply and the undo actually said.
 
-### "INCONCLUSIVE — nothing moved, so nothing was proved"
+### "INCONCLUSIVE - nothing moved, so nothing was proved"
 
 The profile is already applied, so the apply had nothing to do. Run `8 - UNDO
 everything` first, then run the proof again.
@@ -265,7 +265,7 @@ everything` first, then run the proof again.
 
 ### I cannot elevate to run the undo
 
-This should be impossible — `Appinfo`, which *is* UAC elevation, is on the
+This should be impossible - `Appinfo`, which *is* UAC elevation, is on the
 never-touch list precisely so that the undo can always run. If it happens
 anyway, boot into Safe Mode, where the minimal service set applies, and run the
 undo from there.
@@ -277,7 +277,7 @@ earlier module. Check with `1 - Check what is on now`.
 
 ### Bluetooth / printing / search stopped working
 
-That is documented, not a bug — see the profile table above. Undo with 8, or
+That is documented, not a bug - see the profile table above. Undo with 8, or
 re-enable the single service by hand:
 
 ```bash
@@ -287,21 +287,21 @@ sc.exe config bthserv start= demand
 ### Something stopped working and it is a PER-USER service
 
 Some services are **templates**. Windows stamps a per-session copy from the
-template when you sign in — you will see a name with a random suffix, like
+template when you sign in - you will see a name with a random suffix, like
 `CaptureService_62d6e`. This module only ever touches the **template**, which is
 what Microsoft's own guidance says to do.
 
 The consequence catches people out: **fixing the template does not fix the
 copy that is already running.** Two ways round it.
 
-Sign out and back in — the copy is re-stamped from the corrected template. Or
+Sign out and back in - the copy is re-stamped from the corrected template. Or
 write the copy's own key directly, elevated:
 
 ```bash
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\<name>_<suffix>" /v Start /t REG_DWORD /d 3 /f
 ```
 
-`sc.exe config` does **not** work on an instance — it fails with *error 87, the
+`sc.exe config` does **not** work on an instance - it fails with *error 87, the
 parameter is incorrect*. That is Windows refusing, not a mistake in the command.
 
 **This applies to the module's own UNDO too.** Per-user *instances* are service
@@ -322,7 +322,7 @@ own backup is still the safer route.
 
 ## What this module deliberately does not do
 
-- **Delete services.** `sc delete` removes the *registration*, not the code —
+- **Delete services.** `sc delete` removes the *registration*, not the code -
   the DLL stays on disk, servicing restores the registration, and it is not
   reversible with what this module backs up. See `DEC-06-008`.
 - **Touch drivers.** Only Win32 service types are enumerated, so no profile can
@@ -344,14 +344,14 @@ python ..\..\READ-ONLY-verification\Lookup-ServiceDocs.py --profile super --undo
 
 The first shows what Microsoft's own service descriptions say breaks. The
 second shows which services rest on category reasoning rather than
-documentation — **79 of 175** currently. Full usage in
+documentation - **79 of 175** currently. Full usage in
 [`../../TOOLS-HOWTO.md`](../../TOOLS-HOWTO.md).
 
 ---
 
-## "It says 4 still to disable — why didn't they apply?"
+## "It says 4 still to disable - why didn't they apply?"
 
-Three of them — `DPS`, `WdiServiceHost`, `WdiSystemHost` — **cannot** be written
+Three of them - `DPS`, `WdiServiceHost`, `WdiSystemHost` - **cannot** be written
 by this module. Their registry keys grant Administrators read access and no
 write, so the apply reports each by name and exits **5**. That is the module
 telling the truth, not a bug in your run.
@@ -360,8 +360,8 @@ The fourth, `dmwappushservice`, is different and more interesting: it **was**
 disabled by the apply and came back to Manual on its own.
 
 What the three are, what actually breaks if they are closed, and what
-Microsoft's documentation says about each — with the file and line for every
-quotation — is in
+Microsoft's documentation says about each - with the file and line for every
+quotation - is in
 [`BLAST-RADIUS-diagnostics.md`](BLAST-RADIUS-diagnostics.md).
 
 Re-running the apply is safe and idempotent: it will report the ones already

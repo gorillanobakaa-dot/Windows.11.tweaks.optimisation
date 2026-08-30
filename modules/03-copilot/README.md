@@ -7,7 +7,7 @@
 | **1 - Check what is on now** | Full inventory of every form Copilot takes on this PC | No | reads only |
 | **2 - Preview the changes (safe)** | Every change AND removal that would happen; does none of it | No | reads only |
 | **3 - Turn Copilot off (settings only)** | The taskbar button and the per-user policy value | No | **yes, from a backup** |
-| **4 - UNDO the settings** | Puts the settings back from the most recent backup | No | — |
+| **4 - UNDO the settings** | Puts the settings back from the most recent backup | No | - |
 | **5 - Prove the settings undo works** | Applies the settings, undoes them, compares every one | No | net zero on a pass |
 | **6 - REMOVE the Copilot app** | Removes the app for your account, the way Microsoft documents | No | **only by reinstalling from the Store** |
 | **7 - REMOVE everything** | The app AND the 1.3 GB Program Files install, via its registered uninstaller | **Yes** | **only by downloading Copilot again** |
@@ -29,18 +29,18 @@ different ways:
 
 | | What it is | Size | Can it be put back? |
 |---|---|---|---|
-| **The app** | `Microsoft.Copilot`, an app package | small | Yes — reinstall from the Store |
+| **The app** | `Microsoft.Copilot`, an app package | small | Yes - reinstall from the Store |
 | **The application** | A full Chromium program in `Program Files (x86)` with its own updater | **1,287 MB** | Only by downloading it again |
-| **The service** | `MicrosoftCopilotElevationService`, running as **LocalSystem** | — | Removed with the application |
-| **The settings** | Taskbar button, policy values | — | Yes — from a backup file |
+| **The service** | `MicrosoftCopilotElevationService`, running as **LocalSystem** | - | Removed with the application |
+| **The settings** | Taskbar button, policy values | - | Yes - from a backup file |
 
 Most guides deal with the first one and stop. On this machine the first one is
 the small one.
 
 ### The service is the part worth pausing on
 
-`MicrosoftCopilotElevationService` runs as **LocalSystem** — the highest
-privilege level on Windows — and its start type is **Manual**.
+`MicrosoftCopilotElevationService` runs as **LocalSystem** - the highest
+privilege level on Windows - and its start type is **Manual**.
 
 Manual does not mean off. It means it is not running *now*, and starts when
 something asks for it. This is precisely the distinction the rest of this
@@ -74,9 +74,9 @@ It also requires MDM enrolment or domain join. On a home machine, neither exists
 
 So the honest position is this. Of the three documented ways to deal with Copilot:
 
-- **AppLocker** — recommended by Microsoft, unavailable on Home
-- **Policy-based in-box app removal** — modern, Enterprise/Education only
-- **`TurnOffWindowsCopilot`** — available on Home, and deprecated by its author
+- **AppLocker** - recommended by Microsoft, unavailable on Home
+- **Policy-based in-box app removal** - modern, Enterprise/Education only
+- **`TurnOffWindowsCopilot`** - available on Home, and deprecated by its author
 
 None of them is both available here and endorsed. That is not a gap in this
 module; it is the actual state of the platform, and a page that told you
@@ -102,16 +102,16 @@ file. Microsoft is explicit about this for its own removal mechanism:
 
 > "After an app is removed from a device via this policy, you need to reprovision the app on the device." [R-91]
 
-So the module splits in two, and the split is enforced in code — the removals are
+So the module splits in two, and the split is enforced in code - the removals are
 deliberately **not** in the list a restore is permitted to act on, so a restore
 cannot claim them:
 
-**Tier 1 — reversible.** The taskbar button and the policy values. Backed up,
+**Tier 1 - reversible.** The taskbar button and the policy values. Backed up,
 restored, round-trip proved, exactly like modules 01 and 02.
 
-**Tier 2 — not reversible here.** Removing the app and the 1.3 GB application.
-What gets recorded is enough to *reinstall from Microsoft* — the exact package
-name, the Store link, the version — which is not the same as a backup, and will
+**Tier 2 - not reversible here.** Removing the app and the 1.3 GB application.
+What gets recorded is enough to *reinstall from Microsoft* - the exact package
+name, the Store link, the version - which is not the same as a backup, and will
 never be described as one.
 
 `MODULE-STANDARD.md` R4.10 covers this case: where a change cannot be reversed by
@@ -129,13 +129,13 @@ Measured on 2026-08-26, Windows 11 **Home**, build 26200, by
 |---|---|
 | `Microsoft.Copilot` app | present, v152.0.4191.42 |
 | Program Files application | present, **1,779 files, 1,287.2 MB** |
-| Its version | 152.0.4191.42 — the same, so they are two copies of one release |
-| Registered uninstaller | yes — `copilot_setup.exe --uninstall --mscopilot --system-level` |
+| Its version | 152.0.4191.42 - the same, so they are two copies of one release |
+| Registered uninstaller | yes - `copilot_setup.exe --uninstall --mscopilot --system-level` |
 | `MicrosoftCopilotElevationService` | present, **Stopped**, start type **Manual**, runs as **LocalSystem** |
 | `ShowCopilotButton` | not set |
 | `TurnOffWindowsCopilot` (user and machine) | not set |
 | Copilot processes running | none |
-| `Microsoft.BingSearch` | present, v1.1.43.0 — related, deliberately left alone |
+| `Microsoft.BingSearch` | present, v1.1.43.0 - related, deliberately left alone |
 
 Two details worth drawing out.
 
@@ -154,17 +154,17 @@ to avoid.
 
 | | Result |
 |---|---|
-| Settings round trip, elevated, on this machine | **PASS** — all 3 settings moved (including creating and deleting the policy keys) and every one came back. No software moved |
-| Settings round trip, unelevated | **PASS** — the 2 per-user settings; the HKLM value skipped and named symmetrically |
+| Settings round trip, elevated, on this machine | **PASS** - all 3 settings moved (including creating and deleting the policy keys) and every one came back. No software moved |
+| Settings round trip, unelevated | **PASS** - the 2 per-user settings; the HKLM value skipped and named symmetrically |
 | Comparison proved falsifiable | a doctored setting, a doctored software-presence flag, and a null state are all caught |
-| Safety logic self-test | **33 checks, 0 failures** — and its first run caught a real crash bug in this module's own file validator, which was also present in modules 01 and 02 |
+| Safety logic self-test | **33 checks, 0 failures** - and its first run caught a real crash bug in this module's own file validator, which was also present in modules 01 and 02 |
 | Citations | **7 / 7 verified** against the offline corpus |
-| Adversarial audit | **done — 14 findings (2 severe, 3 serious), every one fixed and regression-tested the same day; the self-test grew from 33 to 45 checks** |
-| Removals executed on this machine | **YES — 2026-08-26, see below** |
+| Adversarial audit | **done - 14 findings (2 severe, 3 serious), every one fixed and regression-tested the same day; the self-test grew from 33 to 45 checks** |
+| Removals executed on this machine | **YES - 2026-08-26, see below** |
 
 What is deliberately NOT proved: that the removals are reversible. They are not,
 no test pretends they are, and the restore allow-list is structurally incapable
-of containing them — which the self-test checks.
+of containing them - which the self-test checks.
 
 Full walkthrough with every option: [`HOWTO.md`](HOWTO.md).
 
@@ -177,8 +177,8 @@ The full removal was executed on this machine, elevated, on 2026-08-26.
 | | Result |
 |---|---|
 | Tier 1 settings | all 3 at target (the HKLM policy value was set by this run; the per-user two were already applied) |
-| `Microsoft.Copilot` app | **removed** — and a later elevated sweep confirmed **zero** packages matching \*copilot\* remain for ANY account on the machine |
-| Program Files application | **gone** — the registered uninstaller ran and the folder no longer exists |
+| `Microsoft.Copilot` app | **removed** - and a later elevated sweep confirmed **zero** packages matching \*copilot\* remain for ANY account on the machine |
+| Program Files application | **gone** - the registered uninstaller ran and the folder no longer exists |
 | `MicrosoftCopilotElevationService` | **not present** |
 | Uninstall registrations (HKLM native + WOW6432Node + HKCU) | zero Copilot entries |
 | `removed-not-restorable.json` | written and parse-verified: 2 entries, each with its route back |
@@ -186,16 +186,16 @@ The full removal was executed on this machine, elevated, on 2026-08-26.
 Three honest footnotes, because a clean summary would be hiding them:
 
 1. **The uninstaller exited 19, not 0.** The folder was verifiably gone, so the
-   removal was recorded — *with* that exit code in the record — and the summary
+   removal was recorded - *with* that exit code in the record - and the summary
    said to check for leftovers instead of calling it clean. A later sweep found
    no appx, no service, no uninstall entry and no files.
 2. **The provisioning database refused to be read, even elevated** ("Access is
    denied" from `Get-AppxProvisionedPackage` in two separate elevated runs). So
-   whether a *provisioned* copy exists — what a brand-new user account would
-   receive — is recorded as UNKNOWN, not as "no". The module knows the
-   documented route for that copy — "Remove the app for new user accounts.
+   whether a *provisioned* copy exists - what a brand-new user account would
+   receive - is recorded as UNKNOWN, not as "no". The module knows the
+   documented route for that copy - "Remove the app for new user accounts.
    From an elevated command prompt, run the following Windows PowerShell
-   command:" [R-97] — and executes it when the database can be read. Zero packages are staged for
+   command:" [R-97] - and executes it when the database can be read. Zero packages are staged for
    any existing account, so no current account can see Copilot regardless. The
    module now reports the real reason instead of a wrong "needs administrator
    rights" message; the denial itself is an open finding about this machine.
@@ -203,7 +203,7 @@ Three honest footnotes, because a clean summary would be hiding them:
    "Copilot" tile after the excision.** Both draw from caches; the live app
    list (`Get-StartApps`) had no such entry. Restarting the search hosts
    clears it. Judge state by what the machine reports, not by what a cached
-   panel still paints — the thesis of this repository, once again.
+   panel still paints - the thesis of this repository, once again.
 
 One anomaly is on record: during the owner's apply-all run, the settings-only
 apply at 21:43:02 wrote its backup and then its two per-user values were found
@@ -243,7 +243,7 @@ what is needed to reinstall either one.
 ## References
 
 Every quotation carries a tag, the file, the line it starts on, and the sentence.
-Check them yourself — the table is in the repository's machine-readable format:
+Check them yourself - the table is in the repository's machine-readable format:
 
 ```bash
 powershell -ExecutionPolicy Bypass -File ..\..\READ-ONLY-verification\Verify-Citations.ps1 -Document .\README.md -Detailed

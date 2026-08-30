@@ -35,13 +35,13 @@ the Start menu.
 
 This project's rule is that a factual claim is either quoted from Microsoft's own
 documentation or labelled as uncited. Applied honestly here, these settings fall
-into two groups — and the split is enforced in code, not described in a footnote.
+into two groups - and the split is enforced in code, not described in a footnote.
 
 **Five are documented.** Microsoft names them, gives the exact registry path, and
 states the value. `3 - Apply the changes` applies these.
 
 **Five are not.** They are real, they are on this machine, their names describe
-their function, and every debloat guide on the internet sets them — but nobody at
+their function, and every debloat guide on the internet sets them - but nobody at
 Microsoft has written them down anywhere this project can quote. They need
 `4 - Apply the undocumented ones too`.
 
@@ -72,13 +72,13 @@ Measured on 2026-08-26, Windows 11 Home, build 26200:
 | `DisableWindowsSpotlightFeatures` | not set | documented [R-94] |
 | `DisableCloudOptimizedContent` | not set | documented [R-95] |
 | `Start_TrackDocs` | not set | documented [R-96] |
-| **`SilentInstalledAppsEnabled`** | **1 — silent installs permitted** | observed |
+| **`SilentInstalledAppsEnabled`** | **1 - silent installs permitted** | observed |
 | `SystemPaneSuggestionsEnabled` | 1 | observed |
 | `SubscribedContent-338389Enabled` | 1 | observed |
 | `SoftLandingEnabled` | 1 | observed |
 | `Start_TrackProgs` | not set | observed |
 
-All ten would change. Note that "not set" here does **not** mean off — for these
+All ten would change. Note that "not set" here does **not** mean off - for these
 settings, absent means Windows uses its default, and the default is on.
 
 ### Why Advertising ID is not in this module
@@ -96,7 +96,7 @@ the eight buttons above asks for permission.
 Run **`5 - UNDO everything`**. No arguments.
 
 There is a wrinkle worth understanding. Nearly every setting here is **absent** on
-a default machine — and absent is not the same as zero. Applying this module
+a default machine - and absent is not the same as zero. Applying this module
 *creates* those values, and for the CloudContent policy settings it may create the
 key as well.
 
@@ -107,7 +107,7 @@ making. `7 - Prove the undo works` treats *existed / did not exist* as a
 difference that **fails** the test.
 
 Where a policy key existed before this module ran, the undo leaves it alone even
-if it ends up empty — it is not ours to remove — and says so, because an empty
+if it ends up empty - it is not ours to remove - and says so, because an empty
 policy key looks alarming to anyone auditing the registry later. An empty key sets
 nothing: policies are values, not keys.
 
@@ -117,12 +117,12 @@ nothing: policies are values, not keys.
 
 | | Result |
 |---|---|
-| Adversarial audit | **16 findings, all fixed the same day** — including the undo instruction naming the wrong launcher, the round trip's own backup disarming "UNDO everything", and created parent keys leaking past the undo |
-| Round trip, all 10 settings | **PASS** — 10 changed, 10 returned, including absent-vs-zero, whether the key existed, and how far up the created key chain goes |
-| Comparison can detect a difference | **verified** — a doctored value, a doctored ancestor chain, and a null state are all caught |
+| Adversarial audit | **16 findings, all fixed the same day** - including the undo instruction naming the wrong launcher, the round trip's own backup disarming "UNDO everything", and created parent keys leaking past the undo |
+| Round trip, all 10 settings | **PASS** - 10 changed, 10 returned, including absent-vs-zero, whether the key existed, and how far up the created key chain goes |
+| Comparison can detect a difference | **verified** - a doctored value, a doctored ancestor chain, and a null state are all caught |
 | Safety logic self-test | **36 checks, 0 failures** |
 | Citations | **5 / 5 verified** word-for-word against the offline corpus |
-| Applied on the audited machine | **no** — every test left it exactly as it started |
+| Applied on the audited machine | **no** - every test left it exactly as it started |
 
 The round-trip comparison was **wrong on its first run** and reported a false
 PASS. The cause is worth recording because it is a PowerShell trap that reads as
@@ -134,7 +134,7 @@ null array"*, the differences list stayed empty, and the script printed PASS.
 The same bug had already been found and fixed in module 01, and was reproduced
 here from memory of the wrong lesson. The parameters are now `$Start` and `$End`,
 and there is a guard that reports `COMPARISON BROKEN` if either state arrives
-without a registry section — because a test that cannot fail is not a test.
+without a registry section - because a test that cannot fail is not a test.
 
 ---
 

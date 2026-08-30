@@ -1,4 +1,4 @@
-# Services — three profiles, and the machinery that stops them bricking your machine
+# Services - three profiles, and the machinery that stops them bricking your machine
 
 ## Just want to click something?
 
@@ -7,12 +7,12 @@
 | **1 - Check what is on now** | Every service, and what each profile would do | No | reads only |
 | **2 - Preview LIGHT** | Every service LIGHT disables, by category | No | reads only |
 | **3 - Preview MODERATE** | Same, for MODERATE | No | reads only |
-| **4 - Preview SUPER** | Same, for SUPER — **read this one before applying it** | No | reads only |
+| **4 - Preview SUPER** | Same, for SUPER - **read this one before applying it** | No | reads only |
 | **5 - APPLY profile LIGHT** | Disables ~64 services | **Yes** | **yes, from a backup** |
 | **6 - APPLY profile MODERATE** | Disables ~116 | **Yes** | **yes** |
 | **7 - APPLY profile SUPER** | Disables ~167 | **Yes** | **yes** |
-| **8 - UNDO everything** | Every start type back from the newest backup | **Yes** | — |
-| **9 - UNDO back to the original** | Back to before this module ever ran | **Yes** | — |
+| **8 - UNDO everything** | Every start type back from the newest backup | **Yes** | - |
+| **9 - UNDO back to the original** | Back to before this module ever ran | **Yes** | - |
 | **10 - Prove the undo works** | Applies LIGHT, undoes it, compares all 284 | **Yes** | net zero on a pass |
 | **11 - Test the safety logic** | Tests the refusals, including that they can fire | No | reads only |
 
@@ -25,7 +25,7 @@ Full walkthrough with every option, and troubleshooting: [`HOWTO.md`](HOWTO.md).
 *SERVICES NOT TO SHUT* further down this page. Two features were switched
 off on this machine without warning before those sections existed.
 
-Deep dive on the four services this profile could not disable — what the
+Deep dive on the four services this profile could not disable - what the
 Windows Diagnostic Infrastructure actually is, what breaks if it is closed, and
 what Microsoft's own documentation says about it:
 [`BLAST-RADIUS-diagnostics.md`](BLAST-RADIUS-diagnostics.md).
@@ -37,10 +37,10 @@ what Microsoft's own documentation says about it:
 ### The thing everyone gets wrong about services
 
 Open Task Manager, count the running services, feel reassured. On this machine
-that number is about 101 — and it is close to meaningless.
+that number is about 101 - and it is close to meaningless.
 
 The real number is **284 services installed**. Before this project ran, **174 sat at "Manual"**.
-Manual does not mean off. It means *Windows starts it when something asks* — a
+Manual does not mean off. It means *Windows starts it when something asks* - a
 device arriving, a network packet, a policy refresh, a scheduled task. **112 of
 them carry trigger definitions that do exactly that, and 170 run as
 LocalSystem**, the highest privilege on Windows.
@@ -56,7 +56,7 @@ the ones you do not use.
 | **MODERATE** | **116** (41%) | LIGHT **plus** remote access (RDP, WinRM, remote registry, SMB *server*), cloud sync, Microsoft-account plumbing, diagnostics, push notifications, geolocation |
 | **SUPER** | **167** (59%) | MODERATE **plus** printing, Bluetooth, Windows Search indexing, the Store surface, and legacy protocols (NetBIOS, SNMP, RPC Locator, DTC). Audio, thermal and brightness are deliberately **not** touched |
 
-Each is a superset of the one before. **"LIGHT" does not mean "no cost"** — an
+Each is a superset of the one before. **"LIGHT" does not mean "no cost"** - an
 earlier draft of this page claimed it disabled "nothing you use", and the audit
 called that false. LIGHT also ends scanning, Mobile Hotspot, File History,
 Windows Backup, WebDAV and smart-card support. MODERATE additionally ends
@@ -69,14 +69,14 @@ Disabling services is easy. Disabling services *without breaking the machine at
 the next boot* is the whole job, and it is why this module is mostly refusals.
 
 **1. A NEVER-TOUCH list, enforced in code.** 95 services no profile may
-contain, ever — the RPC substrate (`RpcSs` alone has **152** dependents), sign-in,
+contain, ever - the RPC substrate (`RpcSs` alone has **152** dependents), sign-in,
 the firewall, Windows Update, and **UAC elevation itself**. If a profile ever
 names one, the apply **refuses outright** rather than skipping the entry
 quietly, because a profile that names `RpcSs` is a profile someone edited
 without understanding it.
 
 > `Appinfo` is on that list for a pointed reason: it *is* UAC elevation.
-> Disable it and nothing can ever run as administrator again — **including this
+> Disable it and nothing can ever run as administrator again - **including this
 > module's own undo.**
 
 **2. A LOCKOUT-RISK list.** 9 services that can stop you *signing in*:
@@ -93,7 +93,7 @@ something this profile disables?* If yes, the apply refuses and names both
 services.
 
 > This matters more than it sounds. A dependency break **does not fail when you
-> make it.** It fails at the next boot — which is the worst possible moment to
+> make it.** It fails at the next boot - which is the worst possible moment to
 > find out.
 
 All three profiles currently pass that check on this machine with **zero**
@@ -101,21 +101,21 @@ violations.
 
 ### What the adversarial audit changed
 
-The audit found **26 findings, 6 severe** — and the dangerous ones were in the
+The audit found **26 findings, 6 severe** - and the dangerous ones were in the
 profile *content*, not the machinery:
 
 | Finding | What it would have done |
 |---|---|
 | `LocalKdc` was in MODERATE | Its own description: *"If this service is stopped, users will be unable to log on to the local machine."* Now on the lockout-risk list |
 | The never-touch list was **unvalidated data** | A JSON typo nulling that key removed the entire enforcement layer silently, and `RpcSs` would have been disabled. The file now refuses to load without plausible safety lists |
-| The undo guarded `never` but not `lockoutRisk` | A stale backup could disable Windows Hello *through the undo* — the script you run when already in trouble |
+| The undo guarded `never` but not `lockoutRisk` | A stale backup could disable Windows Hello *through the undo* - the script you run when already in trouble |
 | `StorSvc`, `DsSvc`, `NcbService`, `TimeBrokerSvc` | All declare **zero dependents**, so the dependency graph called them safe. All are activated at runtime by COM or WinRT; Windows Update staging uses `StorSvc` |
 | `RmSvc` was in **LIGHT** | The airplane-mode toggle, on a laptop whose only network path is Wi-Fi |
 | SUPER disabled five audio services | While this page promised audio survives every profile |
 | The dependency check could not see **drivers** | `applockerfltr` (a driver) declares a dependency on `AppIDSvc` (a service that was in SUPER). Drivers are now scanned |
 
 Twenty-five never-touch entries and two lockout entries were added as a result,
-and the profiles got **smaller** — 197 to 167 at SUPER. That is the correct
+and the profiles got **smaller** - 197 to 167 at SUPER. That is the correct
 direction when the alternative is a machine that will not boot.
 
 ### Blast radius is not the dependency graph
@@ -132,9 +132,9 @@ powershell -ExecutionPolicy Bypass -File ..\..\READ-ONLY-diagnostics\Report-Blas
 python ..\..\READ-ONLY-verification\Lookup-ServiceDocs.py --profile super
 ```
 
-The first reads each service's **own description** — where Microsoft writes the
+The first reads each service's **own description** - where Microsoft writes the
 consequence directly, and where the sentence that should have kept `LocalKdc`
-out of a profile was sitting all along — and scores it for words like *log on*,
+out of a profile was sitting all along - and scores it for words like *log on*,
 *boot*, *update* and *network*. Current result: **zero severe findings** in any
 profile.
 
@@ -143,13 +143,13 @@ a profile would disable, narrowing with the corpus's own full-text index and
 then requiring an exact, word-boundary match before it will attribute a
 sentence to a service. Current result: **96 of 175 are mentioned in the corpus,
 79 are not mentioned at all.** Those 79 rest on category reasoning and machine
-observation — which is allowed here, and labelled, but it is the first place to
+observation - which is allowed here, and labelled, but it is the first place to
 look when something breaks.
 
 ### Why disable, and not `sc delete`
 
 A fair challenge: as long as the service infrastructure is still on the
-machine, it can be reactivated. That is **true** — and `sc delete` does not fix
+machine, it can be reactivated. That is **true** - and `sc delete` does not fix
 it. Measured on this machine, on a service already disabled:
 
 | | |
@@ -165,7 +165,7 @@ service with one `sc create`. So the reactivation risk barely moves, while
 three real costs arrive:
 
 1. **It does not stick.** Those files are owned by TrustedInstaller. Windows
-   Update, SFC and DISM restore both files *and* service registrations — so a
+   Update, SFC and DISM restore both files *and* service registrations - so a
    deletion is undone silently by the next servicing operation, leaving a
    machine whose real configuration no longer matches its documentation.
 2. **It can break patching.** Deleting system binaries is a known cause of
@@ -174,7 +174,7 @@ three real costs arrive:
    because updates are the primary defence; trading a dormant DLL for broken
    patching is a bad trade.
 3. **It is not honestly reversible with what is backed up.** The state file
-   holds name, start type, service type, dependencies and display name —
+   holds name, start type, service type, dependencies and display name -
    enough to restore a start type, and *not* enough to re-create a deleted
    service. That needs `ImagePath`, `ObjectName`, `ServiceDll`, the trigger
    definitions, the failure actions and the security descriptor.
@@ -189,7 +189,7 @@ first deletion. See `DEC-06-008` in
 
 Hardening can break the task switcher, and almost nobody would connect a
 broken Alt-Tab to a tweak made days earlier. So there is a test rather than a
-promise — launcher **12**, or `[C]` on the control panel:
+promise - launcher **12**, or `[C]` on the control panel:
 
 - It presses Alt+Tab for real, looks for the switcher window, and cancels with
   Escape before releasing Alt so the switch is abandoned.
@@ -217,24 +217,24 @@ no profile touches any of them.**
 
 | | Result |
 |---|---|
-| Round trip, elevated, on this machine | **PASS** — LIGHT applied for real, **64 start types moved and all 64 came back**, all 283 services compared |
+| Round trip, elevated, on this machine | **PASS** - LIGHT applied for real, **64 start types moved and all 64 came back**, all 283 services compared |
 | Safety self-test | **83 checks, 0 failures** |
 | Refusals proved able to FIRE | a forbidden service (`RpcSs`), a lockout-risk service (`NgcSvc`), and a plan that strands a dependency are each **detected**, not merely handled |
 | Dependency safety, all three profiles | **0** violations on this machine |
-| Profiles vs never-touch list | **disjoint** — verified, not assumed |
-| Adversarial audit | **done — 26 findings, 6 severe.** Six were in the PROFILE CONTENT, not the machinery |
+| Profiles vs never-touch list | **disjoint** - verified, not assumed |
+| Adversarial audit | **done - 26 findings, 6 severe.** Six were in the PROFILE CONTENT, not the machinery |
 | Corpus cross-check | every profile service looked up in the 6 GB offline documentation |
-| Applied to this machine | **not yet** — the owner's call |
+| Applied to this machine | **not yet** - the owner's call |
 
 The self-test caught a real defect before any of this shipped: the round-trip
 comparison iterated `.PSObject.Properties` on a **live** state, which is a
-hashtable — so it enumerated `Count`, `Keys` and `Values` instead of services,
+hashtable - so it enumerated `Count`, `Keys` and `Values` instead of services,
 compared nothing, and reported PASS. That is this project's most-repeated
 defect class wearing a new disguise, and there is now a regression guard
 naming it.
 
 A second defect was fixed on the way: the first version asked WMI about each
-service individually — 283 separate queries — and the self-test took minutes.
+service individually - 283 separate queries - and the self-test took minutes.
 Correct but unusably slow is still a defect: **a safety check nobody waits for
 is a safety check nobody runs.** One cached query, four seconds.
 
@@ -249,12 +249,12 @@ reading any PowerShell:
 
 ```json
 {
-  "never":       [ { "service": "RpcSs", "reason": "152 services depend on it…" } ],
-  "lockoutRisk": [ { "service": "NgcSvc", "reason": "Windows Hello / PIN…" } ],
+  "never":       [ { "service": "RpcSs", "reason": "152 services depend on it..." } ],
+  "lockoutRisk": [ { "service": "NgcSvc", "reason": "Windows Hello / PIN..." } ],
   "profiles": {
     "light": { "services": [
       { "service": "QServiceEM05G", "category": "unused hardware",
-        "reason": "Quectel WWAN modem helper. This machine's cellular adapters all report Not Present…",
+        "reason": "Quectel WWAN modem helper. This machine's cellular adapters all report Not Present...",
         "microsoft_disposition": null, "tier": "light" } ] }
   }
 }
@@ -263,7 +263,7 @@ reading any PowerShell:
 `microsoft_disposition` carries Microsoft's own word for that exact service
 name where one exists, harvested by
 `READ-ONLY-verification/Harvest-ServiceGuidance.py` from the vendor's service
-guidance — 198 services, of which Microsoft explicitly permits disabling 39.
+guidance - 198 services, of which Microsoft explicitly permits disabling 39.
 The rest are justified by category and by what this machine demonstrably does
 not use, and are labelled as such rather than dressed in a citation that does
 not exist.
@@ -271,7 +271,7 @@ not exist.
 ### Reality warnings
 
 A profile is a policy; the machine is a fact. Before writing, the apply checks
-the two against each other and prints the disagreements — Bluetooth devices
+the two against each other and prints the disagreements - Bluetooth devices
 actually paired, printers actually installed, whether RDP is actually enabled,
 whether the machine is actually domain-joined. Warnings, not refusals: the
 owner may genuinely want the trade.
@@ -290,7 +290,7 @@ machine where something else moved in between.
 | 3 | backup refused; nothing changed |
 | 4 | nothing to do (or unelevated); no backup written |
 | 5 | completed, but one or more writes failed |
-| 6 | **the profile is illegal or unsafe** — never-touch, lockout-risk, or a stranded dependency |
+| 6 | **the profile is illegal or unsafe** - never-touch, lockout-risk, or a stranded dependency |
 
 The round trip gates on all five *and* on any unexpected code, because a
 crashed apply that fell through to the undo would restore a stale backup and
@@ -299,20 +299,20 @@ mutate the machine mid-proof.
 ### A restart is the honest test
 
 Services already running keep running until then. The change is what happens at
-the next boot — which is exactly why the dependency check runs before the
+the next boot - which is exactly why the dependency check runs before the
 write, not after.
 
 ---
 
 ---
 
-## What you actually lose — read this before you pick a profile
+## What you actually lose - read this before you pick a profile
 
 Two things on this machine were switched off by a profile and **nobody was told
 until they broke**. Both are written up here because the same thing will happen
 to somebody else otherwise.
 
-### The camera — and why the privacy slider lies to you
+### The camera - and why the privacy slider lies to you
 
 `FrameServer` is called *"Windows Camera Frame Server"*. Microsoft's own
 description is *"Enables multiple clients to access video frames from camera
@@ -320,7 +320,7 @@ devices"*, and the entry in this module used to paraphrase that as *"lets
 multiple apps share the camera"*.
 
 Both are true. Both are badly misleading. **Without it, no application gets the
-camera at all** — not Teams, not Zoom, not a video call in a browser, not the
+camera at all** - not Teams, not Zoom, not a video call in a browser, not the
 Camera app.
 
 And here is the part that wastes an afternoon:
@@ -330,19 +330,19 @@ And here is the part that wastes an afternoon:
 > *permission*. It cannot start a service that has been disabled. Nothing in the
 > interface tells you the difference.
 
-On this machine that meant two working cameras — one of them the **infrared
-camera Windows Hello face sign-in uses** — sitting there dead while the
+On this machine that meant two working cameras - one of them the **infrared
+camera Windows Hello face sign-in uses** - sitting there dead while the
 permission screen said everything was fine.
 
 **Fixed:** `FrameServer` and `FrameServerMonitor` were moved out of MODERATE and
 into SUPER, and the checker now warns you, with the count of cameras it can see,
 before you apply anything. See `DEC-06-014`.
 
-### Screen capture — Win+Shift+S
+### Screen capture - Win+Shift+S
 
 `CaptureService` describes itself as *"capture service for screen capture in
 Store apps"*. The Snipping Tool **is** a Store app doing screen capture. With
-this service off, **Win+Shift+S does nothing at all** — no overlay, no error, no
+this service off, **Win+Shift+S does nothing at all** - no overlay, no error, no
 message. It simply does not happen.
 
 It sat in the SUPER profile under the category "misc".
@@ -350,10 +350,28 @@ It sat in the SUPER profile under the category "misc".
 **Fixed:** it is now on the never-touch list, so no profile can reach it, and a
 profile that names it is refused outright. See `DEC-06-013`.
 
+### The Fn keys (Lenovo laptops) - hardware vs software
+
+If you apply a profile on a Lenovo laptop, your `Fn + Esc` key combo (the Fn Lock) will stop working in Windows.
+
+Why? Because Lenovo uses a privileged background service (`TPHKLOAD`) to listen for that key combination. Our profiles disable that service to reduce the background noise and attack surface on your machine.
+
+**The Fix:** You do not need the software to get your function keys back. You can set this directly in the laptop's hardware:
+1. Reboot and press `F1` or `Enter` to enter the BIOS/UEFI.
+2. Go to **Config** -> **Keyboard/Mouse**.
+3. Enable **F1-F12 as Primary Function**.
+
+By doing this, your keyboard firmware sends standard `F1-F12` keystrokes directly to the operating system. You get your F-keys back perfectly across Windows, Debian, or any other OS, and you keep Lenovo's bloatware service permanently disabled.
+
+**Technical Proof:**
+* The service is `TPHKLOAD` (Lenovo hotkey loader).
+* Disabling it breaks software-based Fn key intercepts.
+* Hardware interception via BIOS/UEFI predates the OS bootloader, sending raw scancodes (e.g., 0x3B for F1) directly to the OS input stack, completely bypassing the need for an OEM driver or Windows service.
+
 ### The honest part
 
 Neither of these was found by anything in this project. Not by the blast-radius
-report, not by the live dependency check, not by the 83 safety checks — **all of
+report, not by the live dependency check, not by the 83 safety checks - **all of
 them passed**. No service depends on either one. Microsoft publishes no
 "do not disable" guidance for either.
 
@@ -368,8 +386,8 @@ thought of. Something is missing from it right now.
 
 ## SERVICES NOT TO SHUT
 
-*102 services this module refuses to touch — 95 never-touch and 7 that can lock
-you out — with what Microsoft says each one does and where that is written.*
+*102 services this module refuses to touch - 95 never-touch and 7 that can lock
+you out - with what Microsoft says each one does and where that is written.*
 
 ### How to read this
 
@@ -392,7 +410,7 @@ documentation describing the same service names shipped with the same Desktop
 Experience component set that client Windows runs. That caveat applies to this
 whole table and is stated once here rather than repeated 76 times.
 
-### Sign-in — these can lock you out of your own machine
+### Sign-in - these can lock you out of your own machine
 
 If one of these is off, the machine may boot to a login screen that will not accept you. A backup on a disk you cannot log in to reach is not a rescue. These seven are excluded from every profile and the undo refuses to touch them even if a backup file says to.
 
@@ -410,7 +428,7 @@ If one of these is off, the machine may boot to a login screen that will not acc
 
 ### The machine stops working at all
 
-Not 'a feature breaks' — the desktop does not come up, or nothing can start.
+Not 'a feature breaks' - the desktop does not come up, or nothing can start.
 
 | Service | What Microsoft says it does | Where that is written |
 |---|---|---|
@@ -432,7 +450,7 @@ Not 'a feature breaks' — the desktop does not come up, or nothing can start.
 | `Winmgmt` | Provides a common interface and object model to access management information about operating system, devices, applications and services. If you stop this service, most Windows-based software will not function properly. | `security-guidelines-for-disabling-system-services-in-windows-server.md`:1989 |
 | `StateRepository` | Provides required infrastructure support for the application model. | `security-guidelines-for-disabling-system-services-in-windows-server.md`:1505 |
 
-### Security — turning these off is the opposite of hardening
+### Security - turning these off is the opposite of hardening
 
 This is a hardening project. Disabling the firewall to make the machine 'leaner' would be self-defeating, so these are unreachable by design.
 
@@ -452,7 +470,7 @@ This is a hardening project. Disabling the firewall to make the machine 'leaner'
 | `AppIDSvc` | Determines and verifies the identity of an application. Disabling this service prevents AppLocker from being enforced. | `security-guidelines-for-disabling-system-services-in-windows-server.md`:130 |
 | `TokenBroker` | **[uncited]** web account tokens; sign-in and Store authentication | **no Microsoft description anywhere** - our reasoning only |
 
-### Network — no address, no name resolution, no connection
+### Network - no address, no name resolution, no connection
 
 Each of these removes a different part of being on a network at all.
 
@@ -473,7 +491,7 @@ Each of these removes a different part of being on a network at all.
 
 ### Updates and installation
 
-Disabling these means the machine stops receiving security patches — the thing you were hardening it against needing.
+Disabling these means the machine stops receiving security patches - the thing you were hardening it against needing.
 
 | Service | What Microsoft says it does | Where that is written |
 |---|---|---|
@@ -573,7 +591,7 @@ python ..\..\READ-ONLY-verification\Build-ReferenceLibrary.py
 | R-113 | With DPS disabled, Windows stops logging boot and shutdown performance data entirely | windowsserverdocs/WindowsServerDocs/remote/remote-desktop-services/remote-desktop-services-vdi-optimize-configuration.md | 343 | With the DPS service disabled, this setting has no effect, as Windows doesn't log performance data. |
 | R-114 | Microsoft's own caveat before disabling any service: check it is not a component of another service | windowsserverdocs/WindowsServerDocs/remote/remote-desktop-services/remote-desktop-services-vdi-optimize-configuration.md | 448 | make sure the service isn't a component of some other service |
 | R-115 | Microsoft's manual-start framing, and the VDI table's own stated exclusion rule | windowsserverdocs/WindowsServerDocs/remote/remote-desktop-services/remote-desktop-services-vdi-optimize-configuration.md | 452 | Many services that may seem like good candidates to disable are set to manual service start type. This means that the service doesn't automatically start and start only if an event triggers a request to the service. |
-| R-116 | WdiServiceHost holds granted rights on Windows Filtering Platform objects, alongside the firewall and IPsec policy agent | win32/desktop-src/FWP/access-control.md | 31 | access rights to the following service security identifiers (SSIDs): MpsSvc (Windows Firewall), NapAgent (Network Access Protection Agent), PolicyAgent (IPsec Policy Agent), RpcSs (Remote Procedure Call), and WdiServiceHost (Diagnostic Service Host). |
+| R-116 | WdiServiceHost holds granted rights on Windows Filtering Platform objects, alongside the firewall and IPsec policy agent | https://learn.microsoft.com/en-us/windows/win32/FWP/access-control | 31 | access rights to the following service security identifiers (SSIDs): MpsSvc (Windows Firewall), NapAgent (Network Access Protection Agent), PolicyAgent (IPsec Policy Agent), RpcSs (Remote Procedure Call), and WdiServiceHost (Diagnostic Service Host). |
 | R-117 | MSDT, the engine behind the legacy Windows built-in troubleshooters, is being retired | windows-itpro-docs/whats-new/deprecated-features-resources.md | 155 | MSDT is the engine used to run legacy Windows built-in troubleshooters. There are currently 28 built-in troubleshooters for MSDT. Half of the built-in troubleshooters have already been redirected to the Get Help platform, while the other half will be retired. |
 | R-118 | DirectAccess - the only thing NcaSvc reports on - is deprecated and scheduled for removal | windows-itpro-docs/whats-new/deprecated-features.md | 98 | DirectAccess is deprecated and will be removed in a future release of Windows. |
 | R-119 | What NcaSvc is for, in Microsoft's own words | windowsserverdocs/WindowsServerDocs/security/windows-services/security-guidelines-for-disabling-system-services-in-windows-server.md | 999 | Provides DirectAccess status notification for UI components |

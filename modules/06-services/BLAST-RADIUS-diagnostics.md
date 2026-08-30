@@ -2,7 +2,7 @@
 
 *The three services the MODERATE profile named and could not disable. What they
 actually are, what actually breaks, and what the Microsoft corpus on this
-machine actually says — quoted, with the file and line.*
+machine actually says - quoted, with the file and line.*
 
 ---
 
@@ -27,7 +27,7 @@ is labelled as neither.
 
 ---
 
-# Track 1 — the plain-language version
+# Track 1 - the plain-language version
 
 ## What these three things are
 
@@ -40,7 +40,7 @@ maintenance inspector:
 | **WdiServiceHost** (Diagnostic Service Host) | The inspector who does **low-privilege** jobs. |
 | **WdiSystemHost** (Diagnostic System Host) | The same inspector doing the jobs that need **the keys to everything**. Runs as LocalSystem. |
 
-The two "hosts" are literally the same program — both are `wdi.dll` — started
+The two "hosts" are literally the same program - both are `wdi.dll` - started
 twice at two different privilege levels. That is not a guess; it is Microsoft's
 own description:
 
@@ -51,7 +51,7 @@ own description:
 > diagnostics that need to run in a **Local System** context." [R-109]
 
 Neither host does anything by itself. They are **containers**. DPS hands them a
-small program — a "diagnostic module" — and they run it. On this machine there
+small program - a "diagnostic module" - and they run it. On this machine there
 are **29 registered modules pointing at 15 different DLLs**, and **54
 registered scenarios** that can call them.
 
@@ -90,7 +90,7 @@ Honest list. These stop:
   > doesn't log performance data." [R-113]
 - **The weekly maintenance scan** and its Security-and-Maintenance notifications.
 - **The low-memory warning.** `radardt.dll` / `radarrs.dll` are the Resource
-  Exhaustion Detector and Resolver — the thing that says *"Close programs to
+  Exhaustion Detector and Resolver - the thing that says *"Close programs to
   prevent information loss"*. This is the loss most likely to be noticed.
 - **The built-in troubleshooters** under Settings → System → Troubleshoot, to
   the extent they still route through this engine.
@@ -121,7 +121,7 @@ That is the whole trade. You lose Windows' ability to diagnose itself. You do
 not lose the ability to *use* the machine.
 
 **The honest counterweight:** that guidance is written for **virtual desktop
-infrastructure** — fleets of disposable VMs where a broken machine is deleted
+infrastructure** - fleets of disposable VMs where a broken machine is deleted
 and rebuilt, not diagnosed. This is a personal laptop. When something goes
 wrong here, the diagnostic history is the thing you would want. Five months of
 `MaintenanceDiagnostic` runs saying "issues requiring your attention" is
@@ -129,22 +129,22 @@ evidence the subsystem is at least *trying* to tell you something.
 
 ---
 
-# Track 2 — the developer / sysadmin version
+# Track 2 - the developer / sysadmin version
 
 ## Architecture, as installed
 
 ```
-  DPS  (dps.dll — "WDI Diagnostic Policy Service")
+  DPS  (dps.dll - "WDI Diagnostic Policy Service")
     svchost.exe -k LocalServiceNoNetwork -p     account: NT AUTHORITY\LocalService
     Start = 2 (Automatic)          no start triggers
         |
         |  hands a scenario + module to one of two hosts
         v
-  WdiServiceHost  (wdi.dll — "Windows Diagnostic Infrastructure")
+  WdiServiceHost  (wdi.dll - "Windows Diagnostic Infrastructure")
     svchost.exe -k LocalService -p              account: NT AUTHORITY\LocalService
     Start = 3 (Manual)             no start triggers
 
-  WdiSystemHost   (wdi.dll — same binary)
+  WdiSystemHost   (wdi.dll - same binary)
     svchost.exe -k LocalSystemNetworkRestricted -p   account: LocalSystem
     Start = 3 (Manual)             no start triggers
 ```
@@ -154,7 +154,7 @@ easy to make:
 
 **1. None of the three carries a start trigger.** `sc qtriggerinfo` returns
 *"has not registered for any start or stop triggers"* for all three. So the
-usual framing for this project — *Manual means trigger-startable* — **does not
+usual framing for this project - *Manual means trigger-startable* - **does not
 apply here**. The Wdi hosts are started by DPS through WDI activation, and DPS
 is Automatic. The activation path is the parent service, not the trigger
 subsystem.
@@ -164,7 +164,7 @@ subsystem.
 **including drivers**, returns nothing for all three. They also declare no
 dependencies of their own.
 
-This is the exact shape that burned this project before — `StorSvc`, `DsSvc`,
+This is the exact shape that burned this project before - `StorSvc`, `DsSvc`,
 `NcbService`, `TimeBrokerSvc` all had zero declared dependents and all were
 wrong to disable. Here the corpus was read first, which is the whole point of
 this page. The conclusion happens to be different, but the method is what
@@ -179,12 +179,12 @@ therefore the token. `LocalSystemNetworkRestricted` for the system host,
 
 `HKLM\SYSTEM\CurrentControlSet\Control\WDI` holds:
 
-- `DiagnosticModules` — **29 registrations** → **15 distinct DLLs**
-- `Scenarios` — **54 registrations**
+- `DiagnosticModules` - **29 registrations** → **15 distinct DLLs**
+- `Scenarios` - **54 registrations**
 
 | DLL | `FileDescription` (read from the binary) |
 |---|---|
-| `diagperf.dll` | Microsoft Performance Diagnostics — **13 of the 29 modules** |
+| `diagperf.dll` | Microsoft Performance Diagnostics - **13 of the 29 modules** |
 | `radardt.dll` | Microsoft Windows Resource Exhaustion Detector |
 | `radarrs.dll` | Microsoft Windows Resource Exhaustion Resolver |
 | `netdiagfx.dll` | Network Diagnostic Framework |
@@ -202,7 +202,7 @@ therefore the token. `LocalSystemNetworkRestricted` for the system host,
 
 ### Can that surface be abused?
 
-**Weaker than it first looks — state it accurately.** The obvious attack is
+**Weaker than it first looks - state it accurately.** The obvious attack is
 registering a rogue module and getting it loaded into a LocalSystem svchost.
 The ACL on `Control\WDI\DiagnosticModules` blocks the casual version:
 
@@ -214,7 +214,7 @@ BUILTIN\Users                   Allow  ReadKey
 ```
 
 **TrustedInstaller owns write.** Not SYSTEM, not Administrators. An attacker
-already holding admin would have to take ownership first — a noisy, auditable
+already holding admin would have to take ownership first - a noisy, auditable
 act, and one that is a defeat condition on its own. So this is **not** a
 quiet privilege-escalation or persistence path, and it should not be sold as
 one.
@@ -222,8 +222,8 @@ one.
 What genuinely remains is smaller and duller: a LocalSystem process that starts
 without anyone asking, loads 15 DLLs' worth of parsing code, and exists to
 process telemetry-shaped inputs about the machine's own behaviour. It is
-attack surface in the ordinary sense — more running code than the owner asked
-for — not a specific exploitable hole.
+attack surface in the ordinary sense - more running code than the owner asked
+for - not a specific exploitable hole.
 
 ### The one genuinely interesting privilege detail
 
@@ -248,7 +248,7 @@ The registry keys for all three grant Administrators `ReadKey` and no
 **5** with each name printed.
 
 The SCM path is a different door, and it is open. All three service DACLs grant
-`DC` — `SERVICE_CHANGE_CONFIG` — to `BA`:
+`DC` - `SERVICE_CHANGE_CONFIG` - to `BA`:
 
 ```
 DPS  D:(A;;CCDCLCSWRPWPDTLOCRSDRCWDWO;;;SY)(A;;CCDCLCSWRPWPDTLOCRRC;;;BA)
@@ -259,8 +259,8 @@ So `sc.exe config <name> start= disabled` should succeed where the registry
 write cannot.
 
 > **Not yet proved by execution.** That conclusion is decoded from the SDDL. The
-> proof is an elevated no-op — `sc.exe config DPS start= auto`, which writes the
-> value DPS already has — and it has not been run. Until it is, this is
+> proof is an elevated no-op - `sc.exe config DPS start= auto`, which writes the
+> value DPS already has - and it has not been run. Until it is, this is
 > analysis, not a result. See `DEC-06-010`.
 
 ## Microsoft's disposition, precisely
@@ -288,7 +288,7 @@ directly:
 
 > "make sure the service isn't a component of some other service" [R-114]
 
-`WdiServiceHost` and `WdiSystemHost` **are** components of another service —
+`WdiServiceHost` and `WdiSystemHost` **are** components of another service -
 they are DPS's hosts. That is an argument for treating the three as one unit:
 disable all three or none. Disabling DPS while leaving the hosts enabled leaves
 two services that nothing will ever start; disabling the hosts while leaving
@@ -296,7 +296,7 @@ DPS enabled leaves a supervisor whose workers are gone.
 
 ## The supported alternative, which is not disabling anything
 
-Microsoft's VDI guidance does not only disable the service — it also sets the
+Microsoft's VDI guidance does not only disable the service - it also sets the
 **scenario execution levels** to Disabled through policy, per diagnostic
 family: Boot Performance, Shutdown Performance, Standby/Resume Performance,
 System Responsiveness, Memory Leak, Resource Exhaustion, and PerfTrack [R-113].
@@ -307,7 +307,7 @@ reversible. On a machine where the low-memory warning is worth keeping but boot
 tracing is not, it is the better tool. It is also **not** what this module
 does, and that gap is worth naming.
 
-## Deprecation context — relevant, but do not overstate it
+## Deprecation context - relevant, but do not overstate it
 
 The legacy troubleshooter engine is being retired:
 
@@ -326,7 +326,7 @@ are not MSDT troubleshooters. What the retirement establishes is narrower than
 feeds is being dismantled by the vendor, so the value of keeping it is falling.
 Both binaries are still present here at 10.0.26100.1.
 
-## Adjacent finding — not part of this blast radius
+## Adjacent finding - not part of this blast radius
 
 While measuring the above, one item turned up that is **not** governed by these
 three services and deserves its own decision:
@@ -360,8 +360,8 @@ machine over five months is thirteen notifications that nothing acted on.
 
 Against, and recorded rather than argued away: the source guidance is written
 for disposable VDI images, not a personal laptop; the low-memory warning is a
-real loss; and the finer, fully supported instrument — scenario execution level
-policy — was not evaluated for this machine and probably should be.
+real loss; and the finer, fully supported instrument - scenario execution level
+policy - was not evaluated for this machine and probably should be.
 
 ---
 
@@ -378,7 +378,7 @@ policy — was not evaluated for this machine and probably should be.
 | R-113 | With DPS disabled Windows stops logging performance data | same | 343 |
 | R-114 | Check the service is not a component of another service | same | 448 |
 | R-115 | Microsoft's manual-start framing, and the table's own exclusion rule | same | 452 |
-| R-116 | WdiServiceHost holds granted rights on Windows Filtering Platform objects | `win32/desktop-src/FWP/access-control.md` | 31 |
+| R-116 | WdiServiceHost holds granted rights on Windows Filtering Platform objects | https://learn.microsoft.com/en-us/windows/win32/FWP/access-control | 31 |
 | R-117 | MSDT, the legacy troubleshooter engine, is being retired | `windows-itpro-docs/whats-new/deprecated-features-resources.md` | 155 |
 
 Full quotations, APA 7th entries and machine-verification live in
@@ -401,6 +401,6 @@ python ..\..\READ-ONLY-verification\Lookup-ServiceDocs.py --service DPS
 ```
 
 The event counts, module registrations and ACLs were read with ordinary
-built-ins — `wevtutil el`, `Get-WinEvent`, `Get-ChildItem` over
+built-ins - `wevtutil el`, `Get-WinEvent`, `Get-ChildItem` over
 `HKLM\SYSTEM\CurrentControlSet\Control\WDI`, `Get-Acl`, `sc.exe qtriggerinfo`
 and `sc.exe sdshow`. Nothing on this page required a write.

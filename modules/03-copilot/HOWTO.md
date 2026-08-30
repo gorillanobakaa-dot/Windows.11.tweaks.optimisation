@@ -20,7 +20,7 @@ written for, "Copilot" meant:
 | The service | `MicrosoftCopilotElevationService`, running as **LocalSystem** | Removed with the application |
 | The settings | Taskbar button, policy values | A backup file |
 
-Both installs carried the **same version number** — one release delivered twice
+Both installs carried the **same version number** - one release delivered twice
 by two mechanisms, which is why removing one leaves the other. Most guides
 remove the app package and stop, leaving 1.3 GB of privileged software with its
 own updater on disk.
@@ -34,14 +34,14 @@ Home**. The modern alternative, policy-based in-box app removal, is *"Only
 Enterprise (ENT) and Education (EDU) editions"*.
 
 So on a Home machine none of the three documented controls is both available
-and endorsed. That is the platform's actual state, not a gap in this module —
+and endorsed. That is the platform's actual state, not a gap in this module -
 and it is why the module's real answer is removal.
 
 ### Tier 2 is not reversible. Decide before you click, not after.
 
 You cannot restore 1,287 MB of deleted files from a JSON file. The module
-records what to **reinstall** — package name, Store link, version, uninstall
-string — which is a different thing and is never presented as a backup.
+records what to **reinstall** - package name, Store link, version, uninstall
+string - which is a different thing and is never presented as a backup.
 
 ---
 
@@ -52,7 +52,7 @@ string — which is a different thing and is never presented as a backup.
 | 1 | Check what is on now | No | reads only |
 | 2 | Preview the changes (safe) | No | reads only |
 | 3 | Turn Copilot off (settings only) | No | **yes, from a backup** |
-| 4 | UNDO the settings | No | — |
+| 4 | UNDO the settings | No | - |
 | 5 | Prove the settings undo works | No | net zero on a pass |
 | 6 | REMOVE the Copilot app | No | **only by reinstalling from the Store** |
 | 7 | REMOVE everything | **Yes** | **only by downloading Copilot again** |
@@ -65,23 +65,23 @@ them.**
 
 ## Recommended first session
 
-1. **`1 - Check what is on now`** — see all four forms on your machine.
-2. **`2 - Preview the changes`** — see exactly what would happen.
-3. **`5 - Prove the settings undo works`** — prove the reversible tier
+1. **`1 - Check what is on now`** - see all four forms on your machine.
+2. **`2 - Preview the changes`** - see exactly what would happen.
+3. **`5 - Prove the settings undo works`** - prove the reversible tier
    round-trips before trusting it.
-4. **`3 - Turn Copilot off`** — if settings are all you want, stop here.
+4. **`3 - Turn Copilot off`** - if settings are all you want, stop here.
 5. Only then consider 6 or 7.
 
 ---
 
-## `Test-Copilot.ps1` — every option
+## `Test-Copilot.ps1` - every option
 
 ```bash
 powershell -ExecutionPolicy Bypass -File .\Test-Copilot.ps1
 ```
 
 Reports all four forms, plus the related packages the module deliberately
-leaves alone. Run it **elevated** if you want the provisioned-package state —
+leaves alone. Run it **elevated** if you want the provisioned-package state -
 that is what a newly created user account would receive, and it cannot be read
 without administrator rights.
 
@@ -91,7 +91,7 @@ without administrator rights.
 
 ---
 
-## `Remove-Copilot.ps1` — every option
+## `Remove-Copilot.ps1` - every option
 
 ```bash
 powershell -ExecutionPolicy Bypass -File .\Remove-Copilot.ps1 -WhatIf
@@ -99,7 +99,7 @@ powershell -ExecutionPolicy Bypass -File .\Remove-Copilot.ps1
 powershell -ExecutionPolicy Bypass -File .\Remove-Copilot.ps1 -RemoveApp -RemoveSystemInstall
 ```
 
-### No switches — settings only
+### No switches - settings only
 
 Sets the taskbar button and the policy values. Fully reversible. This is
 launcher 3.
@@ -107,7 +107,7 @@ launcher 3.
 ### `-RemoveApp`
 
 Removes the `Microsoft.Copilot` package using Microsoft's documented
-PowerShell method, and — when elevated and readable — the **provisioned** copy
+PowerShell method, and - when elevated and readable - the **provisioned** copy
 too, so new user accounts do not receive it.
 
 ### `-RemoveSystemInstall`
@@ -139,7 +139,7 @@ Prints every change and removal that would happen, and does none of it.
 ### What "success" looks like, and what it does not
 
 The uninstaller's exit code is **recorded, not assumed**. On the run this
-module documents, it exited **19** with the folder verifiably gone — so the
+module documents, it exited **19** with the folder verifiably gone - so the
 removal was recorded *with that exit code*, and the summary told the operator
 to check for leftovers. A subsequent sweep found no files, no service and no
 uninstall entry.
@@ -150,7 +150,7 @@ removal.
 
 ---
 
-## `Restore-Copilot.ps1` — every option
+## `Restore-Copilot.ps1` - every option
 
 ```bash
 powershell -ExecutionPolicy Bypass -File .\Restore-Copilot.ps1
@@ -160,7 +160,7 @@ powershell -ExecutionPolicy Bypass -File .\Restore-Copilot.ps1 -List
 
 Restores the **settings only**. It cannot reinstall removed software and will
 never claim to. If `backups\removed-not-restorable.json` exists, it prints the
-contents — what was removed, when, and the route back.
+contents - what was removed, when, and the route back.
 
 `-Original` restores from the write-once original state. `-List` shows the
 available backups.
@@ -182,7 +182,7 @@ available backups.
 **It is not a backup.** It records what to reinstall and from where.
 
 If it ever fails to parse, the module preserves the unreadable copy under
-another name rather than overwriting it — it is the only inventory of software
+another name rather than overwriting it - it is the only inventory of software
 already removed, and it once had weaker protection than the ordinary backups.
 
 ---
