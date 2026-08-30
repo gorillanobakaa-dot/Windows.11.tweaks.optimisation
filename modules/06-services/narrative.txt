@@ -1,0 +1,9 @@
+We discovered a critical issue where applying the standard 06-services optimization profiles completely lobotomizes the hardware capabilities of expensive business-oriented laptops (specifically Lenovo ThinkPads).
+
+By default, the optimization profiles were aggressively disabling services categorized as "OEM Bloat", such as `ImControllerService` (Lenovo System Interface Foundation) and `DisplayEnhancementService`.
+
+What we failed to realize was that Lenovo hardware physically relies on these privileged background services to intercept and translate special hardware buttons (e.g., Microphone Mute, Airplane Mode, Phone Answer/Hang-up, and Brightness sliders). When these services are disabled, these expensive hardware features silently stop working. 
+
+To fix this:
+1. We removed all Lenovo/OEM-specific services (and DisplayEnhancementService) from the automatic kill-lists in `profiles.json`. The standard `light`, `moderate`, and `super` profiles will no longer cripple your laptop's hardware.
+2. We added a new script, `Disable-LenovoServices.ps1`, which allows users to *manually* opt-in and select these services to disable them. We added explicit, strong warnings in this script about the specific capabilities that will be lost. This puts the choice back in the user's hands.
