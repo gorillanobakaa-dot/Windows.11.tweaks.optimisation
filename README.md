@@ -569,6 +569,7 @@ differ from ours - different hardware, different software. The method should not
 | 1.2 | 2026-09-28 | v0.1.3.1-beta: the download now includes the control panel; menu options that need private diagnostics say so instead of failing; machine state (backups, measurements, logs) no longer published |
 | 1.3 | 2026-09-28 | v0.1.3.2-beta: module 09 reports why the new-account template cannot be read, counts it as "not checked" instead of clear, and documents the limitation |
 | 1.4 | 2026-09-28 | v0.1.4-beta: new module 10 (TextInputHost guard); `[T]` in the control panel |
+| 1.5 | 2026-09-28 | v0.1.4.1-beta: module 09's self-test can no longer skip a check silently |
 
 
 
