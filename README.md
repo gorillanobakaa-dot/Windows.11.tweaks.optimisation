@@ -536,6 +536,7 @@ differ from ours - different hardware, different software. The method should not
 | 1.0 | 2026-08-26 | Initial public release of module documentation and framework |
 | 1.1 | 2026-09-28 | v0.1.3-beta: module 04 gains the "finish setting up your device" and welcome-page switches; new module 09 (OneDrive); `[O]` in the control panel; batch files checked out with CRLF |
 | 1.2 | 2026-09-28 | v0.1.3.1-beta: the download now includes the control panel; menu options that need private diagnostics say so instead of failing; machine state (backups, measurements, logs) no longer published |
+| 1.3 | 2026-09-28 | v0.1.3.2-beta: module 09 reports why the new-account template cannot be read, counts it as "not checked" instead of clear, and documents the limitation |
 
 
 

@@ -17,7 +17,7 @@ cd /d "%~dp0"
 cls
 echo.
 echo   ===================================================================
-echo     WINDOWS 11 TWEAKS AND OPTIMISATION  -  CONTROL PANEL (v0.1.3.1-beta)
+echo     WINDOWS 11 TWEAKS AND OPTIMISATION  -  CONTROL PANEL (v0.1.3.2-beta)
 echo   ===================================================================
 echo.
 echo     Everything runs from THIS menu. Every change asks first and
