@@ -101,7 +101,9 @@ if ($state.defaultHive -and $state.defaultHive.readable) {
         Write-Host ("    {0} new-account Run value {1,-26} {2}  [uncited]" -f $mark, $n, $now)
     }
 } else {
-    Write-Host '       new-account Run values: cannot be read without administrator rights'
+    $why = if ($state.defaultHive -and $state.defaultHive.reason) { $state.defaultHive.reason } else { 'unknown reason' }
+    Write-Host '    !! new-account Run values: NOT READ - this block is incomplete'
+    Write-Host ("       reason: {0}" -f $why)
 }
 foreach ($f in (Get-OdFolders | Where-Object { $_.Part -eq 'Machine' })) {
     $mark = if ($planFolders | Where-Object { $_.Path -eq $f.Path }) { '->' } else { '  ' }

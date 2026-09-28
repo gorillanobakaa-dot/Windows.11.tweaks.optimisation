@@ -195,39 +195,73 @@ function Test-OdKeyGuard {
     $null
 }
 
+$script:OdHiveMountPs = 'Registry::HKEY_USERS\W11T_OdDefault'
+
+function Mount-OdDefaultHive {
+    <#  Load the default-user hive. Returns @{ ok; ownLoad; reason }.
+        Keeps reg.exe's own error text: until 2026-09-28 a failed load was
+        reported only as "cannot be read", which made the cause unfindable.
+        If a previous run left the hive loaded, it is reused, not refused. #>
+    if (-not (Test-Path -LiteralPath $script:OdDefaultHive)) { return @{ ok = $false; ownLoad = $false; reason = "no template at $script:OdDefaultHive" } }
+    if (-not (Test-OdElevated)) { return @{ ok = $false; ownLoad = $false; reason = 'needs administrator rights' } }
+    if (Test-Path $script:OdHiveMountPs) { return @{ ok = $true; ownLoad = $false; reason = 'already loaded by an earlier run - reused' } }
+    $out = (& reg.exe load $script:OdHiveMount $script:OdDefaultHive 2>&1 | Out-String).Trim()
+    $code = $LASTEXITCODE
+    if ($code -ne 0 -or -not (Test-Path $script:OdHiveMountPs)) {
+        return @{ ok = $false; ownLoad = $false; reason = ("reg load failed (exit {0}): {1}" -f $code, $out) }
+    }
+    @{ ok = $true; ownLoad = $true; reason = '' }
+}
+
+function Dismount-OdDefaultHive {
+    <#  Unload, and CHECK it unloaded. Registry handles held by this process
+        can make the first unload fail ("Access is denied"); collect and
+        retry. Returns '' on success or the last error text. #>
+    $last = ''
+    for ($i = 0; $i -lt 5; $i++) {
+        [gc]::Collect(); [gc]::WaitForPendingFinalizers()
+        $last = (& reg.exe unload $script:OdHiveMount 2>&1 | Out-String).Trim()
+        if (-not (Test-Path $script:OdHiveMountPs)) { return '' }
+        Start-Sleep -Milliseconds 500
+    }
+    "reg unload failed: $last"
+}
+
 function Get-OdDefaultHiveState {
-    <#  Reads the default-user Run values. Needs elevation to load the hive;
-        without it, returns readable = $false and the caller reports that. #>
-    $r = [ordered]@{ readable = $false; values = @{} }
-    if (-not (Test-Path $script:OdDefaultHive)) { $r.readable = $true; return [pscustomobject]$r }
-    if (-not (Test-OdElevated)) { return [pscustomobject]$r }
-    $mounted = $false
+    <#  Reads the default-user Run values. Returns readable = $false with the
+        exact reason when it cannot, so callers report UNKNOWN, never "gone". #>
+    $r = [ordered]@{ readable = $false; reason = ''; values = @{} }
+    if (-not (Test-Path -LiteralPath $script:OdDefaultHive)) { $r.readable = $true; $r.reason = 'no template file'; return [pscustomobject]$r }
+    $m = Mount-OdDefaultHive
+    if (-not $m.ok) { $r.reason = $m.reason; return [pscustomobject]$r }
     try {
-        $null = & reg.exe load $script:OdHiveMount $script:OdDefaultHive 2>&1
-        if ($LASTEXITCODE -ne 0) { return [pscustomobject]$r }
-        $mounted = $true
         foreach ($n in $script:OdHiveValues) {
-            $v = (Get-ItemProperty $script:OdHiveRunKey -Name $n -ErrorAction SilentlyContinue).$n
-            $kind = $null
-            if ($null -ne $v) { try { $kind = (Get-Item $script:OdHiveRunKey).GetValueKind($n).ToString() } catch { } }
+            $key = Get-Item -LiteralPath $script:OdHiveRunKey -ErrorAction SilentlyContinue
+            $v = $null; $kind = $null
+            if ($key -and ($key.GetValueNames() -contains $n)) {
+                $v = $key.GetValue($n, $null, 'DoNotExpandEnvironmentNames')
+                $kind = $key.GetValueKind($n).ToString()
+            }
+            if ($key) { $key.Close() }
             $r.values[$n] = [pscustomobject]@{ existed = ($null -ne $v); value = $v; kind = $kind }
         }
         $r.readable = $true
     }
+    catch { $r.reason = "reading the template failed: $($_.Exception.Message)" }
     finally {
-        if ($mounted) { [gc]::Collect(); [gc]::WaitForPendingFinalizers(); $null = & reg.exe unload $script:OdHiveMount 2>&1 }
+        if ($m.ownLoad) { $u = Dismount-OdDefaultHive; if ($u) { $r.reason = ($r.reason + ' ' + $u).Trim() } }
     }
     [pscustomobject]$r
 }
 
 function Invoke-OdDefaultHive {
     <#  Load the default-user hive, run $Action against it, always unload.
-        Returns the action's result, or throws if the hive cannot be loaded. #>
+        Returns the action's result, or throws with reg.exe's own reason. #>
     param([Parameter(Mandatory)][scriptblock]$Action)
-    $null = & reg.exe load $script:OdHiveMount $script:OdDefaultHive 2>&1
-    if ($LASTEXITCODE -ne 0) { throw "could not load $script:OdDefaultHive" }
+    $m = Mount-OdDefaultHive
+    if (-not $m.ok) { throw "could not load the new-account template: $($m.reason)" }
     try { & $Action }
-    finally { [gc]::Collect(); [gc]::WaitForPendingFinalizers(); $null = & reg.exe unload $script:OdHiveMount 2>&1 }
+    finally { if ($m.ownLoad) { $u = Dismount-OdDefaultHive; if ($u) { Write-Host "      WARNING: $u" } } }
 }
 
 function Get-OdState {

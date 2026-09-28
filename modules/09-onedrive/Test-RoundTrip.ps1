@@ -140,6 +140,20 @@ else {
     foreach ($x in $diffs) { Write-Host "      $x" }
     Write-Host '    Do not rely on the undo until this is explained.'
 }
+# The machine part includes the new-account template. If it could not be read
+# at either end, that part was never exercised - say so, and do not call the
+# run a full PASS (2026-09-28: a run reported PASS with it silently skipped).
+if ($Part -eq 'Machine') {
+    $hs = @($A, $C) | ForEach-Object { $_.state.defaultHive } | Where-Object { -not $_ -or -not $_.readable }
+    if ($hs.Count) {
+        $why = (@($A, $C) | ForEach-Object { $_.state.defaultHive.reason } | Where-Object { $_ } | Select-Object -First 1)
+        Write-Host ''
+        Write-Host '    NOT TESTED: the new-account template could not be read, so its'
+        Write-Host '    entry was never removed or put back by this test.'
+        Write-Host ("    reason: {0}" -f $(if ($why) { $why } else { 'unknown' }))
+        if ($result -eq 0) { $result = 2 }
+    }
+}
 
 # Litter from a passing test: its runs record an intermediate state that a
 # later undo would faithfully restore (module 04 audit finding). Kept on FAIL.

@@ -17,7 +17,7 @@ $here = Split-Path -Parent $MyInvocation.MyCommand.Path
 . (Join-Path $here '_Common.ps1')
 
 $s = Get-OdState
-$left = 0; $open = 0
+$left = 0; $open = 0; $unknown = 0
 
 Write-Host ''
 Write-Host '  OneDrive - what is on this machine now'
@@ -57,7 +57,13 @@ if ($s.defaultHive -and $s.defaultHive.readable) {
         Write-Host ("    {0,-8} new-account Run value {1}  [uncited]" -f $(if ($e -and $e.existed) { 'present' } else { 'gone' }), $n)
     }
 } else {
-    Write-Host '    ?        new-account Run value - run this as administrator to read it'
+    # Unread is UNKNOWN, never "gone". Until 2026-09-28 this line was skipped
+    # in the totals, so a run that could not read the template still ended
+    # with "OneDrive is gone ... blocked".
+    $unknown++
+    $why = if ($s.defaultHive -and $s.defaultHive.reason) { $s.defaultHive.reason } else { 'unknown reason' }
+    Write-Host '    ?        new-account Run value - NOT CHECKED'
+    Write-Host ("             reason: {0}" -f $why)
 }
 foreach ($f in (Get-OdFolders | Where-Object { $_.Part -eq 'Machine' })) {
     if ($s.folders[$f.Path].existed) { $left++ }
@@ -86,5 +92,7 @@ Write-Host ''
 Write-Host ('  ' + ('-' * 74))
 Write-Host ("    ways back still open : {0}" -f $open)
 Write-Host ("    leftovers remaining  : {0}" -f $left)
-if ($open -eq 0 -and $left -eq 0) { Write-Host '    OneDrive is gone from this account and blocked on this machine.' }
+Write-Host ("    not checked          : {0}" -f $unknown)
+if ($open -eq 0 -and $left -eq 0 -and $unknown -eq 0) { Write-Host '    OneDrive is gone from this account and blocked on this machine.' }
+elseif ($open -eq 0 -and $left -eq 0) { Write-Host '    Everything checked is clear, but not everything could be checked (see "not checked").' }
 Write-Host ''
