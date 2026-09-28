@@ -123,6 +123,7 @@ update may replace it.
 |---|---|
 | Safety logic self-test | **43 checks, 0 failures** |
 | The self-test can fail | **verified**: with the value check and the key guards deliberately broken, 8 checks failed |
+| The self-test cannot skip a check silently | **fixed 2026-09-28** (MODULE-STANDARD R2.8a). Its `Check` helper took a `[bool]`, and the run had no `catch`. A check that returned a list or text failed at parameter binding and ended the run early: shown with four checks reporting "passed 1, failed 0". Now a non-yes/no value counts as a failure, and an exception mid-run is reported as "the self-test stopped early". Proved by injecting both faults: each run failed with exit 1. The 43 real checks still pass, so earlier results were genuine |
 | Round trip, account part | **PASS**: two environment variables and three registry keys removed and returned, keys compared by their full exported contents |
 | Round trip, machine part | **PASS for the two policies**, 2026-09-28. The new-account entry was **not tested**: see "Known limitation" below |
 | Applied, account part | **yes**, on the audited machine, 2026-09-28: seven items removed, zero failures |
