@@ -124,11 +124,37 @@ update may replace it.
 | Safety logic self-test | **43 checks, 0 failures** |
 | The self-test can fail | **verified**: with the value check and the key guards deliberately broken, 8 checks failed |
 | Round trip, account part | **PASS**: two environment variables and three registry keys removed and returned, keys compared by their full exported contents |
-| Round trip, machine part | **not yet run**: it needs administrator rights (launcher 6) |
+| Round trip, machine part | **PASS for the two policies**, 2026-09-28. The new-account entry was **not tested**: see "Known limitation" below |
 | Applied, account part | **yes**, on the audited machine, 2026-09-28: seven items removed, zero failures |
-| Applied, machine part | **no**: it needs administrator rights (launcher 4) |
+| Applied, machine part | **yes**, 2026-09-28: both policies set, installer moved into the backup, setup folder to the Recycle Bin; four changes, zero failures. The new-account entry was **not removed**: see below |
 | Citations | **2 / 2** quoted from the offline corpus at the cited line |
 | Adversarial audit | **not yet done** |
+
+---
+
+## Known limitation: the new-account entry
+
+**In plain language.** Windows keeps a template that every new account is
+copied from. On the machine this was built on, that template still contains an
+entry that installs OneDrive the first time a new account signs in. The module
+could not remove it, because Windows refused to open the template. The entry
+is harmless there: the installer it points at has been moved out of the Windows
+folder, and the two policies stop OneDrive being used anyway. `1 - Check what is
+on now` shows it as **not checked**, with Windows' own reason, and does not
+claim that everything is clear.
+
+**Technically.** `reg load HKU\W11T_OdDefault C:\Users\Default\NTUSER.DAT`
+fails elevated with `ERROR: The filename or extension is too long.` (exit 1).
+A plain copy of `NTUSER.DAT`, `.LOG1` and `.LOG2` in `%TEMP%`, without the
+`.TM.blf` / `.regtrans-ms` / `.cnpf` transaction files, fails identically, so
+those files are ruled out. The cause is not known. The remaining entry is
+`Run\OneDriveSetup` = `C:\Windows\System32\OneDriveSetup.exe /thfirstsetup`.
+On a machine where the template loads, launcher 4 removes it with a backup, and
+launcher 8 puts it back.
+
+Until 2026-09-28 a failed load was reported only as "cannot be read", the check
+left the item out of its totals and printed an all-clear, and the machine round
+trip printed PASS without touching it. All three now say what they could not do.
 
 ---
 
