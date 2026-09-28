@@ -17,7 +17,7 @@ cd /d "%~dp0"
 cls
 echo.
 echo   ===================================================================
-echo     WINDOWS 11 TWEAKS AND OPTIMISATION  -  CONTROL PANEL (v0.1.3-beta)
+echo     WINDOWS 11 TWEAKS AND OPTIMISATION  -  CONTROL PANEL (v0.1.3.1-beta)
 echo   ===================================================================
 echo.
 echo     Everything runs from THIS menu. Every change asks first and
@@ -66,8 +66,8 @@ if /i "%pick%"=="O" goto m09
 if /i "%pick%"=="A" goto applyall
 if /i "%pick%"=="U" goto undoall
 if /i "%pick%"=="C" goto alttab
-if /i "%pick%"=="H" start "" "%~dp0TOOLS-HOWTO.md"
-if /i "%pick%"=="9" start "" "%~dp0ROADMAP.md"
+if /i "%pick%"=="H" if exist "%~dp0TOOLS-HOWTO.md" (start "" "%~dp0TOOLS-HOWTO.md") else (start "" "%~dp0README.md")
+if /i "%pick%"=="9" if exist "%~dp0ROADMAP.md" (start "" "%~dp0ROADMAP.md") else (start "" "%~dp0README.md")
 if /i "%pick%"=="0" start "" "%~dp0README.md"
 if /i "%pick%"=="Q" goto end
 goto menu
@@ -91,6 +91,14 @@ echo   of this window. None of them can change anything.
 echo.
 echo   This takes a minute. The file path is printed at the end.
 echo.
+if not exist "%~dp0READ-ONLY-diagnostics\Save-StateReport.ps1" (
+    echo   This option uses the project's private diagnostics folder, which is
+    echo   not part of the public download. Every module's own check - option
+    echo   [1] inside each module menu - works without it.
+    echo.
+    pause
+    goto menu
+)
 powershell -NoProfile -ExecutionPolicy Bypass -File "%~dp0READ-ONLY-diagnostics\Save-StateReport.ps1"
 echo.
 set "seelog="
@@ -579,6 +587,14 @@ echo   does not give you an opinion - it presses Alt+Tab and looks.
 echo.
 echo   It changes NO setting. It briefly takes keyboard focus, then cancels.
 echo.
+if not exist "%~dp0READ-ONLY-diagnostics\Test-AltTab.ps1" (
+    echo   This option uses the project's private diagnostics folder, which is
+    echo   not part of the public download. Every module's own check - option
+    echo   [1] inside each module menu - works without it.
+    echo.
+    pause
+    goto menu
+)
 powershell -NoProfile -ExecutionPolicy Bypass -File "%~dp0READ-ONLY-diagnostics\Test-AltTab.ps1"
 echo.
 pause

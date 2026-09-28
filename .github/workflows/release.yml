@@ -20,9 +20,18 @@ jobs:
         run: |
           mkdir -p build_output
           cp -r modules build_output/
-          cp README.md build_output/ || true
+          # The control panel: everything is meant to run from this one menu.
+          cp "START HERE - open this first.cmd" build_output/
+          cp README.md PHILOSOPHY.md VERSION build_output/
           cp LICENSE* build_output/ || true
           cp HOWTO.md build_output/ || true
+          # Never ship machine state. A backups/original-state.json from the
+          # author's machine would make "UNDO back to the original" restore the
+          # author's settings on the user's machine.
+          if find build_output -path '*/backups/*' -o -path '*/measurements/*' | grep -q .; then
+            echo "Refusing to package machine state (backups/ or measurements/)."; exit 1
+          fi
+          test -f "build_output/START HERE - open this first.cmd"
           cd build_output
           zip -r ../Windows11Tweaks_Standalone.zip ./*
           cd ..
