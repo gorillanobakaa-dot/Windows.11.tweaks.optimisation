@@ -95,7 +95,8 @@ if (-not $task) {
     Write-Host ("    {0,-22} {1}{2}" -f 'installed', 'yes', $(if ($task.State -eq 'Disabled') { '   (but DISABLED in Task Scheduler)' } else { '' }))
     Write-Host ("    {0,-22} every {1} minutes" -f 'runs', $s.IntervalMinutes)
     Write-Host ("    {0,-22} {1} % of one core for {2} s" -f 'ends it at', $s.ThresholdPercent, $s.WindowSeconds)
-    Write-Host ("    {0,-22} {1}" -f 'with rights', $(if ($s.RunLevel -eq 'LeastPrivilege') { 'your normal rights (not administrator)' } else { $s.RunLevel }))
+    # Task Scheduler omits RunLevel when it is the default (LeastPrivilege)
+    Write-Host ("    {0,-22} {1}" -f 'with rights', $(if (-not $s.RunLevel -or $s.RunLevel -eq 'LeastPrivilege') { 'your normal rights (not administrator)' } else { $s.RunLevel }))
     if ($legit) { Write-Host ("    {0,-22} {1}" -f 'WARNING', "the task is not as this module made it: $legit") }
     if ($info) {
         # The task runs conhost.exe (for "no window"), and conhost does not pass
