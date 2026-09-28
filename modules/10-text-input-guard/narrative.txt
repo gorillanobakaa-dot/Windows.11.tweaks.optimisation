@@ -1,0 +1,103 @@
+Module 10 - TextInputHost guard - session notes, 2026-09-28
+
+Why this module exists
+----------------------
+The owner reported that the bottom of the laptop felt too hot for a reported
+48 C. The fan readings were correct (level 3 at 2,566 rpm against a measured
+2,586). The heat had another source: TextInputHost.exe, the Windows 11 program
+that draws the touch keyboard, emoji panel, clipboard history and voice
+typing, was holding one processor core at 99 %. One of its 41 threads had used
+14,520 of the process's 14,594 seconds of processor time; the other 40 were
+asleep. It was the genuine Windows program (signed CN=Microsoft Windows, from
+SystemApps, started by the DcomLaunch service host at sign-in).
+
+The owner asked what it was, who started it, and whether it could be kept
+under control. They asked for a guard in the tweaks framework rather than in
+the fan-control program, which the session recommended: the fan program's
+service runs as SYSTEM and should not end programs in a user's session, and
+the fan program is meant for other ThinkPads and for Linux, where this fault
+does not exist.
+
+What was found
+--------------
+- Ending the stuck copy: processor 48.1 C and 20 % total load before; 41.1 C
+  and 2 % two minutes after. Windows started a fresh copy by itself.
+- No setting explained it: clipboard history, cloud clipboard, touch keyboard
+  and voice typing at defaults; physical-keyboard suggestions off.
+- The fresh copy started spinning again about 8 minutes later. The timing
+  matched a screenshot taken by the Claude Code computer-use tool, which hides
+  certain windows, TextInputHost's among them, while it captures the screen.
+- Controlled test: after ending that copy, a new one sat at 1.6 CPU-seconds
+  for three minutes with no screenshots; one screenshot at 18:42:10, and by
+  18:42:26 it was at 19.7 CPU-seconds, then about 97 % of one core. Repeated
+  at 18:57 with the same result.
+- An earlier claim in this session, that the first copy had held a core
+  "since 06:37", was wrong: it had been measured at 99 % once, at 18:21; four
+  hours of processor time over about 11.7 hours means it spun roughly a third
+  of the time.
+
+Decisions
+---------
+1. Do not disable the feature or its service. TextInputManagementService also
+   carries typing into the Start menu search, Settings and modern apps.
+2. A per-user scheduled task, not a service: no administrator rights, runs
+   as the user, can only end the user's own processes. Verified on this build
+   that a standard user can create a task in its own folder (\W11T\).
+3. conhost.exe --headless as the task's program, so no console window appears
+   every 10 minutes. Verified: every process the task started had
+   MainWindowHandle 0.
+4. Measure, do not guess: TotalProcessorTime read twice across a 60 s window,
+   differenced. End only at 90 % of one core or more for the whole window,
+   only the SystemApps TextInputHost.exe, only in the user's session, only if
+   the process existed for the whole window.
+5. The state is one record (the task and its XML). The undo re-registers a
+   recorded task only if it is exactly the kind this module creates.
+6. MODULE-STANDARD R15.2 (use _MeasureLib.ps1) cannot be met: that library is
+   not published, and the guard must run on any machine it is copied to. The
+   README says so.
+
+Things that went wrong, and what was changed
+--------------------------------------------
+- The self-test's first run found that $null -as [double] is 0 in PowerShell:
+  an unreadable counter read as idle, and a missing process age as "just
+  started". Missing values are now tested before conversion.
+- The first real run of the scheduled task finished in 12 s having measured
+  nothing. In Windows PowerShell 5.1 a function returning one object does not
+  return a list, and the object had no dependable .Count, so the one-minute
+  wait was skipped. Fixed with @(), plus a rule that a window shorter than 90 %
+  of its length is "unknown". The self-test gained a check that the
+  measurement really waits. The next real run ended a stuck copy at 97.1 %.
+- Task Scheduler recorded result 0 for a run that ended a stuck copy: conhost
+  does not pass on the guard's exit code 10. The check now reads the log.
+- Test-RoundTrip returned its difference list with a leading comma; wrapped
+  in @() it would always have counted one difference. Caught before the first
+  run.
+- A variable named $matches (automatic in PowerShell) was renamed.
+- The README first claimed normal panel use stays under 2 %; only idle copies
+  were measured. Corrected.
+
+Tests actually run on the machine this project was built for
+------------------------------------------------------------
+- Test-SafetyLogic.ps1: 62 passed, 0 failed.
+- Test-TextInputGuard.ps1 on a clean state; Restore with no backups: the
+  no-op message.
+- Install -WhatIf: 1 change would be made, nothing changed, no backups folder.
+- Test-RoundTrip.ps1 -Force: PASS, 1 item moved and came back; 2 backups
+  cleaned up; original-state.json (no guard) kept.
+- Install twice (defaults, then 5 min / 80 %), a third time with the same
+  settings (exit 4, no backup), Restore -List, Restore -Original -WhatIf,
+  Restore -Original (task removed), Restore -Backup of the pre-restore
+  snapshot (task put back as recorded).
+- Launchers 1, 3 and 8 run through cmd; the control panel's [T] menu driven
+  with redirected input.
+- The real scheduled task: ended TextInputHost pid 17384 at 97.1 % of one core
+  over 60 s and logged it; no window.
+- Three citation quotes checked word for word against the offline
+  documentation; three learn.microsoft.com links answered 200 and a made-up
+  page 404.
+
+Not done
+--------
+- No adversarial audit.
+- Heavy real use of the panels (long voice typing) was not measured.
+- Other machines, builds, editions and screen-capture tools: not tested.

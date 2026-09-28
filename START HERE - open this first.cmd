@@ -37,6 +37,7 @@ echo     [7]  Xbox services         lock the wakeable Xbox surface
 echo     [8]  SERVICES + profiles   light / moderate / super hardening
 echo     [D]  Defer feature updates  hold the big releases 3 / 6 / 12 months
 echo     [O]  OneDrive              clear its leftovers, block it coming back
+echo     [T]  TextInputHost guard   end it when it gets stuck on a core
 echo.
 echo     Removes software - no undo from a backup:
 echo     [R]  Remove bloat apps      Game Bar, Xbox, Teams, Widgets, preloads
@@ -63,6 +64,7 @@ if /i "%pick%"=="8" goto m06
 if /i "%pick%"=="D" goto m07
 if /i "%pick%"=="R" goto m08
 if /i "%pick%"=="O" goto m09
+if /i "%pick%"=="T" goto m10
 if /i "%pick%"=="A" goto applyall
 if /i "%pick%"=="U" goto undoall
 if /i "%pick%"=="C" goto alttab
@@ -121,7 +123,7 @@ echo                              so they stay a separate, deliberate click.
 echo     4. Suggestions and ads   apply the five Microsoft documents
 echo     5. Xbox services         disable - Windows will ask for admin
 echo.
-echo   FOUR THINGS ARE NOT PART OF "ALL". Typing YES does NOT do any of
+echo   FIVE THINGS ARE NOT PART OF "ALL". Typing YES does NOT do any of
 echo   these. They only happen if you open that menu yourself and pick them:
 echo.
 echo     [8] Services profiles    can stop printing, Bluetooth and Windows
@@ -131,6 +133,8 @@ echo     [R] Remove bloat apps    DELETES apps. Nothing can put deleted
 echo                              software back from a backup file.
 echo     [O] OneDrive             stops OneDrive working for anyone who
 echo                              uses it. Run it from its own menu.
+echo     [T] TextInputHost guard  adds a task that runs every 10 minutes.
+echo                              Install it from its own menu.
 echo.
 echo   They are left out because each one costs you something real, and
 echo   which of those trades you want is your call, not a default.
@@ -180,6 +184,8 @@ echo     7. Feature-update hold   undo - removes the policy values
 echo.
 echo   NOT undone: the OneDrive block from [O] - undo it from its own menu,
 echo   so this button can never quietly bring OneDrive back.
+echo   NOT undone: the TextInputHost guard from [T] - remove it from its
+echo   own menu, option [6].
 echo   NOT undone: apps you deleted with [R]. Deleted software cannot come
 echo   back from a backup file - this menu cannot reverse it and does not
 echo   pretend to. To try: go back, press [R], then choose 8 in that menu.
@@ -576,6 +582,50 @@ if /i "%pick%"=="T" call "%~dp0modules\09-onedrive\9 - Test the safety logic.cmd
 if /i "%pick%"=="F" start "" "%~dp0modules\09-onedrive"
 if /i "%pick%"=="B" goto menu
 goto m09
+
+rem ===========================================================================
+:m10
+cls
+echo.
+echo   TEXTINPUTHOST GUARD  (module 10)
+echo   -------------------------------------------------------------------
+echo   TextInputHost is part of Windows: it draws the touch keyboard, the
+echo   emoji panel and clipboard history. Sometimes it gets stuck in a loop
+echo   and keeps one processor core busy for hours - the laptop runs hot
+echo   and nothing on screen says why. On this machine a screen-capture
+echo   tool set it off.
+echo.
+echo   The guard checks every 10 minutes and ends it only if it used a
+echo   whole core for a full minute. Windows starts a fresh copy when it is
+echo   needed. No admin rights. It does not switch any Windows feature off.
+echo.
+echo     [1]  Check what is on now           reads only
+echo     [2]  Check TextInputHost for 1 min  reads only, ends nothing
+echo     [3]  Preview the install            reads only
+echo     [4]  INSTALL the guard              backup written first
+echo     [5]  Prove the undo works           install, undo, compare - net zero
+echo     [6]  UNDO (remove the guard)        back to the newest backup
+echo     [7]  UNDO back to the original      as if this was never run
+echo     [8]  Test the safety logic          62 checks, reads only
+echo     [9]  End a stuck copy now           the guard's job, once, by hand
+echo     [F]  Open the module folder
+echo     [B]  Back to the main menu
+echo.
+set "pick="
+set /p "pick=  Choice: "
+if not defined pick goto menu
+if /i "%pick%"=="1" call "%~dp0modules\10-text-input-guard\1 - Check what is on now.cmd"
+if /i "%pick%"=="2" call "%~dp0modules\10-text-input-guard\2 - Check TextInputHost for a minute (safe).cmd"
+if /i "%pick%"=="3" call "%~dp0modules\10-text-input-guard\3 - Preview the install (safe).cmd"
+if /i "%pick%"=="4" call "%~dp0modules\10-text-input-guard\4 - Install the guard.cmd"
+if /i "%pick%"=="5" call "%~dp0modules\10-text-input-guard\5 - Prove the undo works.cmd"
+if /i "%pick%"=="6" call "%~dp0modules\10-text-input-guard\6 - UNDO (remove the guard).cmd"
+if /i "%pick%"=="7" call "%~dp0modules\10-text-input-guard\7 - UNDO back to the original.cmd"
+if /i "%pick%"=="8" call "%~dp0modules\10-text-input-guard\8 - Test the safety logic.cmd"
+if /i "%pick%"=="9" call "%~dp0modules\10-text-input-guard\9 - End a stuck TextInputHost now.cmd"
+if /i "%pick%"=="F" start "" "%~dp0modules\10-text-input-guard"
+if /i "%pick%"=="B" goto menu
+goto m10
 
 rem ===========================================================================
 :alttab

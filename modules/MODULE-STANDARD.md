@@ -142,7 +142,8 @@ if its module is deleted.
 | 04 | `04-recommendations` | suggestions, tips, personalised content, Start recommendations | **built, not shipped.** Round trip proved and comparison shown falsifiable; no adversarial audit |
 | 05-08 | `05-xbox-services`, `06-services`, `07-update-deferral`, `08-app-debloat` | allocated after this table was last maintained; each folder's README states its own status | - |
 | 09 | `09-onedrive` | OneDrive leftovers in the account; reinstall block for the machine | **built 2026-09-28.** 43 self-test checks; account round trip PASS and account part applied; machine part awaits an elevated run; no adversarial audit |
-| 10+ | - | unallocated | - |
+| 10 | `10-text-input-guard` | a per-user scheduled task that ends TextInputHost.exe only when it has held a whole processor core for a full minute | **built and applied 2026-09-28.** 62 self-test checks; round trip PASS; the real scheduled task ended a stuck copy; no adversarial audit |
+| 11+ | - | unallocated | - |
 
 Candidate subjects not yet allocated a number: services hardening, telemetry
 scheduled tasks, Defender posture, and the ownership/update-cache tools. Earlier
