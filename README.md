@@ -373,6 +373,37 @@ reversible. This project will not manufacture a citation to make that read bette
 
 ---
 
+## New in v0.1.4-beta: module 10 - TextInputHost guard
+
+[`modules/10-text-input-guard/`](modules/10-text-input-guard/) keeps a stuck
+Windows program from holding a processor core. In the main menu it is **[T]**.
+
+`TextInputHost.exe` is part of Windows 11: it draws the touch keyboard, the
+emoji panel, clipboard history and voice typing. Sometimes one part of it gets
+stuck in a loop and keeps one processor core busy for hours, doing nothing
+useful. The laptop runs warm, the fan works harder, and nothing on screen says
+why. On the machine this was built on it used about four hours of processor
+time in one day; ending it took the processor from 48 C to 41 C within two
+minutes. What set it off there was a screen-capture tool: one screenshot by
+the Claude Code computer-use tool, which hides that program's windows while it
+captures the screen, started the loop within 15 to 30 seconds, twice on
+purpose. It has been reported to Anthropic.
+
+The module installs a guard: a scheduled task that runs every 10 minutes, as
+you, with no window and no administrator rights. It measures TextInputHost for
+one minute and ends it only if it used at least 90 % of one core for that
+whole minute. Windows starts a fresh copy the next time one of those panels is
+needed. Each time it ends one, it writes a line in the module's log. It does
+not switch the touch keyboard, emoji panel or clipboard history off.
+
+The real scheduled task ended a stuck copy at 97.1 % of one core on the test
+machine. The safety self-test passes 62 checks, the undo round trip passed,
+and the undo to the original and the undo of an undo were both run. It has
+not had an adversarial audit. It is **not** part of APPLY ALL or UNDO ALL:
+install and remove it from its own menu.
+
+---
+
 ## New in v0.1.3-beta: module 09 - OneDrive
 
 [`modules/09-onedrive/`](modules/09-onedrive/) deals with what an uninstall leaves
@@ -537,6 +568,7 @@ differ from ours - different hardware, different software. The method should not
 | 1.1 | 2026-09-28 | v0.1.3-beta: module 04 gains the "finish setting up your device" and welcome-page switches; new module 09 (OneDrive); `[O]` in the control panel; batch files checked out with CRLF |
 | 1.2 | 2026-09-28 | v0.1.3.1-beta: the download now includes the control panel; menu options that need private diagnostics say so instead of failing; machine state (backups, measurements, logs) no longer published |
 | 1.3 | 2026-09-28 | v0.1.3.2-beta: module 09 reports why the new-account template cannot be read, counts it as "not checked" instead of clear, and documents the limitation |
+| 1.4 | 2026-09-28 | v0.1.4-beta: new module 10 (TextInputHost guard); `[T]` in the control panel |
 
 
 
