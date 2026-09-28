@@ -76,7 +76,7 @@ Microsoft's own documentation describes the default mode this way:
 and defines that network precisely:
 
 > "**LAN**. Gets or sends updates and apps to PCs on the same NAT only."
-> - `windows-itpro-docs/privacy/manage-connections-from-windows-operating-system-components-to-microsoft-services.md`  [R-83]
+> - `https://learn.microsoft.com/en-us/windows/privacy/manage-connections-from-windows-operating-system-components-to-microsoft-services`  [R-83]
 
 ### What that actually means for you - and what it does not
 
@@ -104,7 +104,7 @@ and accepts incoming connections on it:
 > service. If you block port 7680, peer-to-peer functionality is disabled.
 > However, devices can still download content using HTTP over port 80 or HTTPS
 > over port 443."
-> - `windows-itpro-docs/deployment/do/delivery-optimization-configure.md`  [R-85]
+> - `https://learn.microsoft.com/en-us/windows/deployment/do/delivery-optimization-configure`  [R-85]
 
 Two firewall rules are switched on to let other machines reach it, and on this
 machine both are set to the **Any** profile - which includes **Public** networks.
@@ -324,7 +324,7 @@ than from folklore:
 
 > "The download mode used for this file download session (CdnOnly = 0, Lan = 1,
 > Group = 2, Internet = 3, Simple = 99, Bypass = 100)."
-> - `windows-itpro-docs/privacy/required-windows-diagnostic-data-events-and-fields-2004.md`  [R-84]
+> - `https://learn.microsoft.com/en-us/windows/privacy/required-windows-diagnostic-data-events-and-fields-2004`  [R-84]
 
 **Firewall rules are addressed by `Name`, never `DisplayName`.** The display name
 is localised; `DeliveryOptimization-TCP-In` is not. A script matching on
@@ -399,10 +399,10 @@ powershell -ExecutionPolicy Bypass -File ..\..\READ-ONLY-verification\Verify-Cit
 It contains no AI and makes no judgements. It compares strings against primary
 sources and exits non-zero if anything is wrong.
 
-| ID | Claim | rel_path | line | quote |
+| ID | Claim | Microsoft page | line (offline copy) | quote |
 |---|---|---|---|---|
-| R-81 | CdnOnly stops peer sharing but keeps downloading from Microsoft | https://learn.microsoft.com/en-us/windows/win32/delivery_optimization/downloadmode | 47 | This setting disables peer-to-peer caching but still allows Delivery Optimization to download content from Microsoft servers. |
-| R-82 | LAN is the default mode and it enables peer sharing | https://learn.microsoft.com/en-us/windows/win32/delivery_optimization/downloadmode | 54 | This default operating mode for Delivery Optimization enables peer sharing on the same network |
-| R-83 | LAN mode shares only with PCs behind the same NAT, not the internet | windows-itpro-docs/privacy/manage-connections-from-windows-operating-system-components-to-microsoft-services.md | 1658 | LAN. Gets or sends updates and apps to PCs on the same NAT only. |
-| R-84 | Download mode numbering | windows-itpro-docs/privacy/required-windows-diagnostic-data-events-and-fields-2004.md | 8278 | The download mode used for this file download session (CdnOnly = 0, Lan = 1, Group = 2, Internet = 3, Simple = 99, Bypass = 100). |
-| R-85 | Port 7680 is opened automatically by the service | windows-itpro-docs/deployment/do/delivery-optimization-configure.md | 830 | Port 7680 is automatically registered and opened by the Delivery Optimization service. |
+| R-81 | CdnOnly stops peer sharing but keeps downloading from Microsoft | [DownloadMode enumeration (Deliveryoptimization.h)](https://learn.microsoft.com/en-us/windows/win32/delivery_optimization/downloadmode) | 47 | This setting disables peer-to-peer caching but still allows Delivery Optimization to download content from Microsoft servers. |
+| R-82 | LAN is the default mode and it enables peer sharing | [DownloadMode enumeration (Deliveryoptimization.h)](https://learn.microsoft.com/en-us/windows/win32/delivery_optimization/downloadmode) | 54 | This default operating mode for Delivery Optimization enables peer sharing on the same network |
+| R-83 | LAN mode shares only with PCs behind the same NAT, not the internet | [Manage connections from Windows 10 and Windows 11 Server/Enterprise editions operating system components to Microsoft services - Windows Privacy](https://learn.microsoft.com/en-us/windows/privacy/manage-connections-from-windows-operating-system-components-to-microsoft-services) | 1658 | LAN. Gets or sends updates and apps to PCs on the same NAT only. |
+| R-84 | Download mode numbering | [Required diagnostic events and fields for Windows 10, versions 22H2 and 21H2 - Windows Privacy](https://learn.microsoft.com/en-us/windows/privacy/required-windows-diagnostic-data-events-and-fields-2004) | 8278 | The download mode used for this file download session (CdnOnly = 0, Lan = 1, Group = 2, Internet = 3, Simple = 99, Bypass = 100). |
+| R-85 | Port 7680 is opened automatically by the service | [delivery optimization configure](https://learn.microsoft.com/en-us/windows/deployment/do/delivery-optimization-configure) | 830 | Port 7680 is automatically registered and opened by the Delivery Optimization service. |

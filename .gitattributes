@@ -1,0 +1,4 @@
+# Batch files need CRLF: cmd.exe can miss goto/call labels in LF-only files.
+# The index keeps LF; every checkout, including the release build, gets CRLF.
+*.cmd text eol=crlf
+*.bat text eol=crlf

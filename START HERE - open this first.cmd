@@ -17,7 +17,7 @@ cd /d "%~dp0"
 cls
 echo.
 echo   ===================================================================
-echo     WINDOWS 11 TWEAKS AND OPTIMISATION  -  CONTROL PANEL (v0.1.0-beta)
+echo     WINDOWS 11 TWEAKS AND OPTIMISATION  -  CONTROL PANEL (v0.1.3-beta)
 echo   ===================================================================
 echo.
 echo     Everything runs from THIS menu. Every change asks first and
@@ -36,6 +36,7 @@ echo     [6]  Suggestions and ads   incl. Windows installing apps unasked
 echo     [7]  Xbox services         lock the wakeable Xbox surface
 echo     [8]  SERVICES + profiles   light / moderate / super hardening
 echo     [D]  Defer feature updates  hold the big releases 3 / 6 / 12 months
+echo     [O]  OneDrive              clear its leftovers, block it coming back
 echo.
 echo     Removes software - no undo from a backup:
 echo     [R]  Remove bloat apps      Game Bar, Xbox, Teams, Widgets, preloads
@@ -61,6 +62,7 @@ if /i "%pick%"=="7" goto m05
 if /i "%pick%"=="8" goto m06
 if /i "%pick%"=="D" goto m07
 if /i "%pick%"=="R" goto m08
+if /i "%pick%"=="O" goto m09
 if /i "%pick%"=="A" goto applyall
 if /i "%pick%"=="U" goto undoall
 if /i "%pick%"=="C" goto alttab
@@ -111,7 +113,7 @@ echo                              so they stay a separate, deliberate click.
 echo     4. Suggestions and ads   apply the five Microsoft documents
 echo     5. Xbox services         disable - Windows will ask for admin
 echo.
-echo   THREE THINGS ARE NOT PART OF "ALL". Typing YES does NOT do any of
+echo   FOUR THINGS ARE NOT PART OF "ALL". Typing YES does NOT do any of
 echo   these. They only happen if you open that menu yourself and pick them:
 echo.
 echo     [8] Services profiles    can stop printing, Bluetooth and Windows
@@ -119,6 +121,8 @@ echo                              search from working. You choose how far.
 echo     [D] Feature-update hold  you choose 3, 6 or 12 months.
 echo     [R] Remove bloat apps    DELETES apps. Nothing can put deleted
 echo                              software back from a backup file.
+echo     [O] OneDrive             stops OneDrive working for anyone who
+echo                              uses it. Run it from its own menu.
 echo.
 echo   They are left out because each one costs you something real, and
 echo   which of those trades you want is your call, not a default.
@@ -166,6 +170,8 @@ echo     5. Xbox services         undo - Windows will ask for admin
 echo     6. Services profile      undo - restores every start type
 echo     7. Feature-update hold   undo - removes the policy values
 echo.
+echo   NOT undone: the OneDrive block from [O] - undo it from its own menu,
+echo   so this button can never quietly bring OneDrive back.
 echo   NOT undone: apps you deleted with [R]. Deleted software cannot come
 echo   back from a backup file - this menu cannot reverse it and does not
 echo   pretend to. To try: go back, press [R], then choose 8 in that menu.
@@ -302,14 +308,15 @@ echo.
 echo   SUGGESTIONS AND ADS  (module 04)
 echo   -------------------------------------------------------------------
 echo   Tips, "recommendations", Start menu promos - including the switch
-echo   that lets Windows install promoted apps without asking. Five of the
-echo   ten switches are documented by Microsoft; the other five are real
-echo   but undocumented, so they sit behind their own separate button.
+echo   that lets Windows install promoted apps without asking, and the
+echo   "finish setting up your device" page. Five of the twelve switches
+echo   are documented by Microsoft; the other seven are real but
+echo   undocumented, so they sit behind their own separate button.
 echo.
 echo     [1]  Check what is on now             reads only
 echo     [2]  Preview the changes              reads only, lists every change
 echo     [3]  APPLY the documented five        backup written first
-echo     [4]  Apply the undocumented five too  labelled for what they are
+echo     [4]  Apply the undocumented seven too labelled for what they are
 echo     [5]  UNDO                             back to the newest backup
 echo     [6]  UNDO back to the original        as if this was never run
 echo     [7]  Prove the undo works             apply, undo, compare - net zero
@@ -518,6 +525,49 @@ if /i "%pick%"=="T" call "%~dp0modules\08-app-debloat\10 - Test the safety logic
 if /i "%pick%"=="O" start "" "%~dp0modules\08-app-debloat"
 if /i "%pick%"=="B" goto menu
 goto m08
+
+rem ===========================================================================
+:m09
+cls
+echo.
+echo   ONEDRIVE  (module 09)
+echo   -------------------------------------------------------------------
+echo   Uninstalling OneDrive leaves things behind: Windows' own installer,
+echo   an entry that reinstalls it for every new account, and leftovers in
+echo   your account. This clears the leftovers and blocks the way back.
+echo.
+echo   Uninstall OneDrive from Settings first. This does not do that.
+echo   Nothing is deleted for good: registry settings are saved to a file,
+echo   folders go to the Recycle Bin, the installer moves into a backup.
+echo.
+echo     [1]  Check what is on now          reads only
+echo     [2]  Preview the changes           reads only
+echo     [3]  Remove my account's leftovers backup written first
+echo     [4]  BLOCK OneDrive on this machine asks for admin
+echo.
+echo     [5]  Prove the undo works          your account - net zero
+echo     [6]  Prove the machine undo works  asks for admin - run BEFORE [4]
+echo     [7]  UNDO my account               from the newest backup
+echo     [8]  UNDO the machine block        asks for admin
+echo     [T]  Test the safety logic         43 checks, reads only
+echo     [F]  Open the module folder
+echo     [B]  Back to the main menu
+echo.
+set "pick="
+set /p "pick=  Choice: "
+if not defined pick goto menu
+if /i "%pick%"=="1" call "%~dp0modules\09-onedrive\1 - Check what is on now.cmd"
+if /i "%pick%"=="2" call "%~dp0modules\09-onedrive\2 - Preview the changes (safe).cmd"
+if /i "%pick%"=="3" call "%~dp0modules\09-onedrive\3 - Remove my account's leftovers.cmd"
+if /i "%pick%"=="4" call "%~dp0modules\09-onedrive\4 - BLOCK OneDrive on this machine.cmd"
+if /i "%pick%"=="5" call "%~dp0modules\09-onedrive\5 - Prove the undo works.cmd"
+if /i "%pick%"=="6" call "%~dp0modules\09-onedrive\6 - Prove the machine undo works.cmd"
+if /i "%pick%"=="7" call "%~dp0modules\09-onedrive\7 - UNDO my account.cmd"
+if /i "%pick%"=="8" call "%~dp0modules\09-onedrive\8 - UNDO the machine block.cmd"
+if /i "%pick%"=="T" call "%~dp0modules\09-onedrive\9 - Test the safety logic.cmd"
+if /i "%pick%"=="F" start "" "%~dp0modules\09-onedrive"
+if /i "%pick%"=="B" goto menu
+goto m09
 
 rem ===========================================================================
 :alttab

@@ -474,7 +474,7 @@ Taken from Microsoft's telemetry field documentation, not from folklore:
 
 > "The download mode used for this file download session (CdnOnly = 0, Lan = 1,
 > Group = 2, Internet = 3, Simple = 99, Bypass = 100)."
-> - `windows-itpro-docs/privacy/required-windows-diagnostic-data-events-and-fields-2004.md`
+> - `https://learn.microsoft.com/en-us/windows/privacy/required-windows-diagnostic-data-events-and-fields-2004`
 
 **Why 0 and not 99.** Mode 99 also stops peering, but it drops the Delivery
 Optimization cloud service as well, which Microsoft describes as providing

@@ -1,0 +1,33 @@
+OneDrive had been uninstalled from this laptop months earlier, by its owner, from Settings. Windows recorded that in its own OneDrive settings as "UserInitiatedUninstall = 1". Nothing of OneDrive was running and no OneDrive program was registered as installed. A check found that a great deal was still there.
+
+What the check found:
+- Windows' own OneDrive installer, OneDriveSetup.exe, 86 MB, in C:\Windows\System32. It is the file that puts OneDrive back.
+- No policy. Nothing told Windows that OneDrive was not wanted, so nothing stopped it being installed or used again.
+- Two environment variables in the account, OneDrive and OneDriveConsumer, both pointing at a OneDrive folder in an old, since-migrated account's user folder. Windows hands environment variables to every program you start, so every program was told that old folder name.
+- HKCU\Software\Microsoft\OneDrive, OneDrive's own settings. It had recorded the account name and the computer name.
+- HKCU\Software\Classes\grvopen, a link handler whose open command still pointed at OneDrive.exe in the old account's folder.
+- HKCU\Software\SyncEngines, the list of cloud-sync providers, with nothing but an empty Providers key in it.
+- Two leftover folders: the old OneDrive folder in the user folder, and %LOCALAPPDATA%\Microsoft\OneDrive with an app stub and install logs. Plus C:\ProgramData\Microsoft OneDrive, an empty setup folder.
+
+The owner does not want OneDrive or tools like it on the machine, and asked for every leftover to be removed and for OneDrive to be blocked from coming back: on the computer, on the account, and in these scripts.
+
+What we built: a new module, 09-onedrive, in two parts, because Windows draws a line between an account and the machine.
+
+The account part, Remove-OneDriveLeftovers.ps1, needs no administrator rights. It removes the two environment variables, the three registry keys and the two folders. Keys are exported to .reg files with reg.exe and each export is checked to name its key before anything is removed. Folders go to the Recycle Bin, never deleted outright. Two keys are guarded: SyncEngines is kept if any other sync provider (Dropbox, for example) is registered in it, and grvopen is kept unless it points at OneDrive.exe.
+
+The machine part, Block-OneDrive.ps1, needs administrator rights and refuses without them; its preview works without them. It sets the two policies Microsoft documents for turning OneDrive off, in the privacy document "Manage connections from Windows operating system components to Microsoft services": DisableFileSyncNGSC = 1 under HKLM\SOFTWARE\Policies\Microsoft\Windows\OneDrive (line 674) and PreventNetworkTrafficPreUserSignIn = 1 under HKLM\SOFTWARE\Microsoft\OneDrive (line 680). It moves OneDriveSetup.exe out of System32 into the module's backup folder after taking ownership from TrustedInstaller, and compares SHA-256 hashes before and after the move. It loads the default-user hive, which every new account copies, and removes the Run entry that installs OneDrive for each new account at first sign-in. It sends the empty ProgramData setup folder to the Recycle Bin.
+
+Only the two policies are documented by Microsoft. Everything else is observed on this machine and labelled uncited. Unlike module 04, the uncited items are applied by default, because they are leftovers of a program the owner already removed, not settings with a choice attached.
+
+Restore-OneDrive.ps1 undoes either part. It takes a snapshot of the current state first, which is never offered as a restore point, and it only restores items on the module's own list, refusing values of the wrong type or shape. Undoing does not reinstall OneDrive.
+
+How we know it works:
+- The safety self-test passes 43 checks with 0 failures. To show the test can fail, we broke the value check and the key guards on purpose: 8 checks failed.
+- The account round trip passed on the real account: two environment variables and three registry keys removed and returned, with every key compared by its full reg.exe export.
+- The account part was then applied for real: seven items removed, zero failures. The re-check shows every account item as gone.
+
+What is not done:
+- The machine part needs administrator rights, so the owner runs it: launcher 4, after launcher 6, the machine round trip. Until then the re-check shows three ways back still open (two policies and the installer) and one leftover (the ProgramData folder).
+- The machine round trip has not been run yet, for the same reason.
+- No adversarial audit of this module yet.
+- The backups folder holds .reg exports that can contain account and computer names. It is excluded from git and must never be published.

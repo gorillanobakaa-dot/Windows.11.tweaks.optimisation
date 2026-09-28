@@ -140,7 +140,9 @@ if its module is deleted.
 | 02 | `02-update-distribution` | Delivery Optimization peer sharing, port 7680, inbound firewall rules | **built, not shipped.** No adversarial audit; rollback never executed (needs elevation) |
 | 03 | `03-copilot` | the Copilot app, the 1.3 GB Program Files install, its LocalSystem service | **finished and executed 2026-08-26.** Two tiers: settings proved reversible; removals executed, recorded as not-restorable with the route back. Audited: 14 findings, all fixed |
 | 04 | `04-recommendations` | suggestions, tips, personalised content, Start recommendations | **built, not shipped.** Round trip proved and comparison shown falsifiable; no adversarial audit |
-| 05+ | - | unallocated | - |
+| 05-08 | `05-xbox-services`, `06-services`, `07-update-deferral`, `08-app-debloat` | allocated after this table was last maintained; each folder's README states its own status | - |
+| 09 | `09-onedrive` | OneDrive leftovers in the account; reinstall block for the machine | **built 2026-09-28.** 43 self-test checks; account round trip PASS and account part applied; machine part awaits an elevated run; no adversarial audit |
+| 10+ | - | unallocated | - |
 
 Candidate subjects not yet allocated a number: services hardening, telemetry
 scheduled tasks, Defender posture, and the ownership/update-cache tools. Earlier

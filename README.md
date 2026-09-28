@@ -373,6 +373,42 @@ reversible. This project will not manufacture a citation to make that read bette
 
 ---
 
+## New in v0.1.3-beta: module 09 - OneDrive
+
+[`modules/09-onedrive/`](modules/09-onedrive/) deals with what an uninstall leaves
+behind. In the main menu it is **[O]**.
+
+Uninstalling OneDrive from Settings removes the program and nothing else. On the
+machine this was built on, months after its owner uninstalled it, Windows still
+kept its own 86 MB OneDrive installer, nothing told Windows OneDrive was
+unwanted, and an entry was waiting to install OneDrive for every new account. The
+account still held OneDrive's settings, a link handler pointing at the deleted
+program, two leftover folders, and two environment variables - small settings
+Windows hands to every program you start - that pointed at an old account's
+folder.
+
+The module works in two parts:
+
+- **Your account, no administrator rights.** Removes the environment variables,
+  OneDrive's registry keys and the leftover folders. Keys are exported to a file
+  first; folders go to the Recycle Bin.
+- **The machine, administrator rights.** Sets the two policies Microsoft
+  documents for turning OneDrive off, moves the installer out of the Windows
+  folder into a backup, and removes the new-account entry.
+
+Only those two policies carry a Microsoft citation. Everything else is labelled
+uncited, and it is applied by default because it is the leftover of a program
+already removed, not a feature with a choice attached. Each part has its own undo.
+The safety self-test passes 43 checks, and was shown to fail when its safety code
+was broken on purpose. The account round trip passed on a real account. The
+machine part has not yet been run with administrator rights, and the module has
+not had an adversarial audit.
+
+It is **not** part of APPLY ALL or UNDO ALL: blocking OneDrive stops it working
+for anyone who uses it, and that is a choice to make on purpose.
+
+---
+
 ## Module 03 - Copilot: built, audited, and EXECUTED
 
 [`modules/03-copilot/`](modules/03-copilot/) is finished. On 2026-08-26 its full
@@ -498,6 +534,7 @@ differ from ours - different hardware, different software. The method should not
 | Version | Date | Notes |
 |---|---|---|
 | 1.0 | 2026-08-26 | Initial public release of module documentation and framework |
+| 1.1 | 2026-09-28 | v0.1.3-beta: module 04 gains the "finish setting up your device" and welcome-page switches; new module 09 (OneDrive); `[O]` in the control panel; batch files checked out with CRLF |
 
 
 
