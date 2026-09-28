@@ -3,7 +3,7 @@ rem ===========================================================================
 rem  Double-click this to make your account PROVE the undo works, rather than
 rem  taking our word for it.
 rem
-rem  It applies all ten changes for real, undoes them, then compares every
+rem  It applies all twelve changes for real, undoes them, then compares every
 rem  setting one by one - including the difference between "set to zero" and
 rem  "not set at all", and whether the policy key itself existed.
 rem

@@ -1,6 +1,6 @@
 @echo off
 rem ===========================================================================
-rem  Double-click this to apply all TEN settings, including the five that are
+rem  Double-click this to apply all TWELVE settings, including the seven that are
 rem  real but that Microsoft has not documented anywhere this project can quote.
 rem
 rem  The notable one is SilentInstalledAppsEnabled, which governs whether

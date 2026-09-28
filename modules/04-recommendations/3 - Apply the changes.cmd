@@ -3,7 +3,7 @@ rem ===========================================================================
 rem  Double-click this to turn off suggestions, tips, personalised content and
 rem  Start-menu recommendations for your account.
 rem
-rem  This applies the FIVE settings Microsoft documents explicitly. The five
+rem  This applies the FIVE settings Microsoft documents explicitly. The seven
 rem  undocumented ones - including the setting that lets Windows install
 rem  promoted apps without asking - are applied by number 4 instead.
 rem

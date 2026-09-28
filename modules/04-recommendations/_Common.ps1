@@ -31,8 +31,9 @@
                   explicitly, gives the exact registry path for, and states the
                   intended value of. These are applied by default.
 
-      OBSERVED    Five more under ContentDeliveryManager that are NOT in the
-                  corpus at all. They are widely used, they are visibly present
+      OBSERVED    Seven more (five under ContentDeliveryManager, one under
+                  Explorer\Advanced, one under UserProfileEngagement) that
+                  are NOT in the corpus at all. They are widely used, they are visibly present
                   on this machine, and their names describe their function - but
                   "everyone knows" is not a citation. They are OFF by default
                   and require -IncludeObserved to apply.
@@ -161,6 +162,27 @@ $script:RcObserved = @(
         Ui   = 'Improve Start and search results'
         Desc = 'stops Windows tracking which apps you open to rank Start and search'
     }
+    # Added 2026-09-28. The owner shut the laptop down and woke to a full-screen
+    # "Let's finish setting up your device" page (the Second-chance Out-Of-Box
+    # Experience, SCOOBE) offering a Microsoft account, OneDrive, Microsoft 365
+    # and Phone Link. The five switches above were all 0; these two were absent,
+    # and absent means ON. Both are the Settings > System > Notifications >
+    # Additional settings toggles, alongside 338389 which this module already
+    # held. Neither is in the offline corpus, so both are uncited.
+    @{
+        Key  = 'HKCU:\Software\Microsoft\Windows\CurrentVersion\UserProfileEngagement'
+        Name = 'ScoobeSystemSettingEnabled'
+        Target = 0; Kind = 'DWord'; Cite = $null
+        Ui   = 'Suggest ways to get the most out of Windows and finish setting up this device'
+        Desc = 'the full-screen "finish setting up your device" page that pushes Microsoft account, OneDrive and 365'
+    }
+    @{
+        Key  = 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager'
+        Name = 'SubscribedContent-310093Enabled'
+        Target = 0; Kind = 'DWord'; Cite = $null
+        Ui   = 'Show the Windows welcome experience after updates and when signed in'
+        Desc = 'the "what is new" welcome page shown after updates and occasionally at sign-in'
+    }
 )
 
 function Get-RcSettings {
@@ -171,6 +193,12 @@ function Get-RcSettings {
 }
 
 function Get-RcAllSettings { @($script:RcDocumented) + @($script:RcObserved) }
+
+# Counts for messages. Derived from the tables so that adding a setting cannot
+# leave a script saying "ten" when there are twelve (it did, 2026-09-28).
+$script:RcDocumentedCount = @($script:RcDocumented).Count
+$script:RcObservedCount   = @($script:RcObserved).Count
+$script:RcAllCount        = $script:RcDocumentedCount + $script:RcObservedCount
 
 function Get-RcRule {
     <#  Allow-list lookup across BOTH tiers. A restore must be able to put back

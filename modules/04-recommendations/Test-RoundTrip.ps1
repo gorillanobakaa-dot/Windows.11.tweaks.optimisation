@@ -21,7 +21,7 @@
     Needs NO administrator rights.
 
 .PARAMETER IncludeObserved
-    Test all ten settings rather than the five documented ones. Recommended -
+    Test all twelve settings rather than the five documented ones. Recommended -
     a round trip that exercises more of the module proves more of it.
 
 .PARAMETER Force
@@ -43,7 +43,7 @@ Write-Host '  Recommendations - round-trip proof'
 Write-Host ('  ' + ('=' * 74))
 Write-Host '    Applies every change for real, then undoes it, then checks that every'
 Write-Host '    setting came back. If it passes, the net effect is nothing.'
-Write-Host ("    scope: {0}" -f $(if ($IncludeObserved) { 'all 10 settings' } else { 'the 5 documented settings' }))
+Write-Host ("    scope: {0}" -f $(if ($IncludeObserved) { "all $script:RcAllCount settings" } else { "the $script:RcDocumentedCount documented settings" }))
 Write-Host ''
 
 if (-not $Force) {

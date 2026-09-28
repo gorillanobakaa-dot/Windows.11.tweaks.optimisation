@@ -14,7 +14,7 @@ Every single change, registry key, and service profile in this project is strict
 
 Open source gave the world the recipe, but it forgot to teach people how to cook. Publishing code satisfies a legal standard of openness, but openness without comprehension is just a formality. If a non-technical person cannot understand what a system does to their machine, that system is not truly open.
 
-The Gorilla philosophy is about **structural access to knowledge**. We believe explanation and education are not optional afterthoughts�they are the product itself. 
+The Gorilla philosophy is about **structural access to knowledge**. We believe explanation and education are not optional afterthoughts-they are the product itself. 
 
 To enforce this, this project applies a strict "Dual-Track" documentation standard. You do not have to blindly trust us, and you do not have to read the source code. Every single decision provides two parallel, simultaneous explanations:
 1. **The Human Track:** Written in plain English. We explain exactly what the change does to your machine, what data it touches, and the realistic worst-case scenario if it fails. 
@@ -58,25 +58,25 @@ The framework forces transparency. You see exactly what changes before you write
 # START HERE
 
 A measured, cited, reversible approach to reducing what a Windows 11 machine does
-without being asked — and to closing the parts of it that face the network.
+without being asked - and to closing the parts of it that face the network.
 
 Everything here was measured on one real laptop (Windows 11 Home, build 26200).
 Every claim is traceable either to Microsoft's own published documentation or to
 an artifact produced by a read-only script you can run yourself.
 
 **What has it actually achieved?** Real numbers, including the unflattering
-ones: [SCORECARD.md](SCORECARD.md) — 5 of 283 services closed, 108 still
+ones: [SCORECARD.md](SCORECARD.md) - 5 of 283 services closed, 108 still
 trigger-startable, Copilot gone entirely (1,287 MB + a LocalSystem service), 42
 settings changed, 105 sources verified.
 
-**How do I run the tools?** [TOOLS-HOWTO.md](TOOLS-HOWTO.md) — every read-only
+**How do I run the tools?** [TOOLS-HOWTO.md](TOOLS-HOWTO.md) - every read-only
 tool, with a worked example and the real output it produced here. Nothing on
 that page changes your machine.
 
-**Where is the project up to?** One page answers that: [ROADMAP.md](ROADMAP.md) —
+**Where is the project up to?** One page answers that: [ROADMAP.md](ROADMAP.md) -
 what is done, what is running right now, and what is waiting for a decision.
 
-**Why was each change made?** [decision-records/](decision-records/) — one record
+**Why was each change made?** [decision-records/](decision-records/) - one record
 per setting and per service, each carrying Microsoft's own description of the
 thing, the reasoning, the evidence *against*, the cost, and the reversal. Two
 tools check the citations against the offline corpus and refuse to pass a record
@@ -87,8 +87,8 @@ whose quotations are not real.
 # START HERE
 
 You have just downloaded this, you are looking at a folder of documents, and there
-is nothing obvious to click. That is on purpose — **nothing in this top folder can
-change your machine** — but it is not helpful on its own, so here is the whole
+is nothing obvious to click. That is on purpose - **nothing in this top folder can
+change your machine** - but it is not helpful on its own, so here is the whole
 thing, start to finish.
 
 *(A quick preview of the interactive control panel you will get)*
@@ -98,7 +98,7 @@ thing, start to finish.
 [![Control Panel Showcase](Screenshots%20for%20github/showcase-4.png)](Screenshots%20for%20github/showcase-4.png)
 [![Control Panel Showcase](Screenshots%20for%20github/showcase-5.png)](Screenshots%20for%20github/showcase-5.png)
 
-## Step 0 — unblock it first (one minute, and it will save you a headache)
+## Step 0 - unblock it first (one minute, and it will save you a headache)
 
 Windows tags every file that came from the internet. Scripts in a tagged folder can
 throw security warnings or refuse to run, and the error it gives you will not
@@ -119,7 +119,7 @@ That removes the internet tag and nothing else. It changes no setting and touche
 no file contents. If you skipped this and something later says "Windows protected
 your PC" or a script window flashes and vanishes, this is why.
 
-## Step 1 — go to the only folder that does anything
+## Step 1 - go to the only folder that does anything
 
 ```
 Windows.11.tweaks.optimisation\
@@ -138,8 +138,8 @@ its rollback has been executed and verified on a real machine, and what it saves
 has been measured.
 
 **`02-update-distribution` and `04-recommendations` have both been through an
-adversarial audit** — 9 and 16 findings respectively, every one fixed the same
-day — and both rollbacks have been **executed and proved on this machine**,
+adversarial audit** - 9 and 16 findings respectively, every one fixed the same
+day - and both rollbacks have been **executed and proved on this machine**,
 including the case where a value must return to "not set at all" rather than
 zero. `MODULE-STANDARD.md` §13 records the current state of every module, and
 §16 records the rules those audits produced. The habit stands: run
@@ -149,7 +149,7 @@ On the machine this repository documents, all four modules were **applied on
 2026-08-26** - by the owner, through the control-panel menu, each module
 writing its verified backup first.
 
-## Step 2 — look before you touch
+## Step 2 - look before you touch
 
 Double-click **`1 - Check what is on now.cmd`**
 
@@ -159,12 +159,12 @@ At the bottom it summarises what is still switched on.
 
 **It changes nothing.** It cannot. Read it, press a key, the window closes.
 
-## Step 3 — see exactly what would change
+## Step 3 - see exactly what would change
 
 Double-click **`2 - Preview the changes (safe).cmd`**
 
 It prints a line for every setting it would alter, with the value now and the value
-it would set — then makes none of the changes and says so:
+it would set - then makes none of the changes and says so:
 
 ```
 PREVIEW ONLY - nothing was changed.  would change: 12
@@ -172,7 +172,7 @@ PREVIEW ONLY - nothing was changed.  would change: 12
 
 **This is the step people skip and then get surprised.** Don't skip it.
 
-## Step 4 — apply it
+## Step 4 - apply it
 
 Double-click **`3 - Apply the changes.cmd`**
 
@@ -184,7 +184,7 @@ changes nothing. Then it reports:
 changed: 12, already as wanted: 8, skipped: 0, failed: 0
 ```
 
-The first time it ever runs, it also writes `backups\original-state.json` — a
+The first time it ever runs, it also writes `backups\original-state.json` - a
 write-once record of how your machine looked before this repository touched it.
 Nothing ever overwrites that file.
 
@@ -194,9 +194,9 @@ labels lose their drop shadow.
 
 ## Changed your mind?
 
-Double-click **`4 - UNDO everything.cmd`** — puts back what the last run changed.
+Double-click **`4 - UNDO everything.cmd`** - puts back what the last run changed.
 
-Or **`5 - UNDO back to the original.cmd`** — goes all the way back to how the
+Or **`5 - UNDO back to the original.cmd`** - goes all the way back to how the
 machine was before any of this, from that write-once file.
 
 Neither needs arguments. Neither asks you to pick a backup. Double-click and it
@@ -204,12 +204,12 @@ works.
 
 ## The two optional ones
 
-**`6 - Prove the undo works.cmd`** — don't take our word that the undo works. This
+**`6 - Prove the undo works.cmd`** - don't take our word that the undo works. This
 applies every change for real, undoes it, and compares all twenty settings one by
 one. On the machine this was written on it reported `restored: 20, skipped: 0,
 failed: 0` and a full match. Net effect on a pass: nothing at all.
 
-**`7 - Measure what it actually saves.cmd`** — don't take our word that it helps
+**`7 - Measure what it actually saves.cmd`** - don't take our word that it helps
 either. Roughly ten minutes. It measures your machine with the effects on, then
 off, and prints the difference alongside its own margin of error. It is fully
 capable of telling you the change is worth nothing on your hardware.
@@ -218,13 +218,13 @@ capable of telling you the change is worth nothing on your hardware.
 
 | | |
 |---|---|
-| **Administrator rights** | **Never needed.** These are your own display settings. If anything in this module asks you to approve an administrator prompt, something is wrong — stop |
+| **Administrator rights** | **Never needed.** These are your own display settings. If anything in this module asks you to approve an administrator prompt, something is wrong - stop |
 | **Does it affect other accounts?** | No. Per-account. Each user applies it separately |
 | **Does it survive a reboot?** | Yes. There is no temporary mode and no "make permanent" step |
 | **Will it slow anything down?** | No. It removes work; it does not add any |
 | **Will it fix a slow PC?** | No. If the machine is slow for other reasons, this will not touch those |
 | **A window flashed and vanished** | You skipped Step 0. Unblock the files |
-| **Nothing happens when I double-click a `.ps1`** | Correct — that opens Notepad. The `.cmd` files are the runnable ones. That is why they are numbered |
+| **Nothing happens when I double-click a `.ps1`** | Correct - that opens Notepad. The `.cmd` files are the runnable ones. That is why they are numbered |
 
 ---
 
@@ -246,7 +246,7 @@ folder names say so on purpose:
 | `READ-ONLY-verification/` | **Nothing.** Checks this repository's own claims |
 | `evidence/` | **Nothing.** Captured output, hash-manifested |
 | `_research/` | **Nothing.** The citation audit |
-| `_withdrawn-pending-audit/` | **Nothing — the scripts are gone.** Docs kept, and why |
+| `_withdrawn-pending-audit/` | **Nothing - the scripts are gone.** Docs kept, and why |
 
 If you are about to double-click something and you are not in `modules/`, it will
 not change your machine.
@@ -258,7 +258,7 @@ worked. They had **not** been through the adversarial safety audit that is now
 required before a change-script ships.
 
 That audit is not ceremony. Run against the one module that has had it, two
-independent auditors found defects the author had missed — including a backup
+independent auditors found defects the author had missed - including a backup
 routine that reported success without verifying the file had been written, so a
 failed backup would have left someone with no way to undo changes already made.
 Every withdrawn script was written to the same pattern, by the same author, on
@@ -275,11 +275,11 @@ module when it has earned it.
 
 ---
 
-## Available now: module 01 — visual effects
+## Available now: module 01 - visual effects
 
 [`modules/01-visual-effects/`](modules/01-visual-effects/) turns off animations,
 fades, window shadows and frosted-glass translucency across all four layers
-Windows spreads them over — the built-in "Adjust for best performance" button
+Windows spreads them over - the built-in "Adjust for best performance" button
 reaches only the oldest one.
 
 You do not need a terminal. The folder contains numbered, double-clickable files:
@@ -305,7 +305,7 @@ failed: 0` and a full match.
 
 Nor is the benefit asserted. `7 - Measure what it actually saves` measures the
 machine with the effects on and with them off, on a fixed self-driving workload,
-and prints the difference — including a **noise floor** taken by measuring the same
+and prints the difference - including a **noise floor** taken by measuring the same
 state twice, so that anything smaller than the machine's own background variation
 is reported as `within noise` rather than as a saving. It is fully capable of
 reporting that the change is worth nothing measurable, and the module standard
@@ -316,7 +316,7 @@ operator's manual in [HOWTO.md](modules/01-visual-effects/HOWTO.md).
 
 ---
 
-## Built, not yet shipped: module 02 — update distribution
+## Built, not yet shipped: module 02 - update distribution
 
 [`modules/02-update-distribution/`](modules/02-update-distribution/) stops the
 machine sharing Windows updates with other PCs, and closes the two inbound
@@ -329,24 +329,24 @@ Two things about it are worth reading even if you never run it.
 
 **The popular claim about this feature is wrong, and the machine can prove it.**
 "Windows is uploading your updates to strangers" describes download mode 3. The
-default is mode 1, which Microsoft documents as *"PCs on the same NAT only"* — the
+default is mode 1, which Microsoft documents as *"PCs on the same NAT only"* - the
 machines behind your own router. On the machine this was developed on, the
 lifetime upload counter read **zero bytes**. The real finding is narrower and
 still worth acting on: port 7680 is listening on all addresses, and both inbound
-firewall rules are enabled on the **`Any`** profile, which includes **Public** —
+firewall rules are enabled on the **`Any`** profile, which includes **Public** -
 the profile Windows uses for hotel and café Wi-Fi, where "everyone behind the same
 router" genuinely does mean strangers.
 
 **It refuses to do the thing every other guide tells you to do.** Disabling
 `DoSvc` is the standard advice and it is wrong: that service is the *download*
 engine for Windows Update and the Microsoft Store, not just the sharing half.
-Turning it off does not harden anything — it makes updates fail silently until you
+Turning it off does not harden anything - it makes updates fail silently until you
 are months behind on patches. The module changes the download mode instead, which
 is the documented way to get the same outcome.
 
 ---
 
-## Available to try: module 04 — recommendations and suggestions
+## Available to try: module 04 - recommendations and suggestions
 
 [`modules/04-recommendations/`](modules/04-recommendations/) turns off suggested
 apps, Windows tips, "personalised" offers, the language list websites can read,
@@ -355,23 +355,25 @@ Windows Spotlight and the Start menu's Recommended section.
 **Not one of its eight buttons asks for administrator rights**, because every
 setting it touches belongs to your own account. Its rollback has been executed and
 proved: 10 settings changed, 10 returned, including the difference between "set to
-zero" and "not set at all". It has not had an adversarial audit yet.
+zero" and "not set at all". Two more were added on 2026-09-28 (the "finish setting
+up your device" page and the welcome page after updates) and their round trip
+proved the same way. It has not had an adversarial audit yet.
 
 The interesting part is the split running through it. Five of these settings are
-documented by Microsoft — exact registry path, exact value, quotable. Five are
+documented by Microsoft - exact registry path, exact value, quotable. Seven are
 not: they are real, they are on this machine, every debloat guide sets them, and
 nobody at Microsoft has written them down anywhere this project can cite. So the
 module applies the documented five by default and puts the rest behind a separate
 button, with the split enforced in code rather than mentioned in a footnote.
 
 The most interesting one is in the undocumented group: **`SilentInstalledAppsEnabled`,
-which on this machine is set to 1** — the setting governing whether Windows may
+which on this machine is set to 1** - the setting governing whether Windows may
 install promoted apps without asking you. Important, undocumented, opt-in,
 reversible. This project will not manufacture a citation to make that read better.
 
 ---
 
-## Module 03 — Copilot: built, audited, and EXECUTED
+## Module 03 - Copilot: built, audited, and EXECUTED
 
 [`modules/03-copilot/`](modules/03-copilot/) is finished. On 2026-08-26 its full
 removal ran on this machine: the app package, the 1,287 MB Program Files
@@ -387,16 +389,16 @@ uninstaller's nonzero exit code and what was done about it, are in
 
 Run `1 - Check what is on now` and it will tell you something most guides never
 mention: **Copilot is not one thing.** On the machine this was written on it is
-four, installed four ways and removed four ways —
+four, installed four ways and removed four ways -
 
 | | Size |
 |---|---|
 | `Microsoft.Copilot` app package | small |
 | A full Chromium application in `Program Files (x86)` with its own updater | **1,287 MB** |
-| `MicrosoftCopilotElevationService`, running as **LocalSystem**, start type Manual | — |
-| Taskbar and policy settings | — |
+| `MicrosoftCopilotElevationService`, running as **LocalSystem**, start type Manual | - |
+| Taskbar and policy settings | - |
 
-Both installs are the **same version**, 152.0.4191.42 — one release delivered
+Both installs are the **same version**, 152.0.4191.42 - one release delivered
 twice by two mechanisms, which is why removing one leaves the other. The service
 is *Stopped*, which is not the same as absent: Manual means it starts when
 something asks, with full control of the machine.
@@ -404,7 +406,7 @@ something asks, with full control of the machine.
 **And the advice everyone gives is the advice Microsoft withdrew.** Every debloat
 guide sets `TurnOffWindowsCopilot`. Microsoft's own documentation says of it:
 *"The policy is subject to near-term deprecation."* The recommended replacement is
-AppLocker — unavailable on Home. The other modern mechanism, policy-based in-box
+AppLocker - unavailable on Home. The other modern mechanism, policy-based in-box
 app removal, is *"Only Enterprise (ENT) and Education (EDU)"*. On a Home machine
 none of the three is both available and endorsed. That is the platform's actual
 state, not a gap in the module.
@@ -420,13 +422,13 @@ state, not a gap in the module.
 | [`ACTION-PLAN.md`](ACTION-PLAN.md) | The phased plan and the baseline it started from |
 | [`_research/CITATION-AUDIT.md`](_research/CITATION-AUDIT.md) | The adversarial citation audit: what was verified, what had **no** vendor backing, and what the verifiers had to correct |
 | [`modules/MODULE-STANDARD.md`](modules/MODULE-STANDARD.md) | The convention every module must meet |
-| [`decision-records/`](decision-records/) | **Why every change was made** — 28 records, 105 verified sources, APA 7th reference list, and embeddable payloads for a future model |
-| [`TOOLS-HOWTO.md`](TOOLS-HOWTO.md) | Every read-only tool, how to run it, and the real output it produces — written for both a person and a future model |
+| [`decision-records/`](decision-records/) | **Why every change was made** - 28 records, 105 verified sources, APA 7th reference list, and embeddable payloads for a future model |
+| [`TOOLS-HOWTO.md`](TOOLS-HOWTO.md) | Every read-only tool, how to run it, and the real output it produces - written for both a person and a future model |
 | [`LESSONS-LEARNED.md`](LESSONS-LEARNED.md) | Every engineering rule this project bought with a real failure, and the test that would catch each one coming back |
 
 ---
 
-## Don't trust this repository — check it
+## Don't trust this repository - check it
 
 Every factual claim in `FINDINGS.md` is tagged `[R-nn]` (a quotation from
 Microsoft's documentation) or `[M-nn]` (a measurement on this machine). Both are
@@ -448,9 +450,9 @@ python .\READ-ONLY-verification\Verify-DecisionRecords.py
 ```
 
 The first checks each quote is at its **cited line**, not merely somewhere in
-the file — which found **28 line numbers that had never been checked and were
+the file - which found **28 line numbers that had never been checked and were
 wrong**. The second checks every decision record is complete and every quoted
-passage is really the text of a source that record cites — which caught a
+passage is really the text of a source that record cites - which caught a
 **fabricated quotation of Microsoft** in our own draft. Current status:
 **105/105 sources verify at their cited line; 28/28 decision records pass;
 exit code 0.**
@@ -461,7 +463,7 @@ powershell -ExecutionPolicy Bypass -File .\READ-ONLY-verification\Collect-Eviden
 
 Regenerates the measurement side on your own machine. Read-only, hash-manifested,
 recording the SHA-256 of every script that produced an artifact. Your numbers will
-differ from ours — different hardware, different software. The method should not.
+differ from ours - different hardware, different software. The method should not.
 
 ---
 

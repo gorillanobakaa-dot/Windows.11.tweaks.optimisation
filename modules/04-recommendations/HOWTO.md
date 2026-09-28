@@ -1,6 +1,6 @@
 # How to use the recommendations module
 
-*Ten switches that turn off suggestions, tips, "recommendations" and - the one
+*Twelve switches that turn off suggestions, tips, "recommendations" and - the one
 that matters - Windows installing promoted apps without asking. All per-user,
 all reversible, no administrator rights needed anywhere.*
 
@@ -17,13 +17,13 @@ to start with.
 
 ### The split that matters: documented vs observed
 
-The ten settings are **not** equivalent, and the module refuses to pretend they
+The twelve settings are **not** equivalent, and the module refuses to pretend they
 are.
 
 **Five are documented by Microsoft**, each with a quoted sentence, a file and a
 line number you can check. These apply by default.
 
-**Five are real, present on this machine, recommended by every debloat guide on
+**Seven are real, present on this machine, recommended by every debloat guide on
 the internet, and absent from Microsoft's documentation entirely.** They sit
 behind a separate switch, `-IncludeObserved`, and are labelled `[uncited]`
 everywhere they appear.
@@ -42,10 +42,10 @@ does not bend for a good story. Including the most important one:
 
 | # | Launcher | What it does |
 |---|---|---|
-| 1 | Check what is on now | All ten settings, with their citations |
+| 1 | Check what is on now | All twelve settings, with their citations |
 | 2 | Preview the changes (safe) | Every change that would happen; does none |
 | 3 | Apply the changes | The **documented five** |
-| 4 | Apply the undocumented ones too | All ten |
+| 4 | Apply the undocumented ones too | All twelve |
 | 5 | UNDO everything | Back to the newest backup |
 | 6 | UNDO back to the original | As if this was never run |
 | 7 | Prove the undo works | Apply, undo, compare - net zero on a pass |
@@ -60,11 +60,11 @@ None of them needs administrator rights.
 1. **`1 - Check what is on now`** - see which are set, and read the citations.
 2. **`7 - Prove the undo works`** - prove the round trip on your machine first.
 3. **`3 - Apply the changes`** - the documented five.
-4. If you also want the undocumented five, **`4`**. Read what they are first.
+4. If you also want the undocumented seven, **`4`**. Read what they are first.
 
 ---
 
-## The ten settings
+## The twelve settings
 
 ### Documented by Microsoft (launcher 3)
 
@@ -85,6 +85,8 @@ None of them needs administrator rights.
 | `SubscribedContent-338389Enabled` | Tips, tricks and suggestion notifications |
 | `SoftLandingEnabled` | Tip notifications shown after updates |
 | `Start_TrackProgs` | Windows tracking which apps you open to rank Start and search |
+| `ScoobeSystemSettingEnabled` (under `UserProfileEngagement`, added 2026-09-28) | The full-screen *"Let's finish setting up your device"* page pushing a Microsoft account, OneDrive, Microsoft 365 and Phone Link |
+| `SubscribedContent-310093Enabled` (added 2026-09-28) | The Windows welcome page after updates and occasionally at sign-in |
 
 ---
 
@@ -103,7 +105,7 @@ citation tag.
 
 ### `-IncludeObserved`
 
-Adds the five undocumented ones, each marked `[uncited]` in the output so the
+Adds the seven undocumented ones, each marked `[uncited]` in the output so the
 distinction survives all the way to the screen.
 
 ### `-WhatIf`, `-Tag`
@@ -169,7 +171,7 @@ powershell -Command "Remove-ItemProperty 'HKCU:\SOFTWARE\Policies\Microsoft\Wind
 
 ## What this module deliberately does not do
 
-- **Present the undocumented five as documented.** They are behind their own
+- **Present the undocumented seven as documented.** They are behind their own
   switch and labelled `[uncited]` in every place they appear.
 - **Need administrator rights.** Everything here is per-user by design.
 - **Touch the machine-wide equivalents.** A per-user change affects you; the

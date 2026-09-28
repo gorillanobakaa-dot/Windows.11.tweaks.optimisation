@@ -1,4 +1,4 @@
-# Restoring Lenovo Business Laptop Hardware Buttons (Opt-in Bloat Removal) — Plain Language
+# Restoring Lenovo Business Laptop Hardware Buttons (Opt-in Bloat Removal) - Plain Language
 
 > Session record generated 2026-08-30
 
@@ -30,7 +30,7 @@ If the new script fails or users run it without understanding the warnings, they
 
 ## What is still missing
 
-- **Re-enabling services on already affected laptops automatically.** — Users who already ran the old profiles will need to manually run `Restore-LenovoHotkeys.ps1` to get their buttons back.
+- **Re-enabling services on already affected laptops automatically.** - Users who already ran the old profiles will need to manually run `Restore-LenovoHotkeys.ps1` to get their buttons back.
 
 ## How to verify your hardware buttons still work after applying the profile
 
@@ -53,7 +53,7 @@ No, this change reduces risk. It ensures that standard optimization profiles do 
 
 ## Glossary
 
-**OEM Bloat** — Software pre-installed by the manufacturer that runs in the background, often providing specialized hardware integration but consuming resources.
+**OEM Bloat** - Software pre-installed by the manufacturer that runs in the background, often providing specialized hardware integration but consuming resources.
 
 ## Claim Sources
 
@@ -64,9 +64,9 @@ No, this change reduces risk. It ensures that standard optimization profiles do 
 
 ---
 **How to verify this document:**
-`📄 stated in input` — the model's phrasing of something your source text said.
+`📄 stated in input` - the model's phrasing of something your source text said.
 Find the matching line in the original to verify.
-`🤖 model inference` — the model's own judgment or synthesis. Treat as opinion,
+`🤖 model inference` - the model's own judgment or synthesis. Treat as opinion,
 not measurement. Re-run on the same input and check whether specific numbers
 stay consistent between runs.
 

@@ -11,13 +11,13 @@
     Needs NO administrator rights. Every setting belongs to your account.
 
     By default it applies only the five settings Microsoft documents explicitly.
-    The five undocumented ones - including the setting that lets Windows install
+    The seven undocumented ones - including the setting that lets Windows install
     promoted apps without asking - require -IncludeObserved. That is not
     squeamishness: this project's rule is that a claim is cited or labelled, and
     applying an uncited change by default would quietly break it.
 
 .PARAMETER IncludeObserved
-    Also apply the five ContentDeliveryManager settings that are real but not in
+    Also apply the seven observed settings that are real but not in
     Microsoft's documentation. Fully backed up and fully reversible either way -
     the only difference is whether this project can quote a source for them.
 
@@ -37,11 +37,11 @@
 
 .EXAMPLE
     powershell -ExecutionPolicy Bypass -File .\Disable-Recommendations.ps1 -IncludeObserved
-    Apply all ten, including silent app installation.
+    Apply all twelve, including silent app installation.
 
 .EXAMPLE
     powershell -ExecutionPolicy Bypass -File .\Disable-Recommendations.ps1 -IncludeObserved -Tag full
-    Apply all ten and label the backup.
+    Apply all twelve and label the backup.
 #>
 
 [CmdletBinding(SupportsShouldProcess = $true)]
@@ -59,7 +59,7 @@ $state    = Get-RcState
 
 Write-Host ''
 Write-Host '  Recommendations and suggestions - turn them off'
-Write-Host ("  scope: {0}" -f $(if ($IncludeObserved) { 'documented AND observed (10 settings)' } else { 'documented only (5 settings) - add -IncludeObserved for the rest' }))
+Write-Host ("  scope: {0}" -f $(if ($IncludeObserved) { "documented AND observed ($script:RcAllCount settings)" } else { "documented only ($script:RcDocumentedCount settings) - add -IncludeObserved for the rest" }))
 Write-Host ('  ' + ('-' * 74))
 
 # --- plan -------------------------------------------------------------------
@@ -88,7 +88,7 @@ if ($WhatIfPreference) {
     Write-Host ('  ' + ('-' * 74))
     Write-Host ("    PREVIEW ONLY - nothing was changed.  would change: {0}" -f $needed.Count)
     if (-not $IncludeObserved) {
-        Write-Host '    Five further undocumented settings are available with -IncludeObserved.'
+        Write-Host "    $script:RcObservedCount further undocumented settings are available with -IncludeObserved."
     }
     Write-Host ''
     return

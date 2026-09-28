@@ -1,0 +1,23 @@
+A user shut their laptop down in the evening and, the next morning, found a full-screen page saying "Let's finish setting up your device". They took it as a sign that something had gone wrong with the machine overnight. Nothing had.
+
+The Windows event logs showed what happened. No update was installed and nothing was reset. "Shut down" on this machine does not fully power off: Fast Startup is on by default, so Windows signs you out and hibernates the system kernel instead. In the morning the machine resumed from that hibernation, and at sign-in Windows showed its "finish setting up your device" page. Microsoft's internal name for that page is SCOOBE, the Second-chance Out-Of-Box Experience. It is advertising: it offers a Microsoft account, OneDrive backup, Microsoft 365 and Phone Link, and Windows shows it again every so often until you switch it off.
+
+This module already switched off ten suggestion and advertising settings, and all ten were off on that laptop. The switch for this page was never in the module. Settings > System > Notifications > Additional settings has three toggles. The module held one of them (SubscribedContent-338389Enabled, tips and suggestions) and missed the other two:
+
+1. UserProfileEngagement\ScoobeSystemSettingEnabled - "Suggest ways to get the most out of Windows and finish setting up this device". The registry key did not exist at all, which means the page is on.
+2. ContentDeliveryManager\SubscribedContent-310093Enabled - "Show the Windows welcome experience after updates and occasionally when I sign in". Absent, which also means on.
+
+What we changed:
+- Both settings are added to the module's "observed" group, the settings that are real but that Microsoft does not document anywhere this project can quote. Like the other five in that group, they are applied only by "4 - Apply the undocumented ones too" (the -IncludeObserved switch), and are labelled [uncited] wherever they appear. The module now manages twelve settings: five documented, seven observed.
+- The scripts used to print the counts as fixed words ("five", "ten"). They now count the settings table, so adding a setting can never again leave a message saying "ten" when there are twelve.
+- The README and HOWTO list both new settings and explain the page in plain words.
+
+How we know it works:
+- The safety self-test passed 36 checks with 0 failures.
+- The round-trip proof applied all twelve settings for real, undid them, and compared every one: PASS. The two new settings changed and came back exactly, including the UserProfileEngagement registry key, which the apply creates and the undo removes again.
+- The change was then applied on the laptop: 12 of 12 settings set, backup written and verified first.
+
+Limits you should know about:
+- An undo from a backup taken before this change does not touch the two new settings, because those older backups never recorded them. The undo reports them as "not in this backup" and leaves them as they are. Every apply from now on backs up all twelve.
+- Neither setting is in Microsoft's documentation, so the module cannot cite a source for what they do. Their meaning comes from the Settings page labels and from observation.
+- This change does not touch Fast Startup. Fast Startup is a machine-wide setting that needs administrator rights, and this module is deliberately per-user with no administrator prompts. To make "Shut down" fully power off, turn off Fast Startup under Control Panel > Power Options > "Choose what the power buttons do".

@@ -34,7 +34,7 @@ We could have created a new strict profile in `profiles.json` (e.g. 'lenovo-lobo
 
 ## Decisions Made
 
-- 📄 **Remove OEM services from automatic kill-lists rather than adding them to the 'never' list.** — Users may still want the option to strictly reduce their attack surface if they don't care about the hardware buttons.
+- 📄 **Remove OEM services from automatic kill-lists rather than adding them to the 'never' list.** - Users may still want the option to strictly reduce their attack surface if they don't care about the hardware buttons.
 
 ## Verifying OEM Profile Changes
 
@@ -62,9 +62,9 @@ Run `.\Disable-LenovoServices.ps1`
 
 ---
 **How to verify this document:**
-`📄 stated in input` — the model's phrasing of something your source text said.
+`📄 stated in input` - the model's phrasing of something your source text said.
 Find the matching line in the original to verify.
-`🤖 model inference` — the model's own judgment or synthesis. Treat as opinion,
+`🤖 model inference` - the model's own judgment or synthesis. Treat as opinion,
 not measurement. Re-run on the same input and check whether specific numbers
 stay consistent between runs.
 
