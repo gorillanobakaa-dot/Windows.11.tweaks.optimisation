@@ -15,8 +15,17 @@ $here = Split-Path -Parent $MyInvocation.MyCommand.Path
 . (Join-Path $here '_Common.ps1')
 
 $pass = 0; $fail = 0
-function Check([string]$What, [bool]$Ok) {
-    if ($Ok) { $script:pass++ } else { $script:fail++; Write-Host "      FAILED: $What" }
+function Check {
+    # [object], not [bool] (MODULE-STANDARD R2.8a). With [bool], a check whose
+    # expression returned a list or text failed at parameter binding: it was
+    # counted neither passed nor failed, and it ended the whole try block, so
+    # every check after it silently never ran - shown 2026-09-28 with four
+    # checks reporting "passed 1, failed 0".
+    param([string]$What, [object]$Ok)
+    $b = $false
+    try { if ($Ok -is [bool]) { $b = $Ok } else { throw "not a yes/no answer: $Ok" } }
+    catch { $script:fail++; Write-Host "      FAILED: $What ($($_.Exception.Message))"; return }
+    if ($b) { $script:pass++ } else { $script:fail++; Write-Host "      FAILED: $What" }
 }
 
 $tmp  = Join-Path ([IO.Path]::GetTempPath()) ("od-selftest-" + [guid]::NewGuid().ToString('N').Substring(0, 8))
@@ -117,6 +126,12 @@ try {
     } else {
         Write-Host '      (running elevated - the refusal check only applies without rights; skipped)'
     }
+}
+catch {
+    # an exception means every check after it never ran: a failure, never a
+    # quiet "0 failed" (MODULE-STANDARD R2.8a)
+    $script:fail++
+    Write-Host "      FAILED: the self-test stopped early: $($_.Exception.Message)"
 }
 finally {
     Remove-Item $test -Recurse -Force -ErrorAction SilentlyContinue
