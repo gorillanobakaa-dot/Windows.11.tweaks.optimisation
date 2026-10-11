@@ -276,6 +276,25 @@ actually paired, printers actually installed, whether RDP is actually enabled,
 whether the machine is actually domain-joined. Warnings, not refusals: the
 owner may genuinely want the trade.
 
+The profiles were measured on one ThinkPad, and 18 entries are in them
+because of a fact about that machine: no SIM in use, WSL not installed, no
+ReFS volume, nothing shared, no domain, File History not set up, Remote
+Desktop off, and others. On another computer the fact can be false and the
+entry wrong. Each such fact now has a read-only check (`Get-SvcMachineFact`,
+`$script:SvcMachineFacts` in `_Common.ps1`), and the warnings name every
+entry whose fact does not hold on the machine in front of you. A fact that
+cannot be checked is reported as "could not check", never as fine: whether
+Microsoft Family parental controls are used is one no read-only check can
+answer, so the owner is asked. The self-test keeps the table complete: a
+profile row whose reason rests on "this machine" must name its fact.
+
+The self-test also checks that no profile names a service from
+`Disable-LenovoServices.ps1`, the opt-in list of services the hardware
+buttons of a Lenovo laptop depend on.
+
+These checks came from Fieldkit's `win11 fit` and `win11 oem`, which ran the
+same questions from outside the framework.
+
 ### Backups cover everything
 
 The backup records **every** Win32 service's start type, not only the ones the

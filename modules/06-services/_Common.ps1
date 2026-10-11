@@ -357,6 +357,125 @@ function Test-SvcDependencySafety {
     $problems
 }
 
+# ---------------------------------------------------------------------------
+#  What the profiles assume about the machine they were written on
+# ---------------------------------------------------------------------------
+# The profiles were measured on ONE ThinkPad, and some entries are there
+# BECAUSE of facts about it: "No SIM in use on this machine", "WSL is not
+# installed here". On another computer the same entry can be wrong. Each fact
+# below names the entries that rest on it; Get-SvcMachineFact asks this
+# machine, read-only, and Get-SvcFactWarnings names every entry of a profile
+# whose fact does not hold here - or that could not be checked. Warnings, not
+# refusals, like the rest of Get-SvcRealityWarnings: the owner decides.
+# 'false' is the warning when the fact does not hold; without one, the
+# warning is built from 'assumes'. Test-SafetyLogic keeps this table complete:
+# a profile row whose reason states a fact about "this machine" must be here
+# or in $script:SvcNoFactToCheck.
+$script:SvcMachineFacts = [ordered]@{
+    wwan_unused = @{
+        topic = 'Cellular'; assumes = 'no SIM or mobile-broadband connection is used'
+        services = @('QServiceEM05G', 'QUECTELDPRSVC', 'QuectelModemAuthSVC', 'WwanSvc', 'autotimesvc', 'SmsRouter')
+        false = 'Cellular: a mobile-broadband (WWAN) adapter is connected. This profile disables the cellular stack' }
+    file_history_off = @{
+        topic = 'File History'; assumes = 'File History is not set up'; services = @('fhsvc') }
+    rdp_disabled = @{
+        topic = 'Remote Desktop'; assumes = 'Remote Desktop is turned off (fDenyTSConnections=1)'; services = @('TermService')
+        false = 'Remote Desktop: RDP is ENABLED on this machine (fDenyTSConnections=0) and this profile disables it. You would lose remote access - do not apply this over an RDP session' }
+    not_domain_joined = @{
+        topic = 'Domain'; assumes = 'the machine is not joined to a company domain'; services = @('NcaSvc', 'Netlogon')
+        false = 'Domain: this machine IS domain-joined and the profile disables domain services. Do not apply - domain authentication would break' }
+    no_file_shares = @{
+        topic = 'Sharing'; assumes = 'no folders or printers are shared from this machine'; services = @('LanmanServer') }
+    no_refs = @{
+        topic = 'ReFS'; assumes = 'there is no ReFS volume'; services = @('refsdedupsvc') }
+    hyperv_absent = @{
+        topic = 'Hyper-V'; assumes = 'Hyper-V is not installed'; services = @('HvHost') }
+    wsl_absent = @{
+        topic = 'WSL'; assumes = 'WSL (Windows Subsystem for Linux) is not installed'; services = @('P9RdrService', 'LxssManager') }
+    work_folders_off = @{
+        topic = 'Work Folders'; assumes = 'Work Folders is not set up'; services = @('workfolderssvc') }
+    tz_auto_off = @{
+        topic = 'Time zone'; assumes = 'automatic time-zone update is already off, so disabling it changes nothing'; services = @('tzautoupdate') }
+    parental_controls_unused = @{
+        topic = 'Parental controls'; assumes = 'Microsoft Family parental controls are not used on this PC'; services = @('WpcMonSvc') }
+}
+# Rows whose reason says "this machine" without resting on a fact to check:
+# upnphost and FDResPub describe what the service does to this machine,
+# WdiSystemHost records a measurement, and Spooler's printers are named by
+# the printing warning in Get-SvcRealityWarnings.
+$script:SvcNoFactToCheck = @('upnphost', 'FDResPub', 'WdiSystemHost', 'Spooler')
+
+function Get-SvcMachineFact {
+    <#  One read-only question about this machine. $true = the profile's
+        assumption holds here, $false = it does not, $null = cannot tell.
+        A probe that fails is $null, never $true: "could not check" must not
+        read as "fine". #>
+    param([Parameter(Mandatory)][string] $Fact)
+    if (-not $script:SvcMachineFacts.Contains($Fact)) { throw "unknown machine fact '$Fact'" }
+    try {
+        # No registry drive, no answer: "the key is absent" must not be read off a machine that has none.
+        if (-not (Test-Path 'HKCU:\') -or -not (Test-Path 'HKLM:\')) { return $null }
+        switch ($Fact) {
+            'wwan_unused' {
+                $up = @(Get-NetAdapter -ErrorAction Stop | Where-Object { $_.Status -eq 'Up' -and
+                    ($_.InterfaceDescription -match 'WWAN|Mobile|Quectel' -or [string]$_.PhysicalMediaType -match 'Wireless WAN|Mobile Broadband') })
+                return ($up.Count -eq 0)
+            }
+            'file_history_off' {
+                $cfg = Join-Path $env:LOCALAPPDATA 'Microsoft\Windows\FileHistory\Configuration'
+                if (-not (Test-Path -LiteralPath $cfg)) { return $true }
+                return (@(Get-ChildItem -LiteralPath $cfg -Force -ErrorAction Stop).Count -eq 0)
+            }
+            'rdp_disabled' {
+                $v = (Get-ItemProperty 'HKLM:\SYSTEM\CurrentControlSet\Control\Terminal Server' -Name fDenyTSConnections -ErrorAction Stop).fDenyTSConnections
+                return ($v -eq 1)
+            }
+            'not_domain_joined' { return (-not (Get-CimInstance Win32_ComputerSystem -ErrorAction Stop).PartOfDomain) }
+            'no_file_shares' {
+                return (@(Get-SmbShare -ErrorAction Stop | Where-Object { -not $_.Special -and $_.Name -notmatch '\$$' }).Count -eq 0)
+            }
+            'no_refs'       { return (@(Get-Volume -ErrorAction Stop | Where-Object { $_.FileSystem -eq 'ReFS' }).Count -eq 0) }
+            'hyperv_absent' { [void](Get-Service -ErrorAction Stop | Select-Object -First 1); return ($null -eq (Get-Service -Name vmms -ErrorAction SilentlyContinue)) }
+            'wsl_absent' {
+                $k = 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Lxss'
+                if (-not (Test-Path $k)) { return $true }
+                return (@(Get-ChildItem $k -ErrorAction Stop).Count -eq 0)
+            }
+            'work_folders_off' { return (-not (Test-Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\WorkFolders')) }
+            'tz_auto_off' {
+                return ((Get-ItemProperty "$script:SvcRoot\tzautoupdate" -Name Start -ErrorAction Stop).Start -eq $script:SvcDisabled)
+            }
+            # No read-only probe can tell whether Microsoft Family is in use: the owner decides.
+            'parental_controls_unused' { return $null }
+        }
+    } catch { return $null }
+    $null
+}
+
+function Get-SvcFactWarnings {
+    <#  One line per machine fact that does not hold here, or could not be
+        checked, naming the entries of $Names that rest on it. $Probe answers
+        a fact name (default: ask this machine); a probe that throws counts
+        as "could not check". #>
+    param([Parameter(Mandatory)] $Names, [scriptblock] $Probe = { param($f) Get-SvcMachineFact -Fact $f })
+    $out = New-Object System.Collections.Generic.List[string]
+    foreach ($fact in $script:SvcMachineFacts.Keys) {
+        $f = $script:SvcMachineFacts[$fact]
+        $hit = @($f.services | Where-Object { $Names -contains $_ })
+        if (-not $hit.Count) { continue }
+        $ok = $null
+        try { $ok = & $Probe $fact } catch { $ok = $null }
+        $list = $hit -join ', '
+        if ($ok -eq $false) {
+            if ($f.false) { $out.Add("$($f.false) ($list).") }
+            else { $out.Add("$($f.topic): the profile assumes $($f.assumes), which is NOT true on this machine. It would still disable $list.") }
+        } elseif ($null -eq $ok) {
+            $out.Add("$($f.topic): could not check whether $($f.assumes). The profile assumes it and disables $list - check this yourself before applying.")
+        }
+    }
+    $out
+}
+
 function Get-SvcRealityWarnings {
     <#  A profile is a policy; this machine is a fact. Where the two disagree,
         say so BEFORE writing anything, naming the evidence. These are
@@ -393,21 +512,9 @@ function Get-SvcRealityWarnings {
     if (& $has 'CaptureService') {
         $warn.Add("Screen capture: disabling CaptureService breaks Win+Shift+S and screen capture in Store apps, silently - no error, the overlay simply never appears.")
     }
-    if ((& $has 'WwanSvc') -or (& $has 'QServiceEM05G')) {
-        $cell = @(Get-NetAdapter -ErrorAction SilentlyContinue | Where-Object { $_.InterfaceDescription -match 'WWAN|Mobile|Quectel' -and $_.Status -eq 'Up' })
-        if ($cell.Count) { $warn.Add("Cellular: a WWAN adapter is UP. This profile disables the cellular stack.") }
-    }
-    if (& $has 'TermService') {
-        $rdp = (Get-ItemProperty 'HKLM:\SYSTEM\CurrentControlSet\Control\Terminal Server' -Name fDenyTSConnections -ErrorAction SilentlyContinue).fDenyTSConnections
-        if ($rdp -eq 0) { $warn.Add("Remote Desktop: RDP is ENABLED on this machine (fDenyTSConnections=0) and this profile disables it. You would lose remote access - do not apply this over an RDP session.") }
-    }
-    if (& $has 'Netlogon') {
-        if ((Get-CimInstance Win32_ComputerSystem).PartOfDomain) {
-            $warn.Add("Domain: this machine IS domain-joined and the profile disables Netlogon. Do not apply - domain authentication would break.")
-        }
-    }
     if (& $has 'seclogon') { $warn.Add("Secondary Logon: 'run as a different user' will stop working.") }
     if (& $has 'vds')      { $warn.Add("Virtual Disk: Disk Management and diskpart need this service; re-enable it before partitioning work.") }
+    foreach ($w in (Get-SvcFactWarnings -Names $Names)) { $warn.Add($w) }
     $warn
 }
 
