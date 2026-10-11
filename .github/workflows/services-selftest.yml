@@ -16,6 +16,7 @@ jobs:
           & .\modules\06-services\Test-SafetyLogic.ps1 -Detailed
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
       - name: the SUPER profile against this machine, with every machine-fact probe
+        if: always()
         shell: powershell
         run: |
           & .\modules\06-services\Test-Services.ps1 -Profile super
