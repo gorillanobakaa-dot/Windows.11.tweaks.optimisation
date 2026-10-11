@@ -1,0 +1,22 @@
+# Module 06 on a real Windows machine (a GitHub runner): its safety self-test, and the read-only check of the SUPER
+# profile, which runs every machine-fact probe. Both are read-only (R2.2, R2.8): nothing on the runner is changed.
+name: services self-test
+on:
+  pull_request:
+    paths: ["modules/06-services/**", ".github/workflows/services-selftest.yml"]
+  workflow_dispatch:
+jobs:
+  selftest:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: safety self-test (Windows PowerShell 5.1, as the launchers run it)
+        shell: powershell
+        run: |
+          & .\modules\06-services\Test-SafetyLogic.ps1 -Detailed
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: the SUPER profile against this machine, with every machine-fact probe
+        shell: powershell
+        run: |
+          & .\modules\06-services\Test-Services.ps1 -Profile super
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
