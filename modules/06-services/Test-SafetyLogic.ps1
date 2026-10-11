@@ -258,6 +258,46 @@ try {
         'it named launcher 4, which is Preview SUPER'
     Assert-That 'the restore refuses with a code when unelevated' ($srcRestore -match '(?m)^\s*exit 4\b')
     Assert-That 'the restore signals an unreadable backup with a code' ($srcRestore -match '(?m)^\s*exit 3\b')
+
+    Write-Host ' 14. What the profiles assume about THIS machine is checked, and the table stays complete'
+    $allRows = @()
+    foreach ($t in 'light','moderate','super') { $allRows += @($data.profiles.$t.services) }
+    $inProfiles = @($allRows | ForEach-Object { [string]$_.service })
+    $mapped = @()
+    foreach ($k in $script:SvcMachineFacts.Keys) { $mapped += @($script:SvcMachineFacts[$k].services) }
+    $stale = @($mapped | Where-Object { $inProfiles -notcontains $_ })
+    Assert-That 'every service in the facts table is in a profile' ($stale.Count -eq 0) `
+        "not in any profile: $($stale -join ', ')"
+    # The same pattern Fieldkit's 'win11 fit' guards with: a reason that rests
+    # on a fact about the machine it was written on.
+    $unmapped = @($allRows | Where-Object {
+        [string]$_.reason -match '(?i)this machine|not installed here|no sim|not configured here|here\.|no refs' -and
+        $mapped -notcontains $_.service -and $script:SvcNoFactToCheck -notcontains $_.service } | ForEach-Object { $_.service })
+    Assert-That 'every row whose reason rests on THIS machine names its fact' ($unmapped.Count -eq 0) `
+        "add to SvcMachineFacts (or SvcNoFactToCheck, with why): $($unmapped -join ', ')"
+    Assert-That 'an unknown fact name throws' (& { try { [void](Get-SvcMachineFact -Fact 'nonsense'); $false } catch { $true } })
+    $names = @('WwanSvc', 'SmsRouter', 'fhsvc', 'WpcMonSvc')
+    $w = @(Get-SvcFactWarnings -Names $names -Probe { param($f) $true })
+    Assert-That 'facts that hold here give no warning' ($w.Count -eq 0)
+    Assert-That 'a fact nobody can probe is never "fine"' ($null -eq (Get-SvcMachineFact -Fact 'parental_controls_unused')) `
+        'no read-only check can tell whether Microsoft Family is used: the owner must be asked'
+    $w = @(Get-SvcFactWarnings -Names $names -Probe { param($f) if ($f -eq 'parental_controls_unused') { $null } else { $true } })
+    Assert-That 'and it is shown as "could not check"' (@($w | Where-Object { $_ -match '^Parental controls: could not check' }).Count -eq 1)
+    $w = @(Get-SvcFactWarnings -Names $names -Probe { param($f) if ($f -eq 'wwan_unused') { $false } else { $true } })
+    Assert-That 'a fact that fails names EVERY entry resting on it' (@($w | Where-Object { $_ -match 'WwanSvc, SmsRouter' }).Count -eq 1)
+    $w = @(Get-SvcFactWarnings -Names $names -Probe { param($f) if ($f -eq 'file_history_off') { throw 'probe broke' } else { $true } })
+    Assert-That 'a probe that throws reads as "could not check", not "fine"' (@($w | Where-Object { $_ -match '^File History: could not check' }).Count -eq 1)
+    $w = @(Get-SvcFactWarnings -Names @('Spooler') -Probe { param($f) $false })
+    Assert-That 'entries resting on no fact are not probed' ($w.Count -eq 0)
+    Assert-That 'the apply shows them (through the reality warnings)' ($srcCommon -match 'Get-SvcFactWarnings -Names \$Names')
+
+    Write-Host ' 15. The maker''s hardware-button services stay out of every profile'
+    $srcOem = Get-Content (Join-Path $here 'Disable-LenovoServices.ps1') -Raw
+    $oem = @([regex]::Matches($srcOem, "Service\s*=\s*'([^']+)'") | ForEach-Object { $_.Groups[1].Value })
+    Assert-That 'the opt-in OEM list is read' ($oem.Count -ge 5) 'Disable-LenovoServices.ps1 is the one source of that list'
+    $named = @($oem | Where-Object { $inProfiles -contains $_ })
+    Assert-That 'no profile disables a hardware-button service' ($named.Count -eq 0) `
+        "the buttons of a Lenovo laptop depend on: $($named -join ', ')"
 }
 catch {
     $script:Failed++

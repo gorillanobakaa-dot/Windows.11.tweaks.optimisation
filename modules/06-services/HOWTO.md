@@ -121,6 +121,21 @@ so before you write anything:
 
 They are **warnings, not refusals** - you may genuinely want the trade.
 
+Some warnings are about what the profile **assumed** about the machine it was
+written on, checked on yours:
+
+```
+      ! Sharing: the profile assumes no folders or printers are shared from
+        this machine, which is NOT true on this machine. It would still
+        disable LanmanServer.
+      ! Parental controls: could not check whether Microsoft Family parental
+        controls are not used on this PC. The profile assumes it and disables
+        WpcMonSvc - check this yourself before applying.
+```
+
+"Could not check" means exactly that: nothing was found either way. Answer it
+yourself before applying.
+
 ---
 
 ## `Apply-ServiceProfile.ps1` - every option

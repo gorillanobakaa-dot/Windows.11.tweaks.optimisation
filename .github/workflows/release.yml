@@ -4,7 +4,13 @@ on:
   push:
     tags:
       - 'v*'
+  # Run by hand with a tag that does not exist yet: the release is published from the commit it runs on and the tag
+  # is created there.
   workflow_dispatch:
+    inputs:
+      tag:
+        description: "the version to publish, e.g. v0.1.5-beta"
+        required: true
 
 permissions:
   contents: write
@@ -36,8 +42,17 @@ jobs:
           zip -r ../Windows11Tweaks_Standalone.zip ./*
           cd ..
 
+      - name: Release notes
+        # release-notes/<tag>.md when it exists; GitHub's generated changelog is added below it either way.
+        run: |
+          TAG="${{ inputs.tag || github.ref_name }}"
+          if [ -f "release-notes/$TAG.md" ]; then cp "release-notes/$TAG.md" notes.md; else : > notes.md; fi
+
       - name: Update GitHub Release
         uses: softprops/action-gh-release@v2
         with:
+          tag_name: ${{ inputs.tag || github.ref_name }}
+          target_commitish: ${{ github.sha }}
+          body_path: notes.md
           files: Windows11Tweaks_Standalone.zip
           generate_release_notes: true

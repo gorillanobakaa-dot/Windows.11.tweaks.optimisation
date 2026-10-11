@@ -1,7 +1,7 @@
 # Windows 11 Tweaks and Optimisation
 
 > [!WARNING]
-> **Status: v0.1.0-beta (Public Beta)**
+> **Status: v0.1.5-beta (Public Beta)**
 > This is a highly developed framework. It works flawlessly on the author's machine, and it has been heavily audited against Microsoft's official documentation. However, it is now entering public beta for wide-scale hardware testing. This beta status gives us the freedom to introduce breaking changes (like rewriting a module) based on real-world feedback before we formally commit to a stable 1.0.0 release.
 
 Most Windows optimization scripts rely on "trust me bro" forum logic, outdated Neowin threads, and pure bro science. They apply undocumented registry keys, disable critical services blindly, and demand your trust without providing evidence.
@@ -25,6 +25,13 @@ To enforce this, this project applies a strict "Dual-Track" documentation standa
 We have spent hundreds of hours testing this framework against real-world failures. We didn't just write code; we adversarial-audited it. We clicked buttons three times in a row to see if the undo broke. We checked if disabling the camera privacy slider secretly broke Windows Hello face sign-in. 
 
 **Do not take our word for it. Read the proof:**
+
+> [!NOTE]
+> The research documents named on this page (`FINDINGS.md`, `LESSONS-LEARNED.md`, `SCORECARD.md`, `TOOLS-HOWTO.md`,
+> `ROADMAP.md`, `THREAT-MODEL.md`, `ACTION-PLAN.md`, `decision-records/`, `_research/`) are kept on the author's
+> machine and are not published in this repository yet, so their links do not open here. What is published: every
+> module under `modules/`, each with its own README (the plain-language and technical explanation, with its
+> citations), HOWTO, and self-tests.
 - Read [LESSONS-LEARNED.md](LESSONS-LEARNED.md) to see exactly how every single rule in this project was bought with a real failure on a real machine.
 - Read [FINDINGS.md](FINDINGS.md) and the XML files in [decision-records/](decision-records/) to see the exact Microsoft documentation we cited to justify every single registry key we change.
 
