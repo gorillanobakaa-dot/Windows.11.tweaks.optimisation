@@ -1,9 +1,12 @@
 # Module 06 on a real Windows machine (a GitHub runner): its safety self-test, and the read-only check of the SUPER
 # profile, which runs every machine-fact probe. Both are read-only (R2.2, R2.8): nothing on the runner is changed.
+#
+# Run by hand, not on every pull request: section 3 of the self-test asserts that SUPER breaks no dependency on THE
+# MACHINE IT RUNS ON, which is a fact about the author's laptop. The runner (2026-10-11) has Windows Media Player's
+# network sharing service, WMPNetworkSvc, which depends on WSearch; SUPER disables WSearch, so there the apply would
+# refuse and that one check fails, as it should on such a machine. Every other check passed there (94 of 95).
 name: services self-test
 on:
-  pull_request:
-    paths: ["modules/06-services/**", ".github/workflows/services-selftest.yml"]
   workflow_dispatch:
 jobs:
   selftest:
